@@ -29,41 +29,80 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         this.visuaStage = node.widgets.append('VisualStage', header);
         this.visualRound = node.widgets.append('VisualRound', header);
         this.visualTimer = node.widgets.append('VisualTimer', header);
-        this.doneButton = node.widgets.append('DoneButton', header);
+        // this.doneButton = node.widgets.append('DoneButton', header);
 
         // Additional debug information while developing the game.
         // this.debugInfo = node.widgets.append('DebugInfo', header)
     });
 
     stager.extendStep('title', {
-        frame: 'title.html'
+        frame: 'title.html',
+        cb: function () {
+            var button = W.getElementById('start');
+            button.onclick = function () { node.done(); };
+        },
     });
 
-    stager.extendStep('background_1', {
-        frame: 'background_1.html'
-    });
-
-    stager.extendStep('background_2', {
-        frame: 'background_2.html'
-    });
-
-    stager.extendStep('pre_task_1', {
-        frame: 'pre_task_1.html'
-    });
-
-    stager.extendStep('pre_task_2', {
-        frame: 'pre_task_2.html'
-    });
-
-    stager.extendStep('video', {
+    stager.extendStep('initial', {
+        frame: 'initial.html',
         init: function () {
             node.game.visualTimer.hide();
         },
-        frame: 'video.html',
+        cb: function () {
+            var button = W.getElementById('continue');
+            button.onclick = function () { node.done(); };
+        },
         exit: function () {
             node.game.visualTimer.show();
         },
     });
+
+    stager.extendStep('background_1', {
+        frame: 'background_1.html',
+        cb: function () {
+            var button = W.getElementById('continue');
+            button.onclick = function () { node.done(); };
+        },
+    });
+
+    stager.extendStep('background_2', {
+        frame: 'background_2.html',
+        cb: function () {
+            var button = W.getElementById('continue');
+            button.onclick = function () { node.done(); };
+        },
+    });
+
+    stager.extendStep('pre_task_1', {
+        frame: 'pre_task_1.html',
+        cb: function () {
+            var button = W.getElementById('continue');
+            button.onclick = function () { node.done(); };
+        },
+    });
+
+    stager.extendStep('pre_task_2', {
+        frame: 'pre_task_2.html',
+        cb: function () {
+            var button = W.getElementById('continue');
+            button.onclick = function () { node.done(); };
+        },
+    });
+
+    stager.extendStep('video', {
+        frame: 'video.html',
+        init: function () {
+            node.game.visualTimer.hide();
+        },
+        cb: function () {
+            var button = W.getElementById('continue');
+            button.onclick = function () { node.done(); };
+        },
+        exit: function () {
+            node.game.visualTimer.show();
+        },
+    });
+
 
     stager.extendStep('treatment_page', {
         /////////////////////////////////////////////////////////////
@@ -74,11 +113,19 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         // room (file: game.settings.js). Settings are sent to each remote
         // client and it is available under: `node.game.settings`.
         /////////////////////////////////////////////////////////////
-        frame: settings.treatment
+        frame: settings.treatment,
+        cb: function () {
+            var button = W.getElementById('continue');
+            button.onclick = function () { node.done(); };
+        },
     });
 
     stager.extendStep('info_bar', {
-        frame: 'info_bar.html'
+        frame: 'info_bar.html',
+        cb: function () {
+            var button = W.getElementById('continue');
+            button.onclick = function () { node.done(); };
+        },
     });
 
     // stager.extendStep('quiz', {

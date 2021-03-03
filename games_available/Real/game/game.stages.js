@@ -21,6 +21,8 @@ module.exports = function (stager, settings) {
   stager
     .stage('title')
 
+    .stage('initial')
+
     // Test info bar
     .stage('info_bar')
 

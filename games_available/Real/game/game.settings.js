@@ -30,7 +30,7 @@ module.exports = {
      */
     TIMER: {
         title: 10000,
-        background_1: 20000,
+        background_1: 2000000,
         background_2: 30000,
         pre_task_1: 40000,
         pre_task_2: 50000,

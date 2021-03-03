@@ -19,3 +19,17 @@
 #info-bar td {
   border: 1px solid black;
 }
+
+.slider {
+  margin: 16px 3.6% 0;
+}
+
+.slider-scale {
+  display: flex;
+  margin-top: 8px;
+}
+
+.slider-scale > span{
+  flex: 1;
+  text-align: center;
+}
