@@ -1,0 +1,115 @@
+body {
+    font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    max-width: 42em;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+button {
+    font-weight: bold;
+}
+
+:focus {
+    outline: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+}
+
+p {
+    font-size: 1.08em;
+}
+
+.form-control {
+    height: 2em;
+    padding: 0.5em 0.5em;
+    font-size: inherit;
+}
+
+.subtitle {
+    font-size: 20px;
+    font-style: italic;
+}
+
+.container {
+    width: 100%;
+}
+
+span {
+    white-space:nowrap;
+}
+
+.important {
+    color: red;
+    font-weight: bold;
+}
+
+.outline {
+    margin: auto;
+    border: 1px solid rgb(0, 97, 177);
+    padding:18px;
+}
+
+.question {
+    font-weight: bold;
+}
+
+input#offer, input#submitOffer {
+    margin-bottom: 15px;
+}
+
+table#quest td {
+    width: 550px;
+    text-align: left;
+    padding: 5px 10px;
+}
+
+.circle-badge {
+    height: 80px;
+    width: 80px;
+    text-align: center;
+    border-radius: 50px;
+    background: rgb(192, 227, 255);
+    display: table-cell; 
+    vertical-align: middle;
+    font-weight: bold;
+    font-size: 4em;
+  }
+
+.circle-badge-icon {
+    height: 65px;
+    width: 65px;
+    text-align: center;
+    border-radius: 50px;
+    background: rgb(192, 227, 255);
+    display: table-cell; 
+    vertical-align: middle;
+    font-size: 1em;
+}
+table { 
+    table-layout: fixed; 
+    text-align: center;
+}
+th{
+    text-align: center;
+}
+td { 
+    width: 33%; 
+}
+.btn {
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.modal {
+    position: absolute;
+    top: 50px;
+}
+
+.panel {
+    border-radius: 10px;
+}

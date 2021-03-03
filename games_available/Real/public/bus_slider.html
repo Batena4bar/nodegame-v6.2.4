@@ -1,0 +1,64 @@
+<html><head><title>Game</title>
+<link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css">
+<!-- jQuery UI for slider -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="jquery-ui/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="jquery-ui/jquery-ui.min.css">
+<link rel="stylesheet" href="css/style.css">
+<!-- End jQuery UI for slider -->
+</head><body style="">
+  <div id="container">
+    <h2>Choose your transportation means and time of departure</h2>
+    Click on the box, and adjust the time of departure as necessary<br>
+    <table id="table-decision">
+      <tbody><tr id="tr-decision">
+        <td id="td-bus" class="td-not-selected" onclick="parent.node.game.decisionMade('bus')">
+          <span class="td-title">Bus</span>
+          <a href="#" alt="Bus">
+            <img src="imgs/bus.png" alt="Bus">
+          </a>
+          <br>
+          <br>
+          <div class="departure-text"> Departure time 10:00 AM </div>
+        </td>
+        <td id="td-car" class="td-not-selected" onclick="parent.node.game.decisionMade('car')">
+          <span class="td-title">Car</span>
+          <a href="#" alt="Bus">
+            <img src="imgs/car.png" alt="Car Sharing">
+          </a>
+          <br>
+          <br>
+          <div class="departure-text"> Departure time (10:00 - 11:00) </div>
+          <div id="car-slider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 0%;"></span></div>
+          <div id="car-departure-div">Current departure time: <span id="car-departure">10:00</span></div>
+        </td>
+      </tr>
+    </tbody></table>
+    Confirm your decision by clicking the button below<br>
+    <div id="div-button">
+      <input type="button" id="decision" value="Select an option" disabled="disabled" class="btn btn-lg btn-primary">
+    </div>
+  </div>
+<script>
+  $(function() {
+  $("#car-slider").slider({
+      min: 0,
+      max: 60,
+      value: 0,
+      slide: function(event, ui) {
+          var chosen, game;
+          game = parent.node.game;
+          chosen = ui.value;
+          game.lastDepartureTime = chosen;
+          chosen = game.formatDepartureTime(chosen);
+          document.getElementById('car-departure').innerHTML = chosen;
+          if (!game.lastDecision || game.lastDecision === 'bus') {
+              game.decisionMade('car');
+          }
+          game.updateDecisionButton();
+      }
+    });
+  });
+</script>
+
+</body></html>

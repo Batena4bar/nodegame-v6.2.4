@@ -1,0 +1,47 @@
+{
+    "name": "nodegame",
+    "description": "Fast, scalable JavaScript for large-scale, online, multiplayer, real-time games and experiments.",
+    "version": "6.2.4",
+    "homepage": "http://nodegame.org",
+    "author": "Stefano Balietti <futur.dorko@gmail.com>",
+    "contributors": [
+        {
+            "name": "Stefano Balietti",
+            "email": "futur.dorko@gmail.com"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nodeGame/nodegame.git"
+    },
+    "engines": {
+        "node": ">= 6.0.0"
+    },
+    "dependencies": {
+        "nodegame-server": "^6.0.0",
+        "nodegame-client": "^6.0.0",
+        "nodegame-window": "^6.0.0",
+        "nodegame-widgets": "^6.0.0",
+        "nodegame-requirements": "^6.0.0",
+        "nodegame-game-template": "^6.0.0",
+        "nodegame-monitor": "^6.0.0",
+        "nodegame-generator": "^6.0.0",
+        "ultimatum-game": "^6.0.0",
+        "nodegame-mturk": "^6.0.0",
+        "JSUS": "^1.1.0",
+        "NDDB": "^2.0.0",
+        "nodegame-db": "*",
+        "nodegame-mongodb": "*",
+        "commander": "^7.0.0",
+        "fs-extra": "*",
+        "smoosh": "0.4.0"
+    },
+    "devDependencies": {
+        "mocha": ">= 0.3.0",
+        "should": "4.4.1"
+    },
+    "license": "MIT",
+    "scripts": {
+        "start": "node launcher.js"
+    }
+}

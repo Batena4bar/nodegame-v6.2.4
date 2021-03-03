@@ -1,0 +1,63 @@
+# Changelog
+
+## 6.2.0
+- Updated to nodeGame v6.2 (waitroom changes).
+
+## 6.0.2
+- private/ added to .gitignore (will be in git index, but not in npm index).
+
+## 6.0.1
+- Added private/ folder to git index.
+
+## 6.0.0
+- Refactor to v6.
+
+## 5.3.0
+- Refactored autoplay.
+
+## 5.2.1
+- amt option in computeBonus.
+
+## 5.2.0
+- Removed logic include file.
+- Saving feedback and email to file.
+
+## 5.1.0
+- Using CustomInput widget for BIDDER.
+
+## 5.0.0
+- Minor updates to new version.
+
+## 4.0.2
+- Options to display treatment selector.
+
+## 4.0.1
+- Fixed visualization glitches.
+
+## 4.0.0
+- EndScreen
+- Updated to work with nodeGame v4.
+
+## 3.5.5
+- Fixed bug shuffleChoices.
+
+## 3.5.4
+- Fixed bug in German context.
+
+## 3.5.3
+- Minor.
+
+## 3.5.2
+- Fixed startTiming typo.
+
+## 3.5.1
+- Updated auth.settings.js file.
+
+## 3.5.0
+- Using the Matcher/Roles API from version 3.5.
+
+## 2.1.1
+- Removed reference to DeSciL in ended.
+
+## 2.1.0
+- Updated to JSUS 0.14

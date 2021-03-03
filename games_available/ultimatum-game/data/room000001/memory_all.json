@@ -1,0 +1,37 @@
+[{
+    "time": 1052,
+    "timeup": false,
+    "done": true,
+    "player": "992879760722389",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1614526961722,
+    "session": "room000001"
+}, {
+    "time": 2255,
+    "timeup": false,
+    "done": true,
+    "player": "778589769265614",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1614526963073,
+    "session": "room000001"
+}, {
+    "time": 2052,
+    "timeup": false,
+    "done": true,
+    "player": "992879760722389",
+    "stage": {
+        "stage": "questionnaire",
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1614526987266,
+    "session": "room000001"
+}]

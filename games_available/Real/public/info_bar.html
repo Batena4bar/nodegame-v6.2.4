@@ -1,0 +1,155 @@
+<!doctype html>
+<title>INSTRUCTIONS</title>
+<!-- jQuery UI for slider -->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jqueryui.min.js"></script>
+<link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css" />
+<link rel="stylesheet" href="css/jqueryui.min.css">
+<link rel="stylesheet" href="css/style.css">
+
+<body>
+  <div id="container">
+    <div id="tabs">
+      <ul>
+        <li><a href="#fragment-1">1</a></li>
+        <li><a href="#fragment-2">2</a></li>
+        <li><a href="#fragment-3">3</a></li>
+        <li><a href="#fragment-4">4</a></li>
+        <li><a href="#fragment-5">5</a></li>
+        <li><a href="#fragment-6">6</a></li>
+        <li class="filler"></li>
+      </ul>
+      <div>
+        <div id="fragment-1">
+          1 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
+          dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+          nibh euismod tincidunt ut laoreet
+          dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+          nibh euismod tincidunt ut laoreet
+          dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+          nibh euismod tincidunt ut laoreet
+          dolore magna aliquam erat volutpat.
+        </div>
+        <div id="fragment-2">
+          2 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
+          dolore magna aliquam erat volutpat.
+        </div>
+        <div id="fragment-3">
+          3 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
+          dolore magna aliquam erat volutpat.
+        </div>
+        <div id="fragment-4">
+          4 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
+          dolore magna aliquam erat volutpat.
+        </div>
+        <div id="fragment-5">
+          5 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
+          dolore magna aliquam erat volutpat.
+        </div>
+        <div id="fragment-6">
+          6 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
+          dolore magna aliquam erat volutpat.
+        </div>
+      </div>
+    </div>
+    <div id="content">
+      <h2>This is some stuff</h2>
+      <div id="instructions">
+        <br>
+        This game is played by two human players (you and another person).
+        <br><br>
+        In each round, you either play as a <em>DICTATOR</em> or as an <em>OBSERVER</em>.
+        The dictator decides how to share <span id="coins"> - </span> ECU (Experimental Currency).
+        100 ECU are equal to <span id="exchange-rate"> - </span> USD.
+        The observer simply observes the decision by the dictator and payoff for both players realize accordingly.
+        <br><br>
+        The game is repeated <span id="rounds"> - </span> rounds, and each round roles are randomly assigned.
+        <br><br>
+      </div>
+    </div>
+  </div>
+  <style>
+    #tabs {
+      margin-top: 20px;
+      display: flex;
+      width: 50%;
+      position: absolute;
+    }
+
+    #tabs>ul {
+      display: flex;
+      flex-direction: column;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+    }
+
+    #tabs>ul>li>a {
+      display: block;
+      border: 1px solid black;
+      border-top: none;
+      text-align: center;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      font-size: 32px;
+      color: white;
+      background-color: steelblue;
+    }
+
+    #tabs>ul>li:first-of-type>a {
+      border-top: 1px solid black;
+    }
+
+    #tabs>ul>li>a.selected {
+      color: black;
+      background-color: transparent;
+      border-right: none;
+    }
+
+    #tabs>ul>li.filler {
+      flex: 1;
+      border-right: 1px solid black;
+    }
+
+    #tabs>div {
+      border: 1px solid black;
+      border-left: none;
+      background-color: white;
+    }
+
+    #content {
+      margin-left: 50px;
+      padding: 10px 20px;
+    }
+
+    [id^=fragment-] {
+      display: none;
+      padding: 10px;
+    }
+  </style>
+  <script>
+    $(function () {
+      function closeAllTabs() {
+        $('[id^="fragment-"]').hide();
+        $('#tabs>ul>li>a').removeClass('selected');
+      }
+
+      $('a').click(function (event) {
+        var $tab = $(event.currentTarget);
+        if ($tab.hasClass('selected')) {
+          closeAllTabs();
+        } else {
+          $('[id^="fragment-"]').hide();
+          $('#tabs>ul>li>a').removeClass('selected');
+          $tab.addClass('selected');
+          $('#' + event.currentTarget.href.split('#').pop()).show();
+          event.stopImmediatePropagation();
+        }
+      });
+
+      $(document).click(closeAllTabs);
+    });
+  </script>
+</body>
