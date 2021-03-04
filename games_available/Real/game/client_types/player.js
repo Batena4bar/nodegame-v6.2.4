@@ -239,7 +239,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('end', {
         init: function () {
-            node.game.doneButton.destroy();
+            // node.game.doneButton.destroy();
             node.game.visualTimer.destroy();
         },
 
