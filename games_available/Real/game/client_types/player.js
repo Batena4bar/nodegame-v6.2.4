@@ -128,6 +128,23 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
+    stager.extendStep('chat', {
+        frame: 'chat.html',
+        cb: function () {
+            console.log('node.game', node.game.playerList, node.game.playerList.toString());
+            var chat = W.getElementById('chat');
+            node.widgets.append('Chat', chat, {
+                participants: [ 'id1', 'id2', 'id3' ],
+                initialMsg: { id: 'id1', msg: 'This is the first msg' },
+                printStartTime: false,
+                // Extra options available to all widgets.
+                docked: true,
+                collapsible: false,
+                closable: false
+            });
+        },
+    });
+
     // stager.extendStep('quiz', {
     //     init: function() {
     //         node.game.visualTimer.hide();

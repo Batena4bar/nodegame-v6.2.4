@@ -26,6 +26,9 @@ module.exports = function (stager, settings) {
     // Test info bar
     .stage('info_bar')
 
+    // Test chat
+    .stage('chat')
+
     // A setup to the experiment, this is in the form of a vignette
     .stage('background')
     .step('background_1')

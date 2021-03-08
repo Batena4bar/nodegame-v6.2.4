@@ -5,6 +5,14 @@
   position: relative;
 }
 
+.panels {
+  display: flex;
+}
+
+.panels > div {
+  flex: 1;
+}
+
 #video {
     width: 100%;
     height: 500px;
