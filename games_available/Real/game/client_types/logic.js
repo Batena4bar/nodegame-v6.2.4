@@ -84,6 +84,23 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 //        }
 //    });
 
+    // Extends Stages and Steps where needed.
+        
+    stager.extendStep('info_bar', {
+        cb: function () {
+            this.savedResults = {};
+
+            console.log('info_bar logic');
+
+            // Get the ids of all players.
+            let ids = node.game.pl.id.getAllKeys(); 
+            ids.forEach(function(idx, i) {
+                // Send the other ids to each player.
+                node.say('PARTNERS', idx, ids.slice(0,i).concat(ids.slice(i+1)));
+            });
+        },
+    });
+
     stager.setOnGameOver(function() {
         // Something to do.
     });

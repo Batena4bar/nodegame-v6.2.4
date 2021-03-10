@@ -21,6 +21,12 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
         var header;
 
+        node.on.data('PARTNERS', function(msg) {
+            // Store a reference to the ids for later use.
+            node.game.partners = msg.data;
+            console.log('Partners', node.game.partners);
+        });
+
         // Setup page: header + frame.
         header = W.generateHeader();
         W.generateFrame();
@@ -130,15 +136,24 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('chat', {
         frame: 'chat.html',
+        init: function () {
+            node.game.visualTimer.hide();
+        },
         cb: function () {
             console.log('node.game', node.game.playerList, node.game.playerList.toString());
             var chat = W.getElementById('chat');
+            console.log('Chat', node.game.partners);
             node.widgets.append('Chat', chat, {
-                participants: [ 'id1', 'id2', 'id3' ],
-                initialMsg: { id: 'id1', msg: 'This is the first msg' },
+                participants: node.game.partners,
+                initialMsg: {
+                    id: 'game',
+                    msg: 'Swap information by chatting...'
+                },
+                title: '',
                 printStartTime: false,
+                storeMsgs: true,
                 // Extra options available to all widgets.
-                docked: true,
+                docked: false,
                 collapsible: false,
                 closable: false
             });
