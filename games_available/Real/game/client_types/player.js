@@ -140,9 +140,14 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             node.game.visualTimer.hide();
         },
         cb: function () {
-            console.log('node.game', node.game.playerList, node.game.playerList.toString());
+            var newWidget = W.getElementById('new-widget');
+            node.widgets.append('NewWidget', newWidget, {
+                // Extra options available to all widgets.
+                docked: false,
+                collapsible: false,
+                closable: false
+            });
             var chat = W.getElementById('chat');
-            console.log('Chat', node.game.partners);
             node.widgets.append('Chat', chat, {
                 participants: node.game.partners,
                 initialMsg: {
