@@ -1,0 +1,59 @@
+#tabs {
+  margin-top: 20px;
+  display: flex;
+  width: 50%;
+  position: absolute;
+}
+
+#tabs>ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: white;
+}
+
+#tabs>ul>li>a {
+  display: block;
+  border: 1px solid black;
+  border-top: none;
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 32px;
+  color: white;
+  background-color: steelblue;
+}
+
+#tabs>ul>li:first-of-type>a {
+  border-top: 1px solid black;
+}
+
+#tabs>ul>li>a.selected {
+  color: black;
+  background-color: transparent;
+  border-right: none;
+}
+
+#tabs>ul>li.filler {
+  flex: 1;
+  border-right: 1px solid black;
+}
+
+#tabs>div {
+  border: 1px solid black;
+  border-left: none;
+  background-color: white;
+}
+
+#content {
+  margin-left: 50px;
+  padding: 10px 20px;
+}
+
+[id^=fragment-] {
+  display: none;
+  padding: 10px;
+}
