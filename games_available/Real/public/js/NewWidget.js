@@ -55,9 +55,7 @@
     //   - bodyDiv:    the main container
     //   - footerDiv:  the footer container
     //
-    this.button = document.createElement('button');
-    this.button.classList.add('btn', 'btn-lg', 'btn-primary');
-    this.button.innerText = 'Button';
+
     this.tabs = document.createElement('div');
     this.tabs.innerHTML =
     `<div id="tabs">
@@ -103,10 +101,6 @@
         </div>
         </div>
     </div>`;
-    this.button.onclick = function () {
-      // Do something.
-    };
-    this.bodyDiv.appendChild(this.button);
     this.bodyDiv.appendChild(this.tabs);
 
     var bodyDiv = this.bodyDiv;

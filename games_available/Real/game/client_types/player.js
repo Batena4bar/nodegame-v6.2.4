@@ -19,7 +19,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
         // Initialize the client.
 
-        var header;
+        this.addDoneButton = function(label) {
+            var doneButton = node.widgets.append('DoneButton', W.getElementById('done-button'), {
+                text: label
+            });
+            doneButton.removeFrame();
+            return doneButton;
+        }
 
         node.on.data('PARTNERS', function(msg) {
             // Store a reference to the ids for later use.
@@ -28,14 +34,14 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         });
 
         // Setup page: header + frame.
-        header = W.generateHeader();
+        var header = W.generateHeader();
         W.generateFrame();
 
         // Add widgets.
-        this.visuaStage = node.widgets.append('VisualStage', header);
+        this.visualStage = node.widgets.append('VisualStage', header);
         this.visualRound = node.widgets.append('VisualRound', header);
         this.visualTimer = node.widgets.append('VisualTimer', header);
-        // this.doneButton = node.widgets.append('DoneButton', header);
+        //this.doneButton = node.widgets.append('DoneButton', header);
 
         // Additional debug information while developing the game.
         // this.debugInfo = node.widgets.append('DebugInfo', header)
@@ -44,22 +50,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('title', {
         frame: 'title.html',
         cb: function () {
-            var button = W.getElementById('start');
-            button.onclick = function () { node.done(); };
-        },
-    });
-
-    stager.extendStep('initial', {
-        frame: 'initial.html',
-        init: function () {
-            node.game.visualTimer.hide();
-        },
-        cb: function () {
-            var button = W.getElementById('continue');
-            button.onclick = function () { node.done(); };
-        },
-        exit: function () {
-            node.game.visualTimer.show();
+            this.doneButton = this.addDoneButton('Start');
         },
     });
 
@@ -141,14 +132,15 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
         cb: function () {
             var newWidget = W.getElementById('new-widget');
-            node.widgets.append('NewWidget', newWidget, {
+            var infoBar = node.widgets.append('NewWidget', newWidget, {
                 // Extra options available to all widgets.
                 docked: false,
                 collapsible: false,
                 closable: false
             });
+            infoBar.removeFrame();
             var chat = W.getElementById('chat');
-            node.widgets.append('Chat', chat, {
+            var chatWidget = node.widgets.append('Chat', chat, {
                 participants: node.game.partners,
                 initialMsg: {
                     id: 'game',
@@ -157,11 +149,44 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 title: '',
                 printStartTime: false,
                 storeMsgs: true,
-                // Extra options available to all widgets.
                 docked: false,
                 collapsible: false,
                 closable: false
             });
+            this.doneButton = node.widgets.append('DoneButton', chat, {
+                text: 'Done Talking',
+                enableOnPlaying: false
+            });
+            this.doneButton.removeFrame();
+            this.doneButton.disable();
+        },
+    });
+
+    stager.extendStep('sliders', {
+        frame: 'sliders.html',
+        init: function () {
+            node.game.visualTimer.hide();
+        },
+        cb: function () {
+            var linkedSliders = W.getElementById('linked-sliders');
+            var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
+                labels: ['Wheat', 'Sugar', 'Coffee']
+            });
+            linkedSlidersWidget.removeFrame();
+            linkedSlidersWidget.on('highlighted', function() {
+                console.log('Done', linkedSlidersWidget.getValues());
+                this.doneButton.enable();
+            });
+            linkedSlidersWidget.on('unhighlighted', function() {
+                console.log('Undone');
+                this.doneButton.disable();
+            });
+            this.doneButton = node.widgets.append('DoneButton', linkedSliders, {
+                text: 'Continue',
+                enableOnPlaying: false
+            });
+            this.doneButton.removeFrame();
+            this.doneButton.disable();
         },
     });
 
