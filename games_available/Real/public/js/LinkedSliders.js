@@ -106,9 +106,9 @@
       $total.text(total);
       if (total !== previousTotal) {
         if (total === 12) {
-          widget.emit('highlighted');
+          node.emit('complete');
         } else {
-          widget.emit('unhighlighted');
+          node.emit('incomplete');
         }
         previousTotal = total;
       }

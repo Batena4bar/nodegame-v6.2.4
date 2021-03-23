@@ -41,7 +41,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         this.visualStage = node.widgets.append('VisualStage', header);
         this.visualRound = node.widgets.append('VisualRound', header);
         this.visualTimer = node.widgets.append('VisualTimer', header);
-        //this.doneButton = node.widgets.append('DoneButton', header);
+        // this.doneButton = node.widgets.append('DoneButton', header);
 
         // Additional debug information while developing the game.
         // this.debugInfo = node.widgets.append('DebugInfo', header)
@@ -164,6 +164,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('sliders', {
         frame: 'sliders.html',
+        donebutton: {
+            text: 'Continue',
+            enableOnPlaying: false,
+        },
         init: function () {
             node.game.visualTimer.hide();
         },
@@ -173,20 +177,16 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 labels: ['Wheat', 'Sugar', 'Coffee']
             });
             linkedSlidersWidget.removeFrame();
-            linkedSlidersWidget.on('highlighted', function() {
+            node.on('complete', function() {
                 console.log('Done', linkedSlidersWidget.getValues());
                 this.doneButton.enable();
             });
-            linkedSlidersWidget.on('unhighlighted', function() {
+            node.on('incomplete', function() {
                 console.log('Undone');
                 this.doneButton.disable();
             });
-            this.doneButton = node.widgets.append('DoneButton', linkedSliders, {
-                text: 'Continue',
-                enableOnPlaying: false
-            });
+            this.doneButton = node.widgets.append('DoneButton', linkedSliders);
             this.doneButton.removeFrame();
-            this.doneButton.disable();
         },
     });
 
