@@ -131,14 +131,14 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             node.game.visualTimer.hide();
         },
         cb: function () {
-            var newWidget = W.getElementById('new-widget');
-            var infoBar = node.widgets.append('NewWidget', newWidget, {
+            var infoBar = W.getElementById('info-bar');
+            var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
                 // Extra options available to all widgets.
                 docked: false,
                 collapsible: false,
                 closable: false
             });
-            infoBar.removeFrame();
+            infoBarWidget.removeFrame();
             var chat = W.getElementById('chat');
             var chatWidget = node.widgets.append('Chat', chat, {
                 participants: node.game.partners,

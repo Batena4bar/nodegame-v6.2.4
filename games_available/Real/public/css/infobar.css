@@ -1,3 +1,23 @@
+.info-bar>div>ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-bar>div>ul>li {
+  margin-bottom: 4px;
+}
+
+.info-bar>div>ul>li>button {
+  width: 45px;
+}
+
+.info-bar>div>.bubble {
+  border: 1px solid grey;
+  border-radius: 12px;
+  padding: 0 16px 8px;
+}
+
 #tabs {
   margin-top: 20px;
   display: flex;

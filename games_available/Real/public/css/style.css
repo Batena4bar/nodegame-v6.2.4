@@ -19,11 +19,6 @@
     border: none;
 }
 
-#info-bar {
-  border-collapse: collapse;
-  border: 1px solid black;
-}
-
 #info-bar td {
   border: 1px solid black;
 }
@@ -41,4 +36,9 @@
 #chat .chat .panel-body {
   width: auto;
   height: auto;
+}
+
+/* Override bootstrap */
+.panel {
+  box-shadow: none;
 }

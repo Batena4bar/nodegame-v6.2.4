@@ -95,7 +95,7 @@
 
     var previousTotal = 0;
 
-    $bodyDiv.find('.slider').on('input', function(event) {
+    $bodyDiv.find('.slider').on('input', function() {
       var sliderIndex = this.id.split('_')[1];
       widget.sliders[sliderIndex].value = parseInt(this.value);
       var total;
