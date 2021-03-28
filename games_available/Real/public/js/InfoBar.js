@@ -104,105 +104,80 @@
     var widget = this;
     // Get jQuery from the host window
     var $ = parent.$;
-    var $bodyDiv = $(this.bodyDiv);
-
-    var $ul = $('<ul>');
-    tabs.forEach(function(tab) {
-      var $button = $('<button>').prop('type', 'button').addClass('btn btn-lg btn-primary').text(tab.id);
-      $ul.append($('<li>').append($button));
-    });
+    var $bodyDiv = $(widget.bodyDiv);
 
     var $bubble = $('<div>').addClass('bubble');
-    tabs.forEach(function(tab) {
-      var $title = $('<h2>').text(tab.title);
-      $title.click(function() {
-        console.log(tab);
+    var pointer = document.createElement("div");
+    pointer.innerHTML = 
+    `<svg
+      version="1.1"
+      id="Layer_1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      x="0px"
+      y="0px"
+      viewBox="0 0 20 20"
+      style="enable-background: new 0 0 20 20"
+      xml:space="preserve"
+    >
+      <style type="text/css">
+        .st0 {
+          fill: #ffffff;
+        }
+        .st1 {
+          fill: none;
+          stroke: #808080;
+          stroke-miterlimit: 10;
+        }
+      </style>
+      <g>
+        <g>
+          <polygon class="st0" points="0,10 20,20 20,0 		" />
+        </g>
+        <polyline class="st1" points="20,20 0,10 20,0 	" />
+      </g>
+    </svg>`
+    var $pointer = $(pointer).addClass('pointer');
+    $bubble.append($pointer);
+
+    var $panel;
+    var closeBubble = function() {
+      if ($panel) {
+        $panel.remove();
+        $bubble.detach();
+      }
+    }
+
+    var $closeButton = $('<i class="close fas fa-times fa-2x"></i>');
+    $closeButton.click(closeBubble);
+    $bubble.append($closeButton);
+
+ 
+    var $ul = $('<ul>');
+    tabs.forEach(function(tab, index) {
+      var $button = $('<button>').prop('type', 'button').addClass('btn btn-lg btn-outline-secondary').text(tab.id);
+      $button.click(function(event) {
+
+        console.log(tab, index);
+
+        closeBubble();
+
+        $pointer.css('top', (52 * index) + 8);
+
+        var $title = $('<h2>').text(tab.title);
+        var $messageButton = $('<button>').prop('type', 'button').addClass('btn btn-outline-secondary').html('<span class="far fa-comment"></span>');
+        $messageButton.click(function() {
+          console.log(tab, index);
+        });
+        $title.append($messageButton);
+        $panel = $('<div>').addClass('panel').append($title).append($('<p>').text(tab.text));
+        $bubble.append($panel);
+
+        $bodyDiv.append($bubble);
       });
-      var $panel = $('<div>').prop('id', 'panel-' + tab.id).append($title).append($('<p>').text(tab.text));
-      $bubble.append($panel);
+      $ul.append($('<li>').append($button));
     });
-
-    $bodyDiv.append($ul).append($bubble);
-
-    // this.tabs = document.createElement('div');
-    // this.tabs.innerHTML = `<div id="tabs">
-    //     <ul>
-    //     <li><a href="#fragment-1">1</a></li>
-    //     <li><a href="#fragment-2">2</a></li>
-    //     <li><a href="#fragment-3">3</a></li>
-    //     <li><a href="#fragment-4">4</a></li>
-    //     <li><a href="#fragment-5">5</a></li>
-    //     <li><a href="#fragment-6">6</a></li>
-    //     <li class="filler"></li>
-    //     </ul>
-    //     <div>
-    //     <div id="fragment-1">
-    //         1 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
-    //         dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
-    //         nibh euismod tincidunt ut laoreet
-    //         dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
-    //         nibh euismod tincidunt ut laoreet
-    //         dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
-    //         nibh euismod tincidunt ut laoreet
-    //         dolore magna aliquam erat volutpat.
-    //     </div>
-    //     <div id="fragment-2">
-    //         2 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
-    //         dolore magna aliquam erat volutpat.
-    //     </div>
-    //     <div id="fragment-3">
-    //         3 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
-    //         dolore magna aliquam erat volutpat.
-    //     </div>
-    //     <div id="fragment-4">
-    //         4 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
-    //         dolore magna aliquam erat volutpat.
-    //     </div>
-    //     <div id="fragment-5">
-    //         5 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
-    //         dolore magna aliquam erat volutpat.
-    //     </div>
-    //     <div id="fragment-6">
-    //         6 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
-    //         dolore magna aliquam erat volutpat.
-    //     </div>
-    //     </div>
-    // </div>`;
-    // this.bodyDiv.appendChild(this.tabs);
-
-    // var bodyDiv = this.bodyDiv;
-    // var aTags = this.bodyDiv.querySelectorAll('#tabs>ul>li>a');
-    // var fragments = this.bodyDiv.querySelectorAll('[id^="fragment-"]');
-
-    // var closeAllTabs = function () {
-    //   fragments.forEach(function (item) {
-    //     item.style.display = 'none';
-    //   });
-    //   aTags.forEach(function (item) {
-    //     item.classList.remove('selected');
-    //   });
-    // };
-
-    // var doClick = function (event) {
-    //   var tab = event.currentTarget;
-    //   if (tab.classList.contains('selected')) {
-    //     closeAllTabs();
-    //   } else {
-    //     closeAllTabs();
-    //     tab.classList.add('selected');
-    //     var elementId = event.currentTarget.href.split('#').pop();
-    //     var element = bodyDiv.querySelector('#' + elementId);
-    //     element.style.display = 'block';
-    //     event.stopImmediatePropagation();
-    //   }
-    // };
-
-    // aTags.forEach(function (item) {
-    //   item.addEventListener('click', doClick);
-    // });
-
-    // // Need to work out a better way of closing the info panel
-    // this.panelDiv.addEventListener('click', closeAllTabs, true);
+    $bodyDiv.append($ul);
   };
 
   // Implements the Widget.listeners method (optional).

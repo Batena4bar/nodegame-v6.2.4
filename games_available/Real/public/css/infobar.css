@@ -1,3 +1,11 @@
+.info-bar {
+  padding: 20px 10px;
+}
+
+.info-bar>div {
+  position: relative;
+}
+
 .info-bar>div>ul {
   list-style: none;
   padding: 0;
@@ -13,65 +21,30 @@
 }
 
 .info-bar>div>.bubble {
+  position: absolute;
+  top: 0;
+  left: 55px;
+  min-height: 300px;
+  width: 100%;
+  background-color: white;
   border: 1px solid grey;
   border-radius: 12px;
-  padding: 0 16px 8px;
+  padding: 16px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  z-index: 1;
 }
 
-#tabs {
-  margin-top: 20px;
-  display: flex;
+.info-bar>div>.bubble>.pointer {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: -20px;
 }
 
-#tabs>ul {
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  background-color: white;
+.info-bar>div>.bubble>.panel>h2{
+  margin-right: 30px;
 }
 
-#tabs>ul>li>a {
-  display: block;
-  border: 1px solid black;
-  border-top: none;
-  text-align: center;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  font-size: 32px;
-  color: white;
-  background-color: steelblue;
-}
-
-#tabs>ul>li:first-of-type>a {
-  border-top: 1px solid black;
-}
-
-#tabs>ul>li>a.selected {
-  color: black;
-  background-color: transparent;
-  border-right: none;
-}
-
-#tabs>ul>li.filler {
-  flex: 1;
-  border-right: 1px solid black;
-}
-
-#tabs>div {
-  border: 1px solid black;
-  border-left: none;
-  background-color: white;
-}
-
-#content {
-  margin-left: 50px;
-  padding: 10px 20px;
-}
-
-[id^=fragment-] {
-  display: none;
-  padding: 10px;
+.info-bar>div>.bubble>.panel>h2>button{
+  margin-left: 8px;
 }
