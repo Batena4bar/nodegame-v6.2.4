@@ -132,9 +132,9 @@
       </style>
       <g>
         <g>
-          <polygon class="st0" points="0,10 20,20 20,0 		" />
+          <polygon class="st0" points="0,10 20,20 20,0" />
         </g>
-        <polyline class="st1" points="20,20 0,10 20,0 	" />
+        <polyline class="st1" points="20,20 0,10 20,0" />
       </g>
     </svg>`
     var $pointer = $(pointer).addClass('pointer');
@@ -157,17 +157,15 @@
     tabs.forEach(function(tab, index) {
       var $button = $('<button>').prop('type', 'button').addClass('btn btn-lg btn-outline-secondary').text(tab.id);
       $button.click(function(event) {
-
-        console.log(tab, index);
-
         closeBubble();
 
         $pointer.css('top', (52 * index) + 8);
 
         var $title = $('<h2>').text(tab.title);
-        var $messageButton = $('<button>').prop('type', 'button').addClass('btn btn-outline-secondary').html('<span class="far fa-comment"></span>');
+        var $messageButton = $('<button>').prop('type', 'button').addClass('btn btn-light').html('<span class="far fa-comment"></span>');
         $messageButton.click(function() {
-          console.log(tab, index);
+          node.emit('BUBBLE_DATA', tab, index);
+          closeBubble();
         });
         $title.append($messageButton);
         $panel = $('<div>').addClass('panel').append($title).append($('<p>').text(tab.text));

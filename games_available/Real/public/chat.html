@@ -10,6 +10,23 @@
 <body>
   <div id="container" class="panels">
     <div id="info-bar"></div>
-    <div id="chat"></div>
+    <div>
+      <div id="chat"></div>
+      <div id="message-template">
+        <div>
+          Topic: <span id="topic-count"></span> of <span id="topic-total"></span>
+        </div>
+        <div>
+          Belief: <span id="better"></span> is a better intestment than <span id="worse"></span>
+        </div>
+        <div>
+          Description: <textarea id="description"></textarea>
+        </div>
+        <div>
+          <button id="send" class="btn btn-light">Send</button>
+        </div>
+      </div>
+      <div id="continue"></div>
+    </div> 
   </div>
 </body>

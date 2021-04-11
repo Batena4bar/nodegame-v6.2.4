@@ -38,7 +38,15 @@
   height: auto;
 }
 
+#chat .chat .panel-body .chat_chat .chat_msg_incoming,
+#chat .chat .panel-body .chat_chat .chat_msg_outgoing
+{
+  max-width: 60%;
+  margin-top: 10px;
+}
+
 /* Override bootstrap */
 .panel {
   box-shadow: none;
 }
+

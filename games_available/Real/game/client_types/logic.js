@@ -86,22 +86,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     // Extends Stages and Steps where needed.
 
-    stager.extendStep('sliders', {
-        cb: function () {
-            this.savedResults = {};
 
-            console.log('sliders logic');
-
-            // Get the ids of all players.
-            let ids = node.game.pl.id.getAllKeys(); 
-            ids.forEach(function(idx) {
-                // Send the other ids to each player.
-                node.say('HELLO', idx, 'world');
-            });
-        },
-    });
         
-    stager.extendStep('info_bar', {
+    stager.extendStep('sliders', {
         cb: function () {
             this.savedResults = {};
 

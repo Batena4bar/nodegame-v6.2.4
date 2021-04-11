@@ -24,9 +24,6 @@ module.exports = function (stager, settings) {
     // Test sliders
     .stage('sliders')
 
-    // Test info bar
-    .stage('info_bar')
-
     // Test chat
     .stage('chat')
 

@@ -117,20 +117,18 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('info_bar', {
-        frame: 'info_bar.html',
-        cb: function () {
-            var button = W.getElementById('continue');
-            button.onclick = function () { node.done(); };
-        },
-    });
-
     stager.extendStep('chat', {
         frame: 'chat.html',
         init: function () {
             node.game.visualTimer.hide();
         },
         cb: function () {
+            var description = W.getElementById('description');
+            node.on('BUBBLE_DATA', function(data, index) {
+                console.log('BUBBLE_DATA', data, index);               
+                description.value = data.text;
+            });
+
             var infoBar = W.getElementById('info-bar');
             var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
                 // Extra options available to all widgets.
@@ -147,13 +145,28 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                     msg: 'Swap information by chatting...'
                 },
                 title: '',
+                chatEvent: 'CHAT',
                 printStartTime: false,
                 storeMsgs: true,
+                receiverOnly: true,
                 docked: false,
                 collapsible: false,
                 closable: false
             });
-            this.doneButton = node.widgets.append('DoneButton', chat, {
+
+            var button = W.getElementById('send');
+            button.onclick = function () {
+                chatWidget.sendMsg({
+                    text: description.value,
+                    added: 'hello',
+                    msg: function (data, code) {
+                        return '<div><strong>' + data.text + '</strong> ' + data.added + '</div><div>' + code + '</div>';
+                    }
+                });
+            };
+
+            var continueButton = W.getElementById('continue');
+            this.doneButton = node.widgets.append('DoneButton', continueButton, {
                 text: 'Done Talking',
                 enableOnPlaying: false
             });
