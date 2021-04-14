@@ -123,10 +123,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             node.game.visualTimer.hide();
         },
         cb: function () {
-            var description = W.getElementById('description');
+            var currentData;
+            var topic = W.getElementById('topic');
+            var justification = W.getElementById('justification');
             node.on('BUBBLE_DATA', function(data, index) {
-                console.log('BUBBLE_DATA', data, index);               
-                description.value = data.text;
+                console.log('BUBBLE_DATA', data, index);
+                currentData = data;              
+                topic.innerText = currentData.topic;
             });
 
             var infoBar = W.getElementById('info-bar');
@@ -154,15 +157,41 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 closable: false
             });
 
+            var propostionMap = {
+                '<': 'worse than',
+                '=': 'as good as',
+                '>': 'better than'
+            }
+            var commodity1 = W.getElementById('commodity_1');
+            var proposition = W.getElementById('proposition');
+            var commodity2 = W.getElementById('commodity_2');
             var button = W.getElementById('send');
             button.onclick = function () {
-                chatWidget.sendMsg({
-                    text: description.value,
-                    added: 'hello',
-                    msg: function (data, code) {
-                        return '<div><strong>' + data.text + '</strong> ' + data.added + '</div><div>' + code + '</div>';
-                    }
-                });
+                if (messageComplete()) {
+                    chatWidget.sendMsg({
+                        infoId: currentData.id,
+                        id: Math.trunc(Math.random()*10000),
+                        senderAlias: 'John',
+                        topic: currentData.topic,
+                        belief: [commodity1.value, proposition.value, commodity2.value],
+                        justification: justification.value,
+                        msg: function (data, code) {
+                            if (code === 'incoming') {
+                                //
+                            } else if (code === 'outgoing') {
+                                return '<div><strong>' + data.topic + '</strong></div><div>Belief: ' + 
+                                data.belief[0] + ' <strong>' + propostionMap[data.belief[1]] + '</strong> ' + data.belief[2] + 
+                                '</div><div>' + data.justification + '</div>';
+                            }   
+                        }
+                    });
+                    currentData = null;
+                    topic.innerText = '';
+                    commodity1.value = proposition.value = commodity2.value = '';
+                    justification.value = '';
+                } else {
+                    alert('Please complete all message fields');
+                }              
             };
 
             var continueButton = W.getElementById('continue');
@@ -172,6 +201,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             });
             this.doneButton.removeFrame();
             this.doneButton.disable();
+
+            var messageComplete = function() {
+                return topic.innerText && commodity1.value && proposition.value && commodity2.value && justification.value;
+            }
         },
     });
 

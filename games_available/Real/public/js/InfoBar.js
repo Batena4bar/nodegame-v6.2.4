@@ -58,45 +58,54 @@
 
     var tabs = [
       {
-        id: 1,
+        id: 'D',
         icon: '',
-        title: 'Text 1',
-        text:
-          'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
+        topic: 'Top 7 Wheat Producing Countries',
+        html:
+          `<table>
+            <tr><th>Country</th></tr>
+            <tr><td>1</td><td>China</td></tr>
+            <tr><td>2</td><td>India</td></tr>
+            <tr><td>3</td><td>Russia</td></tr>
+            <tr><td>4</td><td>USA</td></tr>
+            <tr><td>5</td><td>France</td></tr>
+            <tr><td>6</td><td>Canada</td></tr>
+            <tr><td>7</td><td>Germany</td></tr>
+          </table>`,
       },
       {
         id: 2,
         icon: '',
-        title: 'Text 2',
-        text:
+        topic: 'Text 2',
+        html:
           'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
       },
       {
         id: 3,
         icon: '',
-        title: 'Text 3',
-        text:
+        topic: 'Text 3',
+        html:
           'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
       },
       {
         id: 4,
         icon: '',
-        title: 'Text 4',
-        text:
+        topic: 'Text 4',
+        html:
           'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
       },
       {
         id: 5,
         icon: '',
-        title: 'Text 5',
-        text:
+        topic: 'Text 5',
+        html:
           'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
       },
       {
         id: 6,
         icon: '',
-        title: 'Text 6',
-        text:
+        topic: 'Text 6',
+        html:
           'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
       },
     ];
@@ -161,14 +170,14 @@
 
         $pointer.css('top', (52 * index) + 8);
 
-        var $title = $('<h2>').text(tab.title);
+        var $title = $('<h2>').text(tab.topic);
         var $messageButton = $('<button>').prop('type', 'button').addClass('btn btn-light').html('<span class="far fa-comment"></span>');
         $messageButton.click(function() {
           node.emit('BUBBLE_DATA', tab, index);
           closeBubble();
         });
         $title.append($messageButton);
-        $panel = $('<div>').addClass('panel').append($title).append($('<p>').text(tab.text));
+        $panel = $('<div>').addClass('panel').append($title).append($('<p>').html(tab.html));
         $bubble.append($panel);
 
         $bodyDiv.append($bubble);

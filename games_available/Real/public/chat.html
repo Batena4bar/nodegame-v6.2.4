@@ -14,13 +14,33 @@
       <div id="chat"></div>
       <div id="message-template">
         <div>
-          Topic: <span id="topic-count"></span> of <span id="topic-total"></span>
+          Topic: <span id="topic"></span>
         </div>
         <div>
-          Belief: <span id="better"></span> is a better intestment than <span id="worse"></span>
+          Belief:
+          <select id="commodity_1">
+            <option value="">Commodity 1</option>
+            <option value="Wheat">Wheat</option>
+            <option value="Coffee">Coffee</option>
+            <option value="Sugar">Sugar</option>
+            <option value="Others">Others</option>
+          </select>
+          <select id="proposition">
+            <option value="">Proposition</option>
+            <option value="<">is a worse investment than</option>
+            <option value="=">is as good an investment as</option>
+            <option value=">">is a better investment than</option>
+          </select>
+          <select id="commodity_2">
+            <option value="">Commodity 2</option>
+            <option value="Wheat">Wheat</option>
+            <option value="Coffee">Coffee</option>
+            <option value="Sugar">Sugar</option>
+            <option value="Others">Others</option>
+          </select>
         </div>
         <div>
-          Description: <textarea id="description"></textarea>
+          Justification: <textarea id="justification" maxlength="120" placeholder="Enter your justification here (max. 120 chars)..."></textarea>
         </div>
         <div>
           <button id="send" class="btn btn-light">Send</button>
