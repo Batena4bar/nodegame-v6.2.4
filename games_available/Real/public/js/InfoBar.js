@@ -31,12 +31,20 @@
   function InfoBar(options) {
     // You can define widget properties here,
     // but they should get assigned a value in init.
+    this.data = null;
   }
 
   InfoBar.prototype.init = function (options) {
     // Init widget variables, but do not create
     // HTML elements, they should be created in append.
 
+    if (options.data && 'object' === typeof options.data) {
+      this.data = options.data;
+    } else {
+      throw new TypeError(
+        'InfoBar.init: data must ' + 'be object. Found: ' + options.data
+      );
+    }
     // Furthermore, you can add internal listeners here
     // or in the listeners method. (optional)
     this.on('destroyed', function () {
@@ -56,69 +64,14 @@
     //   - footerDiv:  the footer container
     //
 
-    var tabs = [
-      {
-        id: 'D',
-        icon: '',
-        topic: 'Top 7 Wheat Producing Countries',
-        html:
-          `<table>
-            <tr><th>Country</th></tr>
-            <tr><td>1</td><td>China</td></tr>
-            <tr><td>2</td><td>India</td></tr>
-            <tr><td>3</td><td>Russia</td></tr>
-            <tr><td>4</td><td>USA</td></tr>
-            <tr><td>5</td><td>France</td></tr>
-            <tr><td>6</td><td>Canada</td></tr>
-            <tr><td>7</td><td>Germany</td></tr>
-          </table>`,
-      },
-      {
-        id: 2,
-        icon: '',
-        topic: 'Text 2',
-        html:
-          'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
-      },
-      {
-        id: 3,
-        icon: '',
-        topic: 'Text 3',
-        html:
-          'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
-      },
-      {
-        id: 4,
-        icon: '',
-        topic: 'Text 4',
-        html:
-          'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
-      },
-      {
-        id: 5,
-        icon: '',
-        topic: 'Text 5',
-        html:
-          'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
-      },
-      {
-        id: 6,
-        icon: '',
-        topic: 'Text 6',
-        html:
-          'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
-      },
-    ];
-
     var widget = this;
     // Get jQuery from the host window
     var $ = parent.$;
     var $bodyDiv = $(widget.bodyDiv);
 
     var $bubble = $('<div>').addClass('bubble');
-    var pointer = document.createElement("div");
-    pointer.innerHTML = 
-    `<svg
+    var pointer = document.createElement('div');
+    pointer.innerHTML = `<svg
       version="1.1"
       id="Layer_1"
       xmlns="http://www.w3.org/2000/svg"
@@ -145,39 +98,47 @@
         </g>
         <polyline class="st1" points="20,20 0,10 20,0" />
       </g>
-    </svg>`
+    </svg>`;
     var $pointer = $(pointer).addClass('pointer');
     $bubble.append($pointer);
 
     var $panel;
-    var closeBubble = function() {
+    var closeBubble = function () {
       if ($panel) {
         $panel.remove();
         $bubble.detach();
       }
-    }
+    };
 
     var $closeButton = $('<i class="close fas fa-times fa-2x"></i>');
     $closeButton.click(closeBubble);
     $bubble.append($closeButton);
 
- 
     var $ul = $('<ul>');
-    tabs.forEach(function(tab, index) {
-      var $button = $('<button>').prop('type', 'button').addClass('btn btn-lg btn-outline-secondary').text(tab.id);
-      $button.click(function(event) {
+    this.data.forEach(function (tab, index) {
+      var $button = $('<button>')
+        .prop('type', 'button')
+        .addClass('btn btn-lg btn-outline-secondary')
+        .text(tab.id);
+      $button.click(function (event) {
         closeBubble();
 
-        $pointer.css('top', (52 * index) + 8);
+        $pointer.css('top', 52 * index + 8);
 
         var $title = $('<h2>').text(tab.topic);
-        var $messageButton = $('<button>').prop('type', 'button').addClass('btn btn-light').html('<span class="far fa-comment"></span>');
-        $messageButton.click(function() {
+        var $messageButton = $('<button>')
+          .prop('type', 'button')
+          .addClass('btn btn-light')
+          .html('<span class="far fa-comment"></span>');
+        $messageButton.click(function () {
           node.emit('BUBBLE_DATA', tab, index);
           closeBubble();
         });
         $title.append($messageButton);
-        $panel = $('<div>').addClass('panel').append($title).append($('<p>').html(tab.html));
+        $panel = $('<div>')
+          .addClass('panel')
+          .append($title)
+          .append($('<p>').html(tab.html));
         $bubble.append($panel);
 
         $bodyDiv.append($bubble);

@@ -13,7 +13,14 @@
 
 "use strict";
 
+
+
 module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
+
+    // Sets the default globals.
+    stager.setDefaultGlobals({
+        tabData: ['dummy']
+    });
 
     stager.setOnInit(function () {
 
@@ -126,20 +133,31 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             var currentData;
             var topic = W.getElementById('topic');
             var justification = W.getElementById('justification');
+
+            // Receive data from logic
+            node.on.data('INFODATA', function(msg) {
+                console.log('INFODATA', msg.data);
+                node.game.globals.tabData = msg.data;
+                // Construct infoBar
+                var infoBar = W.getElementById('info-bar');
+                var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
+                    data: node.game.globals.tabData,
+                    // Extra options available to all widgets.
+                    docked: false,
+                    collapsible: false,
+                    closable: false
+                });
+                infoBarWidget.removeFrame();
+            });
+
+            // Receive data from infoBar
             node.on('BUBBLE_DATA', function(data, index) {
                 console.log('BUBBLE_DATA', data, index);
                 currentData = data;              
                 topic.innerText = currentData.topic;
             });
 
-            var infoBar = W.getElementById('info-bar');
-            var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
-                // Extra options available to all widgets.
-                docked: false,
-                collapsible: false,
-                closable: false
-            });
-            infoBarWidget.removeFrame();
+            // Construct chat
             var chat = W.getElementById('chat');
             var chatWidget = node.widgets.append('Chat', chat, {
                 participants: node.game.partners,
@@ -157,6 +175,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 closable: false
             });
 
+            // Attach functionality to chat input form
             var propostionMap = {
                 '<': 'worse than',
                 '=': 'as good as',
@@ -193,7 +212,11 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                     alert('Please complete all message fields');
                 }              
             };
+            var messageComplete = function() {
+                return topic.innerText && commodity1.value && proposition.value && commodity2.value && justification.value;
+            }
 
+            // Construct done button
             var continueButton = W.getElementById('continue');
             this.doneButton = node.widgets.append('DoneButton', continueButton, {
                 text: 'Done Talking',
@@ -201,10 +224,6 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             });
             this.doneButton.removeFrame();
             this.doneButton.disable();
-
-            var messageComplete = function() {
-                return topic.innerText && commodity1.value && proposition.value && commodity2.value && justification.value;
-            }
         },
     });
 
