@@ -9,8 +9,12 @@
   display: flex;
 }
 
-.panels > div {
+.panels > div:first-child {
   flex: 1;
+}
+
+.panels > div:last-child {
+  flex: 2;
 }
 
 #video {
@@ -50,3 +54,31 @@
   box-shadow: none;
 }
 
+.panel.donebutton {
+  text-align: right;
+}
+
+#message-template {
+  border: 1px solid rgb(108, 117, 125);
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 16px;
+}
+
+#message-template > div:not(:last-child) {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+#message-template > div:last-child {
+  text-align: right;
+}
+
+#message-template > div > :first-child {
+  width: 128px;
+  flex-shrink: 0;
+}
+
+#justification {
+  width: 100%;
+}

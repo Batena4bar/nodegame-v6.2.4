@@ -156,7 +156,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         {
           id: '3B',
           icon: '',
-          topic: 'Principal sugar exporting coutries in 2019/2020',
+          topic: 'Principal sugar exporting countries in 2019/2020',
           html:
             `<img src="imgs/sugar_exporting_countries.png" width="100%">`,
         },
