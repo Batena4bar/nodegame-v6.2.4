@@ -18,10 +18,10 @@
         "node": ">= 6.0.0"
     },
     "dependencies": {
-        "JSUS": "^1.1.0",
-        "NDDB": "^2.0.0",
         "commander": "^7.0.0",
         "fs-extra": "*",
+        "JSUS": "^1.1.0",
+        "NDDB": "^2.0.0",
         "nodegame-client": "^6.2.0",
         "nodegame-db": "*",
         "nodegame-game-template": "^6.2.0",

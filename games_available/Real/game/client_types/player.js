@@ -26,7 +26,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
         // Initialize the client.
 
-        this.addDoneButton = function(label) {
+        this.addDoneButton = function (label) {
             var doneButton = node.widgets.append('DoneButton', W.getElementById('done-button'), {
                 text: label
             });
@@ -34,7 +34,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             return doneButton;
         }
 
-        node.on.data('PARTNERS', function(msg) {
+        node.on.data('PARTNERS', function (msg) {
             // Store a reference to the ids for later use.
             node.game.partners = msg.data;
             console.log('Partners', node.game.partners);
@@ -54,6 +54,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         // this.debugInfo = node.widgets.append('DebugInfo', header)
     });
 
+    // This bit
     stager.extendStep('title', {
         frame: 'title.html',
         cb: function () {
@@ -64,8 +65,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('background_1', {
         frame: 'background_1.html',
         cb: function () {
-            var button = W.getElementById('continue');
-            button.onclick = function () { node.done(); };
+            this.doneButton = this.addDoneButton('Continue');
         },
     });
 
@@ -135,7 +135,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             var justification = W.getElementById('justification');
 
             // Receive data from logic
-            node.on.data('INFODATA', function(msg) {
+            node.on.data('INFODATA', function (msg) {
                 console.log('INFODATA', msg.data);
                 node.game.globals.tabData = msg.data;
                 // Construct infoBar
@@ -151,9 +151,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             });
 
             // Receive data from infoBar
-            node.on('BUBBLE_DATA', function(data, index) {
+            node.on('BUBBLE_DATA', function (data, index) {
                 console.log('BUBBLE_DATA', data, index);
-                currentData = data;              
+                currentData = data;
                 topic.innerText = currentData.topic;
             });
 
@@ -189,7 +189,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 if (messageComplete()) {
                     chatWidget.sendMsg({
                         infoId: currentData.id,
-                        id: Math.trunc(Math.random()*10000),
+                        id: Math.trunc(Math.random() * 10000),
                         senderAlias: 'John',
                         topic: currentData.topic,
                         belief: [commodity1.value, proposition.value, commodity2.value],
@@ -198,10 +198,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                             if (code === 'incoming') {
                                 //
                             } else if (code === 'outgoing') {
-                                return '<div><strong>' + data.topic + '</strong></div><div>Belief: ' + 
-                                data.belief[0] + ' <strong>' + propostionMap[data.belief[1]] + '</strong> ' + data.belief[2] + 
-                                '</div><div>' + data.justification + '</div>';
-                            }   
+                                return '<div><strong>' + data.topic + '</strong></div><div>Belief: ' +
+                                    data.belief[0] + ' <strong>' + propostionMap[data.belief[1]] + '</strong> ' + data.belief[2] +
+                                    '</div><div>' + data.justification + '</div>';
+                            }
                         }
                     });
                     currentData = null;
@@ -210,9 +210,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                     justification.value = '';
                 } else {
                     alert('Please complete all message fields');
-                }              
+                }
             };
-            var messageComplete = function() {
+            var messageComplete = function () {
                 return topic.innerText && commodity1.value && proposition.value && commodity2.value && justification.value;
             }
 
@@ -242,15 +242,36 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 labels: ['Wheat', 'Sugar', 'Coffee']
             });
             linkedSlidersWidget.removeFrame();
-            node.on('complete', function() {
+            node.on('complete', function () {
                 console.log('Done', linkedSlidersWidget.getValues());
                 this.doneButton.enable();
             });
-            node.on('incomplete', function() {
+            node.on('incomplete', function () {
                 console.log('Undone');
                 this.doneButton.disable();
             });
             this.doneButton = node.widgets.append('DoneButton', linkedSliders);
+            this.doneButton.removeFrame();
+        },
+    });
+
+    stager.extendStep('multi_sliders', {
+        frame: 'multi_sliders.html',
+        donebutton: {
+            text: 'Continue',
+            enableOnPlaying: false,
+        },
+        init: function () {
+            node.game.visualTimer.hide();
+        },
+        cb: function () {
+            var linkedSliders1 = W.getElementById('linked-sliders-1');
+            var linkedSlidersWidget1 = node.widgets.append('LinkedSliders', linkedSliders1, {
+                labels: ['Wheat', 'Sugar', 'Coffee']
+            });
+            linkedSlidersWidget1.removeFrame();
+
+            this.doneButton = node.widgets.append('DoneButton', linkedSliders1);
             this.doneButton.removeFrame();
         },
     });

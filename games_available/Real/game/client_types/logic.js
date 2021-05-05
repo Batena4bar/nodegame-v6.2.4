@@ -12,15 +12,15 @@
 const ngc = require('nodegame-client');
 const J = ngc.JSUS;
 
-module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
-  
+module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
+
   let node = gameRoom.node;
   let channel = gameRoom.channel;
   let memory = node.game.memory;
 
   // Must implement the stages here.
 
-  stager.setOnInit(function() {
+  stager.setOnInit(function () {
     // Initialize the client.
   });
 
@@ -85,6 +85,21 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
   //    });
 
   // Extends Stages and Steps where needed.
+
+  stager.extendStep('sliders', {
+    cb: function () {
+      this.savedResults = {};
+
+      console.log('sliders logic');
+
+      // Get the ids of all players.
+      let ids = node.game.pl.id.getAllKeys();
+      ids.forEach(function (idx, i) {
+        // Send the other ids to each player.
+        node.say('PARTNERS', idx, ids.slice(0, i).concat(ids.slice(i + 1)));
+      });
+    },
+  });
 
   stager.extendStep('chat', {
     cb: function () {
@@ -187,21 +202,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
       node.game.pl.each(function (player) {
         // Calculate the infoBar tabs for each player and send them   
         node.say('INFODATA', player.id, tabData.slice(4, 10));
-      });
-    },
-  });
-
-  stager.extendStep('sliders', {
-    cb: function () {
-      this.savedResults = {};
-
-      console.log('sliders logic');
-
-      // Get the ids of all players.
-      let ids = node.game.pl.id.getAllKeys();
-      ids.forEach(function (idx, i) {
-        // Send the other ids to each player.
-        node.say('PARTNERS', idx, ids.slice(0, i).concat(ids.slice(i + 1)));
       });
     },
   });

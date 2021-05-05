@@ -19,6 +19,7 @@ module.exports = function (stager, settings) {
   //  });
 
   stager
+    // This bit
     .stage('title')
 
     // Test sliders
@@ -26,6 +27,9 @@ module.exports = function (stager, settings) {
 
     // Test chat
     .stage('chat')
+
+    // Test sliders
+    .stage('multi_sliders')
 
     // A setup to the experiment, this is in the form of a vignette
     .stage('background')
