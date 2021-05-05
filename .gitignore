@@ -1,6 +1,5 @@
 node_modules
 log/*
-.DS_Store
 package-lock.json
 games_available/Real/.DS_Store
 games_available/Real/public/.DS_Store
