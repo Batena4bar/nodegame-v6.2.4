@@ -1,8 +1,13 @@
 #container {
   margin: 0 auto;
+  padding-top: 20px;
   max-width: 42em; 
   font-size: 20px;
   position: relative;
+}
+
+h1, h2, h3, h4, h5 {
+  margin-top: 10px;
 }
 
 .panels {
@@ -17,12 +22,36 @@
   flex: 2;
 }
 
+.panels.equal > div:first-child {
+  flex: 1;
+}
+
+.panels.equal > div:last-child {
+  flex: 1;
+}
+
 .panels.reverse > div:first-child {
   flex: 2;
 }
 
-.panels.reverse> div:last-child {
+.panels.reverse > div:last-child {
   flex: 1;
+}
+
+.grey-background {
+  background-color: rgb(225, 225, 225);
+}
+
+.box-margin {
+  padding: 20px;
+}
+
+.hide-answers i {
+  display: none;
+}
+
+#pre_task_1 {
+  margin-bottom: 20px;
 }
 
 #video {

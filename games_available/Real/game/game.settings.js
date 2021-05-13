@@ -29,13 +29,13 @@ module.exports = {
      * used to initialize the game timer for the step.
      */
     TIMER: {
-        title: 10000,
+        title: 2000000,
         background_1: 2000000,
-        background_2: 30000,
-        pre_task_1: 40000,
-        pre_task_2: 50000,
+        background_2: 2000000,
+        pre_task_1: 2000000,
+        pre_task_2: 2000000,
         video: null,
-        treatment_page: 70000
+        treatment_page: 2000000
     },
 
     // # Game specific properties
