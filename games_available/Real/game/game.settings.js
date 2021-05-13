@@ -60,18 +60,28 @@ module.exports = {
     treatments: {
 
         control: {
-            description: "No fear factor applied.",
+            description: "No fear applied.",
             treatment: 'treatment_control.html'
         },
 
-        internal: {
-            description: "Internal fear factor applied.",
-            treatment: 'treatment_internal.html'
+        internal_rejection: {
+            description: "Internally originated Interpersonal Rejection fear applied.",
+            treatment: 'treatment_internal_rejection.html'
         },
 
-        external: {
-            description: "External fear factor applied.",
-            treatment: 'treatment_external.html'
+        external_rejection: {
+            description: "Externally originated Interpersonal Rejection fear applied.",
+            treatment: 'treatment_external_rejection.html'
+        },
+
+        internal_evaluation: {
+            description: "Internally originated Negative Evaluation fear applied.",
+            treatment: 'treatment_internal_evaluation.html'
+        },
+
+        external_evaluation: {
+            description: "Externally originated Negative Evaluation fear applied.",
+            treatment: 'treatment_external_evaluation.html'
         }
     }
 };

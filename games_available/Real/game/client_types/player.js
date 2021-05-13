@@ -124,6 +124,27 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
+    stager.extendStep('post_task_1', {
+        frame: 'post_task_1.html',
+        cb: function () {
+            this.doneButton = this.addDoneButton('Next');
+        },
+    });
+
+    stager.extendStep('post_task_2', {
+        frame: 'post_task_2.html',
+        cb: function () {
+            this.doneButton = this.addDoneButton('Next');
+        },
+    });
+
+    stager.extendStep('debrief', {
+        frame: 'debrief.html',
+        cb: function () {
+            this.doneButton = this.addDoneButton('Done');
+        },
+    });
+
     stager.extendStep('chat', {
         frame: 'chat.html',
         init: function () {

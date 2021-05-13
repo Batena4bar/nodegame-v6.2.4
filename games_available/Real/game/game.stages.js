@@ -19,17 +19,8 @@ module.exports = function (stager, settings) {
   //  });
 
   stager
-    // This bit
+    // 
     .stage('title')
-
-    // Test sliders
-    .stage('sliders')
-
-    // Test chat
-    .stage('chat')
-
-    // Test sliders
-    .stage('multi_sliders')
 
     // A setup to the experiment, this is in the form of a vignette
     .stage('background')
@@ -44,26 +35,42 @@ module.exports = function (stager, settings) {
     // An explaination of the practical aspect of the task
     .stage('video')
 
-    // This is where the treatments are administered
+    // Manipulation screen
     .stage('treatment_page')
 
-    // The task
-    // .repeatStage('task', settings.ROUNDS)
-    // .step('initialChoice')
-    // .step('guidedCommunication')
-    // .step('messageLiking')
-    // .step('groupChoice')
+    // Manipulation checks
+    .stage('post_task')
+    .step('post_task_1')
+    .step('post_task_2')
 
-    // // Post-hoc tests
-    //  .stage('Post Task')
-    // .step('Post Task 1')
-    // .step('Post Task 2')
-
-    // // Finish
-    // .next('Debrief')
-    // .next('Endgame')
+    .stage('debrief')
+    .stage('sliders')
+    .stage('chat')
+    .stage('multi_sliders')
     .stage('end')
     .gameover();
+
+
+
+  //  // Test sliders
+  //  .stage('sliders')
+
+  //  // Test chat
+  //  .stage('chat')
+
+  //  // Test sliders
+  //  .stage('multi_sliders')
+
+
+
+
+  // The task
+  // .repeatStage('task', settings.ROUNDS)
+  // .step('initialChoice')
+  // .step('guidedCommunication')
+  // .step('messageLiking')
+  // .step('groupChoice')
+
 
   // Modify the stager to skip one stage.
   // stager.skip('instructions');
