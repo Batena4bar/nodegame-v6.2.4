@@ -98,8 +98,19 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('pre_task_2', {
         frame: 'pre_task_2.html',
         cb: function () {
-            var button = W.getElementById('continue');
-            button.onclick = function () { node.done(); };
+            var step1 = W.getElementById('step_1');
+            var step2 = W.getElementById('step_2');
+            this.doneButton = this.addDoneButton('Continue');
+            var button = W.getElementById('done');
+            button.onclick = function () {
+                step1.style = "display: none;";
+                step2.style = "display: block;";
+                var forms = W.getElementsByTagName('form');
+                for (var i = 0; i < forms.length; i++) {
+                    forms[i].classList.remove('hide-answers');
+                }
+            };
+            step2.style = "display: none;"
         },
     });
 
