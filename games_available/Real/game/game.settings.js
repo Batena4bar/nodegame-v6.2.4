@@ -29,19 +29,20 @@ module.exports = {
      * used to initialize the game timer for the step.
      */
     TIMER: {
-        title: 2000000,
-        background_1: 2000000,
-        background_2: 2000000,
-        pre_task_1: 2000000,
-        pre_task_2: 2000000,
-        video: null,
-        treatment_page: 2000000
+        title: 120000,
+        pre_task_1: 120000,
+        pre_task_2: 120000,
+        pre_task_3: 120000,
+        pre_task_4: 120000,
+        pre_task_5: 120000,
+        instructions_video: null,
+        treatment_page: 80000
     },
 
     // # Game specific properties
 
     // Number of game rounds to repeat.
-    ROUNDS: 4,
+    ROUNDS: 1,
 
     // Number of coins available each round.
     COINS: 100,
@@ -82,6 +83,26 @@ module.exports = {
         external_evaluation: {
             description: "Externally originated Negative Evaluation fear applied.",
             treatment: 'treatment_external_evaluation.html'
+        },
+
+        internal_rej_vin: {
+            description: "Internally originated Interpersonal Rejection fear from vingette.",
+            treatment: 'treatment_internal_rej_vin.html'
+        },
+
+        external_rej_vin: {
+            description: "Externally originated Interpersonal Rejection fear from vingette.",
+            treatment: 'treatment_external_rej_vin.html'
+        },
+
+        internal_repraisal_vin: {
+            description: "Internally originated Repraisal fear applied from vingette.",
+            treatment: 'treatment_internal_repraisal_vin.html'
+        },
+
+        external_repraisal_vin: {
+            description: "Externally originated Repraisal fear applied from vingette.",
+            treatment: 'treatment_external_repraisal_vin.html'
         }
     }
 };

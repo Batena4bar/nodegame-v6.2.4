@@ -62,41 +62,29 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('background_1', {
+    stager.extendStep('pre_task_1', {
         frame: 'background_1.html',
         cb: function () {
             this.doneButton = this.addDoneButton('Continue');
         },
     });
 
-    stager.extendStep('background_2', {
+    stager.extendStep('pre_task_3', {
         frame: 'background_2.html',
         cb: function () {
             this.doneButton = this.addDoneButton('Continue');
         },
     });
 
-    stager.extendStep('pre_task_1', {
-        frame: 'pre_task_1.html',
+    stager.extendStep('pre_task_5', {
+        frame: 'background_3.html',
         cb: function () {
-            var step1 = W.getElementById('step_1');
-            var step2 = W.getElementById('step_2');
             this.doneButton = this.addDoneButton('Continue');
-            var button = W.getElementById('done');
-            button.onclick = function () {
-                step1.style = "display: none;";
-                step2.style = "display: block;";
-                var forms = W.getElementsByTagName('form');
-                for (var i = 0; i < forms.length; i++) {
-                    forms[i].classList.remove('hide-answers');
-                }
-            };
-            step2.style = "display: none;"
         },
     });
 
     stager.extendStep('pre_task_2', {
-        frame: 'pre_task_2.html',
+        frame: 'attention_check_1.html',
         cb: function () {
             var step1 = W.getElementById('step_1');
             var step2 = W.getElementById('step_2');
@@ -114,14 +102,51 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('video', {
+    stager.extendStep('pre_task_4', {
+        frame: 'attention_check_2.html',
+        cb: function () {
+            var step1 = W.getElementById('step_1');
+            var step2 = W.getElementById('step_2');
+            this.doneButton = this.addDoneButton('Continue');
+            var button = W.getElementById('done');
+            button.onclick = function () {
+                step1.style = "display: none;";
+                step2.style = "display: block;";
+                var forms = W.getElementsByTagName('form');
+                for (var i = 0; i < forms.length; i++) {
+                    forms[i].classList.remove('hide-answers');
+                }
+            };
+            step2.style = "display: none;"
+        },
+    });
+
+    stager.extendStep('pre_task_6', {
+        frame: 'attention_check_3.html',
+        cb: function () {
+            var step1 = W.getElementById('step_1');
+            var step2 = W.getElementById('step_2');
+            this.doneButton = this.addDoneButton('Continue');
+            var button = W.getElementById('done');
+            button.onclick = function () {
+                step1.style = "display: none;";
+                step2.style = "display: block;";
+                var forms = W.getElementsByTagName('form');
+                for (var i = 0; i < forms.length; i++) {
+                    forms[i].classList.remove('hide-answers');
+                }
+            };
+            step2.style = "display: none;"
+        },
+    });
+
+    stager.extendStep('instructions_video', {
         frame: 'video.html',
         init: function () {
             node.game.visualTimer.hide();
         },
         cb: function () {
-            var button = W.getElementById('continue');
-            button.onclick = function () { node.done(); };
+            this.doneButton = this.addDoneButton('Continue');
         },
         exit: function () {
             node.game.visualTimer.show();
@@ -140,14 +165,318 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         /////////////////////////////////////////////////////////////
         frame: settings.treatment,
         cb: function () {
-            var button = W.getElementById('continue');
-            button.onclick = function () { node.done(); };
+            this.doneButton = this.addDoneButton('Continue');
         },
     });
+
+    stager.extendStep('treatment_2', {
+        frame: 'treatment_2_eval.html',
+        cb: function () {
+            this.doneButton = this.addDoneButton('Begin');
+        },
+    });
+
+    // // The Task
+
+    stager.extendStep('initial_choice', {
+        frame: 'initial_choice.html',
+        donebutton: {
+            text: 'Submit Choices',
+            enableOnPlaying: false,
+        },
+        cb: function () {
+            // var currentData;
+            // var topic = W.getElementById('topic');
+            // var justification = W.getElementById('justification');
+
+            // Receive data from logic
+            node.on.data('INFODATA', function (msg) {
+                console.log('INFODATA', msg.data);
+                node.game.globals.tabData = msg.data;
+                // Construct infoBar
+                var infoBar = W.getElementById('info-bar');
+                var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
+                    data: node.game.globals.tabData,
+                    // Extra options available to all widgets.
+                    docked: false,
+                    collapsible: false,
+                    closable: false
+                });
+                infoBarWidget.removeFrame();
+            });
+
+            var linkedSliders = W.getElementById('linked-sliders');
+            var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
+                labels: ['Wheat', 'Sugar', 'Coffee']
+            });
+            linkedSlidersWidget.removeFrame();
+            node.on('complete', function () {
+                console.log('Done', linkedSlidersWidget.getValues());
+                this.doneButton.enable();
+            });
+            // Construct done button
+            node.on('incomplete', function () {
+                console.log('Undone');
+                this.doneButton.disable();
+            });
+            this.doneButton = node.widgets.append('DoneButton', linkedSliders);
+            this.doneButton.removeFrame();
+            this.doneButton.disable();
+
+
+            // Receive data from infoBar
+            // node.on('BUBBLE_DATA', function (data, index) {
+            //     console.log('BUBBLE_DATA', data, index);
+            //     currentData = data;
+            //     topic.innerText = currentData.topic;
+            // });
+
+
+
+        },
+    });
+
+    stager.extendStep('guided_communication', {
+        frame: 'guided_communication.html',
+        init: function () {
+            node.game.visualTimer.hide();
+        },
+        cb: function () {
+            var currentData;
+            var topic = W.getElementById('topic');
+            var justification = W.getElementById('justification');
+
+            // Receive data from logic
+            node.on.data('INFODATA', function (msg) {
+                console.log('INFODATA', msg.data);
+                node.game.globals.tabData = msg.data;
+                // Construct infoBar
+                var infoBar = W.getElementById('info-bar');
+                var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
+                    data: node.game.globals.tabData,
+                    // Extra options available to all widgets.
+                    docked: false,
+                    collapsible: false,
+                    closable: false
+                });
+                infoBarWidget.removeFrame();
+            });
+
+            // Receive data from infoBar
+            node.on('BUBBLE_DATA', function (data, index) {
+                console.log('BUBBLE_DATA', data, index);
+                currentData = data;
+                topic.innerText = currentData.topic;
+            });
+
+            // Construct chat
+            var chat = W.getElementById('chat');
+            var chatWidget = node.widgets.append('Chat', chat, {
+                participants: node.game.partners,
+                initialMsg: {
+                    id: 'game',
+                    msg: 'Swap information by chatting...'
+                },
+                title: '',
+                chatEvent: 'CHAT',
+                printStartTime: false,
+                storeMsgs: true,
+                receiverOnly: true,
+                docked: false,
+                collapsible: false,
+                closable: false
+            });
+
+            // Attach functionality to chat input form
+            var propostionMap = {
+                '<': 'worse than',
+                '=': 'as good as',
+                '>': 'better than'
+            }
+            var commodity1 = W.getElementById('commodity_1');
+            var proposition = W.getElementById('proposition');
+            var commodity2 = W.getElementById('commodity_2');
+            var button = W.getElementById('send');
+            button.onclick = function () {
+                if (messageComplete()) {
+                    chatWidget.sendMsg({
+                        infoId: currentData.id,
+                        id: Math.trunc(Math.random() * 10000),
+                        senderAlias: 'John',
+                        topic: currentData.topic,
+                        belief: [commodity1.value, proposition.value, commodity2.value],
+                        justification: justification.value,
+                        msg: function (data, code) {
+                            if (code === 'incoming') {
+                                //
+                            } else if (code === 'outgoing') {
+                                return '<div><strong>' + data.topic + '</strong></div><div>Belief: ' +
+                                    data.belief[0] + ' <strong>' + propostionMap[data.belief[1]] + '</strong> ' + data.belief[2] +
+                                    '</div><div>' + data.justification + '</div>';
+                            }
+                        }
+                    });
+                    currentData = null;
+                    topic.innerText = '';
+                    commodity1.value = proposition.value = commodity2.value = '';
+                    justification.value = '';
+                } else {
+                    alert('Please complete all message fields');
+                }
+            };
+            var messageComplete = function () {
+                return topic.innerText && commodity1.value && proposition.value && commodity2.value && justification.value;
+            }
+
+            // Construct done button
+            var continueButton = W.getElementById('continue');
+            this.doneButton = node.widgets.append('DoneButton', continueButton, {
+                text: 'Done Talking',
+                enableOnPlaying: false
+            });
+            this.doneButton.removeFrame();
+            this.doneButton.disable();
+        },
+    });
+
+
+
+    stager.extendStep('secondary_choice', {
+        frame: 'secondary_choice.html',
+        donebutton: {
+            text: 'Submit Choices',
+            enableOnPlaying: false,
+        },
+        cb: function () {
+            // var currentData;
+            // var topic = W.getElementById('topic');
+            // var justification = W.getElementById('justification');
+
+            // Receive data from logic
+            node.on.data('INFODATA', function (msg) {
+                console.log('INFODATA', msg.data);
+                node.game.globals.tabData = msg.data;
+                // Construct infoBar
+                var infoBar = W.getElementById('info-bar');
+                var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
+                    data: node.game.globals.tabData,
+                    // Extra options available to all widgets.
+                    docked: false,
+                    collapsible: false,
+                    closable: false
+                });
+                infoBarWidget.removeFrame();
+            });
+
+            var linkedSliders = W.getElementById('linked-sliders');
+            var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
+                labels: ['Wheat', 'Sugar', 'Coffee']
+            });
+            linkedSlidersWidget.removeFrame();
+            node.on('complete', function () {
+                console.log('Done', linkedSlidersWidget.getValues());
+                this.doneButton.enable();
+            });
+            // Construct done button
+            node.on('incomplete', function () {
+                console.log('Undone');
+                this.doneButton.disable();
+            });
+            this.doneButton = node.widgets.append('DoneButton', linkedSliders);
+            this.doneButton.removeFrame();
+            this.doneButton.disable();
+
+
+            // Receive data from infoBar
+            // node.on('BUBBLE_DATA', function (data, index) {
+            //     console.log('BUBBLE_DATA', data, index);
+            //     currentData = data;
+            //     topic.innerText = currentData.topic;
+            // });
+
+
+
+        },
+    });
+
+
+    stager.extendStep('group_choice', {
+        frame: 'group_choice.html',
+        donebutton: {
+            text: 'Submit Choices',
+            enableOnPlaying: false,
+        },
+        cb: function () {
+            // var currentData;
+            // var topic = W.getElementById('topic');
+            // var justification = W.getElementById('justification');
+
+            // Construct chat
+            var chat = W.getElementById('chat');
+            var chatWidget = node.widgets.append('Chat', chat, {
+                participants: node.game.partners,
+                initialMsg: {
+                    id: 'game',
+                    msg: 'Swap information by chatting...'
+                },
+                title: '',
+                chatEvent: 'CHAT',
+                printStartTime: false,
+                storeMsgs: true,
+                receiverOnly: false,
+                docked: false,
+                collapsible: false,
+                closable: false
+            });
+
+            var linkedSliders = W.getElementById('linked-sliders');
+            var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
+                labels: ['Wheat', 'Sugar', 'Coffee']
+            });
+            linkedSlidersWidget.removeFrame();
+            node.on('complete', function () {
+                console.log('Done', linkedSlidersWidget.getValues());
+                this.doneButton.enable();
+            });
+            // Construct done button
+            node.on('incomplete', function () {
+                console.log('Undone');
+                this.doneButton.disable();
+            });
+            this.doneButton = node.widgets.append('DoneButton', linkedSliders);
+            this.doneButton.removeFrame();
+            this.doneButton.disable();
+
+        },
+    });
+
+
+
 
     stager.extendStep('post_task_1', {
         frame: 'post_task_1.html',
         cb: function () {
+
+            var options = {
+                id: 'score',
+                mainText: 'Score the item above on a scale from 0 to 10',
+                items: [
+                    'Overall Quality',
+                    'Design',
+                    'Creativity',
+                    'Abstractness'
+                ],
+                choices: [1, 2, 3, 4, 5, 6, 7],
+                shuffleItems: true,
+                requiredChoice: true,
+                left: 'Lowest',
+                right: 'Highest'
+            };
+            // Create and append the widget to the body of the page.
+            var likertTable = W.getElementById('likert_table');
+            var likertTableWidget = node.widgets.append('ChoiceTableGroup', likertTable, options);
+
+
             this.doneButton = this.addDoneButton('Next');
         },
     });

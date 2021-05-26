@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<title>CHAT</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="/stylesheets/nodegame.css" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/infobar.css" />
+
+<script src="https://kit.fontawesome.com/5ec0f5153d.js" crossorigin="anonymous"></script>
+
+<body>
+  <div id="container">
+    <div style="border: 1px solid tomato; padding: 10px;">
+      Instructions: Please use the button on the left to read the pieces of information you have been given.
+    </div>
+    <div class="panels">
+      <div id="info-bar"></div>
+      <div>
+        <div id="chat"></div>
+        <div id="message-template">
+          <div>
+            <span>Topic:</span>
+            <span id="topic"></span>
+          </div>
+          <div>
+            <span>Belief:</span>
+            <select id="commodity_1">
+              <option value="">Commodity 1</option>
+              <option value="Wheat">Wheat</option>
+              <option value="Coffee">Coffee</option>
+              <option value="Sugar">Sugar</option>
+              <option value="Others">Others</option>
+            </select>
+            <select id="proposition">
+              <option value="">Proposition</option>
+              <option value="<">is a worse investment than</option>
+              <option value="=">is as good an investment as</option>
+              <option value=">">is a better investment than</option>
+            </select>
+            <select id="commodity_2">
+              <option value="">Commodity 2</option>
+              <option value="Wheat">Wheat</option>
+              <option value="Coffee">Coffee</option>
+              <option value="Sugar">Sugar</option>
+              <option value="Others">Others</option>
+            </select>
+          </div>
+          <div>
+            <span>Justification: </span>
+            <textarea id="justification" maxlength="120"
+              placeholder="Enter your justification here (max. 120 chars)..."></textarea>
+          </div>
+          <div>
+            <button id="send" class="btn btn-light">Send</button>
+          </div>
+        </div>
+        <div id="continue"></div>
+      </div>
+    </div>
+
+  </div>
+</body>
