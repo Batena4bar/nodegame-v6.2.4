@@ -20,6 +20,25 @@ module.exports = function (stager, settings) {
 
   stager
 
+    // Title
+    .stage('title')
+
+    // A setup to the experiment, this is in the form of a vignette, each background page is followed by an attention check
+    .stage('pre_task')
+    .step('pre_task_1')
+    .step('pre_task_3')
+    .step('pre_task_4')
+    .step('pre_task_5')
+    .step('pre_task_6')
+
+    // An explaination of the practical aspect of the task
+    .step('instructions_video')
+
+    // Manipulation screen
+    .step('treatment_page')
+    .step('treatment_2')
+    .step('task_start')
+
     // The task
     .repeatStage('task', settings.ROUNDS)
     .step('initial_choice')
@@ -27,39 +46,23 @@ module.exports = function (stager, settings) {
     .step('secondary_choice')
     .step('group_choice')
 
-
-    // Title
-    .stage('title')
-
     // Manipulation Checks
-    .stage('post_task')
     .step('post_task_1')
     .step('post_task_2')
-    .step('post_task_3')
 
-    // A setup to the experiment, this is in the form of a vignette, each background page is followed by an attention check
-    .stage('pre_task')
-    .step('pre_task_1')
+    // Ends
+    .stage('end_study')
+    .step('thank_you')
+    .step('debrief')
+    .step('feedback')
+
+
     .step('pre_task_2')
-    .step('pre_task_3')
-    .step('pre_task_4')
-    .step('pre_task_5')
-    .step('pre_task_6')
-
-    // An explaination of the practical aspect of the task
-    .stage('instructions_video')
-
-    // Manipulation screen
-    .stage('treatment_page')
-    .stage('treatment_2')
-
-
-
-    .stage('debrief')
-    .stage('sliders')
-    .stage('chat')
-    .stage('multi_sliders')
-    .stage('end')
+    .step('post_task_3')
+    .step('sliders')
+    .step('chat')
+    .step('multi_sliders')
+    .step('end')
     .gameover();
 
 

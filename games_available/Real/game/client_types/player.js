@@ -58,7 +58,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('title', {
         frame: 'title.html',
         cb: function () {
-            this.doneButton = this.addDoneButton('Start');
+            this.doneButton = this.addDoneButton('Continue');
         },
     });
 
@@ -172,11 +172,18 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('treatment_2', {
         frame: 'treatment_2_eval.html',
         cb: function () {
-            this.doneButton = this.addDoneButton('Begin');
+            this.doneButton = this.addDoneButton('Continue');
         },
     });
 
     // // The Task
+
+    stager.extendStep('task_start', {
+        frame: 'task_start.html',
+        cb: function () {
+            this.doneButton = this.addDoneButton('Start');
+        },
+    });
 
     stager.extendStep('initial_choice', {
         frame: 'initial_choice.html',
@@ -451,20 +458,20 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     });
 
 
-
-
     stager.extendStep('post_task_1', {
         frame: 'post_task_1.html',
         cb: function () {
 
             var options = {
-                id: 'score',
-                mainText: 'Score the item above on a scale from 0 to 10',
+                id: 'PANAS',
                 items: [
-                    'Overall Quality',
-                    'Design',
-                    'Creativity',
-                    'Abstractness'
+                    'Being rejected by other group members?',
+                    'Being ignored during a conversation?',
+                    'Being boring to the other group members?',
+                    'Being excluded from a conversation?',
+                    'What kind of impression you will make?',
+                    'Other group members not approving of you?',
+                    'Other group members finding a fault with you?'
                 ],
                 choices: [1, 2, 3, 4, 5, 6, 7],
                 shuffleItems: true,
@@ -475,6 +482,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             // Create and append the widget to the body of the page.
             var likertTable = W.getElementById('likert_table');
             var likertTableWidget = node.widgets.append('ChoiceTableGroup', likertTable, options);
+            var panelHeading = W.getElementsByClassName('panel-heading')[0];
+            panelHeading.remove();
+            var choicetableHint = W.getElementsByClassName('choicetable-hint')[0];
+            choicetableHint.remove();
 
 
             this.doneButton = this.addDoneButton('Next');
@@ -484,7 +495,39 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('post_task_2', {
         frame: 'post_task_2.html',
         cb: function () {
+
+            var options = {
+                id: 'PANAS',
+                items: [
+                    'Afraid',
+                    'Scared',
+                    'Frightened',
+                    'Nervous',
+                    'Jittery',
+                    'Shaky'
+                ],
+                choices: [1, 2, 3, 4, 5, 6, 7],
+                shuffleItems: true,
+                requiredChoice: true,
+                left: 'Lowest',
+                right: 'Highest'
+            };
+            // Create and append the widget to the body of the page.
+            var likertTable2 = W.getElementById('likert_table_2');
+            var likertTableWidget2 = node.widgets.append('ChoiceTableGroup', likertTable2, options);
+            var panelHeading = W.getElementsByClassName('panel-heading')[0];
+            panelHeading.remove();
+            var choicetableHint = W.getElementsByClassName('choicetable-hint')[0];
+            choicetableHint.remove();
+
             this.doneButton = this.addDoneButton('Next');
+        },
+    });
+
+    stager.extendStep('thank_you', {
+        frame: 'positive_mood.html',
+        cb: function () {
+            this.doneButton = this.addDoneButton('Done');
         },
     });
 
@@ -492,6 +535,12 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         frame: 'debrief.html',
         cb: function () {
             this.doneButton = this.addDoneButton('Done');
+        },
+    });
+
+    stager.extendStep('feedback', {
+        frame: 'feedback.html',
+        cb: function () {
         },
     });
 

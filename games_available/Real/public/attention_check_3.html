@@ -8,25 +8,29 @@
 
 <body>
   <div id="container">
-    <h1 style="text-align:center">Attention Check III</h1>
-    <h3 style="color:rgb(90, 90, 90)"><i>Please answer the following comprehension questions</i></h3>
+    <div style="background-color:rgb(210, 210, 210); padding: 10px;">
+      <br>
+      <h1 style="text-align:center">Attention Check III</h1>
+      <h3 style="color:rgb(90, 90, 90); text-align:center"><i>Please answer the following comprehension question</i>
+      </h3>
+    </div>
     <br>
-    <h3>Which food type(s) would you heavily invest in for the coming year?</h3>
+    <h3>Which food type(s) would you invest in most heavily?</h3>
     <br>
-    <h5 style="text-align:center">If you <strong>strongly</strong> believed that the price of;
+    <h5 style="text-align:center">If you believed that the price of;
       <br>
-      - Coffee would decrease
+      - <strong>Coffee</strong> would <strong>decrease</strong>
       <br>
-      - Wheat would remain the same
+      - <strong>Wheat</strong> would remain the <strong>same</strong>
       <br>
-      - Sugar would decrease
+      - <strong>Sugar</strong> would <strong>decrease</strong>
     </h5>
     <br>
 
-    <form class="hide-answers">
+    <form class="hide-answers" style="text-align:center">
       <p class="form-check">
         <input class="form-check-input" type="checkbox" id="com_1" name="which_commodities" value="Tea">
-        <label class="form-check-label" for="com_1">Tea</label>
+        <label class="form-check-label" for="com_1">Coffee</label>
       </p>
       <p class="form-check">
         <input class="form-check-input" type="checkbox" id="com_2" name="which_commodities" value="Wheat">
@@ -34,7 +38,7 @@
       </p>
       <p class="form-check">
         <input class="form-check-input" type="checkbox" id="com_3" name="which_commodities" value="Coffee">
-        <label class="form-check-label" for="com_3">Coffee</label>
+        <label class="form-check-label" for="com_3">Sugar</label>
       </p>
     </form>
 
@@ -45,14 +49,22 @@
       predicted
       to rise
       the most (or lose the least) throughout the coming year.</div>
-    <br><br>
+    <br>
     <div id="step_1">
-      Once you have completed the questions, please press <strong>Done</strong>.
-      <br><br>
+      <div style="background-color:rgb(210, 210, 210); padding: 10px; color:rgb(90, 90, 90)">
+        <br>
+        Once you have completed the questions, please press <strong>Done</strong>.
+        <br><br>
+      </div>
+      <br>
       <input type="button" id="done" value="Done" class="btn btn-lg btn-primary" />
     </div>
     <div id="step_2">
-      Please press <strong>Continue</strong>.
+      <div style="background-color:rgb(210, 210, 210); padding: 10px; color:rgb(90, 90, 90)">
+        <br>
+        Please press <strong>Continue</strong>.
+        <br><br>
+      </div>
       <br><br>
       <div id="done-button"></div>
     </div>
