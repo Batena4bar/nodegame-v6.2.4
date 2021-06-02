@@ -91,8 +91,16 @@ h1, h2, h3, h4, h5 {
   box-shadow: none;
 }
 
+#done-button.center > .panel.donebutton {
+  text-align: center;
+}
+
 .panel.donebutton {
   text-align: right;
+}
+
+.panel.donebutton.center {
+  text-align: center;
 }
 
 #message-template {

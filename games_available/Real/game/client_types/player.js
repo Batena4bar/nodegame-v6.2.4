@@ -58,7 +58,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('title', {
         frame: 'title.html',
         cb: function () {
-            this.doneButton = this.addDoneButton('Continue');
+            this.doneButton = this.addDoneButton('Begin');
         },
     });
 
@@ -154,7 +154,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     });
 
 
-    stager.extendStep('treatment_page', {
+    stager.extendStep('the_scenario_1', {
         /////////////////////////////////////////////////////////////
         // nodeGame hint: the settings object
         //
@@ -169,8 +169,32 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('treatment_2', {
-        frame: 'treatment_2_eval.html',
+    stager.extendStep('the_scenario_2', {
+        frame: settings.treatment_2,
+        cb: function () {
+            // var justification = W.getElementById('justification');
+            // justification.addEventListener('keydown', function (event) {
+            //     if (event.target.value < 120) {
+            //         this.doneButton.disable();
+            //     } else {
+            //         this.doneButton.enable();
+            //     }
+            // })
+
+
+
+
+            this.doneButton = node.widgets.append('DoneButton', W.getElementById('done-button'), {
+                text: 'Test',
+                enableOnPlaying: false
+            });
+            this.doneButton.removeFrame();
+            this.doneButton.disable();
+        },
+    });
+
+    stager.extendStep('the_scenario_3', {
+        frame: settings.treatment_3,
         cb: function () {
             this.doneButton = this.addDoneButton('Continue');
         },
@@ -181,7 +205,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('task_start', {
         frame: 'task_start.html',
         cb: function () {
-            this.doneButton = this.addDoneButton('Start');
+            this.doneButton = this.addDoneButton('Start Task');
         },
     });
 
@@ -218,12 +242,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             });
             linkedSlidersWidget.removeFrame();
             node.on('complete', function () {
-                console.log('Done', linkedSlidersWidget.getValues());
                 this.doneButton.enable();
             });
             // Construct done button
             node.on('incomplete', function () {
-                console.log('Undone');
                 this.doneButton.disable();
             });
             this.doneButton = node.widgets.append('DoneButton', linkedSliders);
@@ -462,22 +484,40 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         frame: 'post_task_1.html',
         cb: function () {
 
+            var items = {
+                'Being rejected by other group members?': 0,
+                'Being ignored during a conversation?': 0,
+                'Being boring to the other group members?': 0,
+                'Being excluded from a conversation?': 0,
+                'What kind of impression you will make?': 0,
+                'Other group members not approving of you?': 0,
+                'Other group members finding a fault with you?': 0,
+            }
+
             var options = {
                 id: 'PANAS',
-                items: [
-                    'Being rejected by other group members?',
-                    'Being ignored during a conversation?',
-                    'Being boring to the other group members?',
-                    'Being excluded from a conversation?',
-                    'What kind of impression you will make?',
-                    'Other group members not approving of you?',
-                    'Other group members finding a fault with you?'
-                ],
+                items: Object.keys(items),
                 choices: [1, 2, 3, 4, 5, 6, 7],
                 shuffleItems: true,
                 requiredChoice: true,
                 left: 'Lowest',
-                right: 'Highest'
+                right: 'Highest',
+                onclick: function (question, answer, deselecting) {
+                    items[question] = deselecting ? 0 : answer + 1;
+                    var answers = Object.values(items);
+                    var allAnswered = true;
+                    for (var index = 0; index < answers.length; index++) {
+                        if (answers[index] === 0) {
+                            allAnswered = false;
+                            break;
+                        }
+                    }
+                    if (allAnswered) {
+                        this.doneButton.enable();
+                    } else {
+                        this.doneButton.disable();
+                    }
+                }
             };
             // Create and append the widget to the body of the page.
             var likertTable = W.getElementById('likert_table');
@@ -487,8 +527,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             var choicetableHint = W.getElementsByClassName('choicetable-hint')[0];
             choicetableHint.remove();
 
-
             this.doneButton = this.addDoneButton('Next');
+            this.doneButton.disable();
         },
     });
 

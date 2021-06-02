@@ -29,14 +29,14 @@ module.exports = {
      * used to initialize the game timer for the step.
      */
     TIMER: {
-        title: 120000,
-        pre_task_1: 120000,
-        pre_task_2: 120000,
-        pre_task_3: 120000,
-        pre_task_4: 120000,
+        title: null,
+        pre_task_1: null,
+        pre_task_2: null,
+        pre_task_3: null,
+        pre_task_4: null,
         pre_task_5: 120000,
         instructions_video: null,
-        treatment_page: 80000
+        treatment_page: null
     },
 
     // # Game specific properties
@@ -62,47 +62,64 @@ module.exports = {
 
         control: {
             description: "No fear applied.",
-            treatment: 'treatment_control.html'
+            treatment: 'treatment_control.html',
+            treatment_2: 'treatment_control.html',
+            treatment_3: 'treatment_control.html'
         },
 
         internal_rejection: {
             description: "Internally originated Interpersonal Rejection fear applied.",
-            treatment: 'treatment_internal_rejection.html'
+            treatment: 'treatment_internal_rejection.html',
+            treatment_2: 'treatment_2_internal_reject.html',
+            treatment_3: 'treatment_control.html'
         },
 
         external_rejection: {
             description: "Externally originated Interpersonal Rejection fear applied.",
-            treatment: 'treatment_external_rejection.html'
+            treatment: 'treatment_external_rejection.html',
+            treatment_2: 'treatment_2_external_reject.html',
+            treatment_3: 'treatment_control.html'
         },
 
         internal_evaluation: {
             description: "Internally originated Negative Evaluation fear applied.",
-            treatment: 'treatment_internal_evaluation.html'
+            treatment: 'treatment_internal_evaluation.html',
+            treatment_2: 'treatment_2_internal_eval.html',
+            treatment_3: 'treatment_control.html'
         },
 
         external_evaluation: {
             description: "Externally originated Negative Evaluation fear applied.",
-            treatment: 'treatment_external_evaluation.html'
+            treatment: 'treatment_external_evaluation.html',
+            treatment_2: 'treatment_2_external_eval.html',
         },
 
         internal_rej_vin: {
             description: "Internally originated Interpersonal Rejection fear from vingette.",
-            treatment: 'treatment_internal_rej_vin.html'
+            treatment: 'treatment_internal_rej_vin.html',
+            treatment_2: 'treatment_2_internal_reject.html',
+            treatment_3: 'treatment_internal_rejection.html'
         },
 
         external_rej_vin: {
             description: "Externally originated Interpersonal Rejection fear from vingette.",
-            treatment: 'treatment_external_rej_vin.html'
+            treatment: 'treatment_external_rej_vin.html',
+            treatment_2: 'treatment_2_external_reject.html',
+            treatment_3: 'treatment_external_rejection.html'
         },
 
         internal_repraisal_vin: {
             description: "Internally originated Repraisal fear applied from vingette.",
-            treatment: 'treatment_internal_repraisal_vin.html'
+            treatment: 'treatment_internal_repraisal_vin.html',
+            treatment_2: 'treatment_2_internal_rep.html',
+            treatment_3: 'treatment_control.html'
         },
 
         external_repraisal_vin: {
             description: "Externally originated Repraisal fear applied from vingette.",
-            treatment: 'treatment_external_repraisal_vin.html'
+            treatment: 'treatment_external_repraisal_vin.html',
+            treatment_2: 'treatment_2_external_rep.html',
+            treatment_3: 'treatment_control.html'
         }
     }
 };
