@@ -69,20 +69,6 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('pre_task_3', {
-        frame: 'background_2.html',
-        cb: function () {
-            this.doneButton = this.addDoneButton('Continue');
-        },
-    });
-
-    stager.extendStep('pre_task_5', {
-        frame: 'background_3.html',
-        cb: function () {
-            this.doneButton = this.addDoneButton('Continue');
-        },
-    });
-
     stager.extendStep('pre_task_2', {
         frame: 'attention_check_1.html',
         cb: function () {
@@ -102,6 +88,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
+    stager.extendStep('pre_task_3', {
+        frame: 'background_2.html',
+        cb: function () {
+            this.doneButton = this.addDoneButton('Continue');
+        },
+    });
+
     stager.extendStep('pre_task_4', {
         frame: 'attention_check_2.html',
         cb: function () {
@@ -118,6 +111,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 }
             };
             step2.style = "display: none;"
+        },
+    });
+
+    stager.extendStep('pre_task_5', {
+        frame: 'background_3.html',
+        cb: function () {
+            this.doneButton = this.addDoneButton('Continue');
         },
     });
 
@@ -495,29 +495,29 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             }
 
             var options = {
-                id: 'PANAS',
+                id: 'post_task_1',
                 items: Object.keys(items),
                 choices: [1, 2, 3, 4, 5, 6, 7],
                 shuffleItems: true,
                 requiredChoice: true,
                 left: 'Lowest',
                 right: 'Highest',
-                onclick: function (question, answer, deselecting) {
-                    items[question] = deselecting ? 0 : answer + 1;
-                    var answers = Object.values(items);
-                    var allAnswered = true;
-                    for (var index = 0; index < answers.length; index++) {
-                        if (answers[index] === 0) {
-                            allAnswered = false;
-                            break;
-                        }
-                    }
-                    if (allAnswered) {
-                        this.doneButton.enable();
-                    } else {
-                        this.doneButton.disable();
-                    }
-                }
+                // onclick: function (question, answer, deselecting) {
+                //     items[question] = deselecting ? 0 : answer + 1;
+                //     var answers = Object.values(items);
+                //     var allAnswered = true;
+                //     for (var index = 0; index < answers.length; index++) {
+                //         if (answers[index] === 0) {
+                //             allAnswered = false;
+                //             break;
+                //         }
+                //     }
+                //     if (allAnswered) {
+                //         this.doneButton.enable();
+                //     } else {
+                //         this.doneButton.disable();
+                //     }
+                // }
             };
             // Create and append the widget to the body of the page.
             var likertTable = W.getElementById('likert_table');
@@ -528,7 +528,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             choicetableHint.remove();
 
             this.doneButton = this.addDoneButton('Next');
-            this.doneButton.disable();
+            //this.doneButton.disable();
         },
     });
 
@@ -537,7 +537,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         cb: function () {
 
             var options = {
-                id: 'PANAS',
+                id: 'post_task_2',
                 items: [
                     'Afraid',
                     'Scared',

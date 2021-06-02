@@ -182,3 +182,7 @@ h1, h2, h3, h4, h5 {
 div.a {
   outline: 2px dashed black;
 }
+
+.feedback-char-count {
+  color: white;
+}
