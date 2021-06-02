@@ -23,10 +23,6 @@ module.exports = function (stager, settings) {
     // Title
     .stage('title')
 
-    .step('the_scenario_1')
-    .step('the_scenario_2')
-    .step('the_scenario_3')
-
     // A setup to the experiment, this is in the form of a vignette, each background page is followed by an attention check
     .stage('pre_task')
     .step('pre_task_1')
@@ -39,7 +35,9 @@ module.exports = function (stager, settings) {
     .step('instructions_video')
 
     // Manipulation screen
-
+    .step('the_scenario_1')
+    .step('the_scenario_2')
+    .step('the_scenario_3')
     .step('task_start')
 
     // The task
