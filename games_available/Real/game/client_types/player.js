@@ -59,6 +59,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         frame: 'title.html',
         cb: function () {
             this.doneButton = this.addDoneButton('Begin');
+            node.set({ value: { sam: 'hello' } });
         },
     });
 

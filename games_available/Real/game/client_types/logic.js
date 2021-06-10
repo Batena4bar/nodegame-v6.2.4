@@ -176,6 +176,15 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
   // Extends Stages and Steps where needed.
 
+  stager.extendStep('title', {
+    exit: function () {
+      node.game.pl.each(function (player) {
+        console.log('hello!', player.id);
+        memory.player[player.id].save('data_player_' + player.id + '.json');
+      });
+    },
+  });
+
   stager.extendStep('sliders', {
     cb: function () {
       this.savedResults = {};
