@@ -1,9 +1,48 @@
 #container {
+  background-color:rgb(210, 210, 210);
+  overflow: auto;
   margin: 0 auto;
   padding-top: 20px;
   max-width: 42em; 
   font-size: 20px;
   position: relative;
+}
+
+#container.warning {
+  color: white;
+  background-color: darkred;
+}
+
+#container.task {
+  color: white;
+  background-color: black;
+}
+
+#header,
+#footer {
+  padding: 40px;
+}
+
+#footer {
+  text-align: right;
+}
+
+#information {
+  color: black;
+  background-color: white;
+  padding: 40px 20px;
+}
+
+#information.big {
+  font-size: larger;
+}
+
+span#done-button {
+  margin-left: 20px;
+}
+
+span#done-button > div {
+  display: inline-block;
 }
 
 h1, h2, h3, h4, h5 {

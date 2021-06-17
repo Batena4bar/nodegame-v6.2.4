@@ -29,14 +29,26 @@ module.exports = {
      * used to initialize the game timer for the step.
      */
     TIMER: {
-        title: null,
-        pre_task_1: null,
-        pre_task_2: null,
-        pre_task_3: null,
-        pre_task_4: null,
-        pre_task_5: 120000,
-        instructions_video: null,
-        treatment_page: null
+
+        info_and_consent_1: 240000,
+        info_and_consent_2: null,
+        title: 20000,
+        pre_task_1: 60000,
+        pre_task_3: 40000,
+        pre_task_4: 40000,
+        pre_task_5: 60000,
+        pre_task_6: 60000,
+        instructions_video: 120000,
+        //the_scenario_1: 60000,
+        //the_scenario_2: 60000,
+        //the_scenario_3: 60000,
+        task_start: 20000,
+        initial_choice: 300000,
+        guided_communication: 300000,
+        secondary_choice: 120000,
+        group_choice: 240000,
+        post_task_1: 120000,
+        post_task_2: 120000,
     },
 
     // # Game specific properties
@@ -69,57 +81,44 @@ module.exports = {
 
         internal_rejection: {
             description: "Internally originated Interpersonal Rejection fear applied.",
-            treatment: 'treatment_internal_rejection.html',
-            treatment_2: 'treatment_2_internal_reject.html',
-            treatment_3: 'treatment_control.html'
-        },
-
-        external_rejection: {
-            description: "Externally originated Interpersonal Rejection fear applied.",
-            treatment: 'treatment_external_rejection.html',
-            treatment_2: 'treatment_2_external_reject.html',
-            treatment_3: 'treatment_control.html'
-        },
-
-        internal_evaluation: {
-            description: "Internally originated Negative Evaluation fear applied.",
-            treatment: 'treatment_internal_evaluation.html',
-            treatment_2: 'treatment_2_internal_eval.html',
-            treatment_3: 'treatment_control.html'
-        },
-
-        external_evaluation: {
-            description: "Externally originated Negative Evaluation fear applied.",
-            treatment: 'treatment_external_evaluation.html',
-            treatment_2: 'treatment_2_external_eval.html',
-        },
-
-        internal_rej_vin: {
-            description: "Internally originated Interpersonal Rejection fear from vingette.",
             treatment: 'treatment_internal_rej_vin.html',
             treatment_2: 'treatment_2_internal_reject.html',
             treatment_3: 'treatment_internal_rejection.html'
         },
 
-        external_rej_vin: {
-            description: "Externally originated Interpersonal Rejection fear from vingette.",
+        external_rejection: {
+            description: "Externally originated Interpersonal Rejection fear applied.",
             treatment: 'treatment_external_rej_vin.html',
             treatment_2: 'treatment_2_external_reject.html',
             treatment_3: 'treatment_external_rejection.html'
         },
 
-        internal_repraisal_vin: {
+        internal_evaluation: {
+            description: "Internally originated Negative Evaluation fear applied.",
+            treatment: 'treatment_internal_eval_vin.html',
+            treatment_2: 'treatment_2_internal_eval.html',
+            treatment_3: 'treatment_internal_evaluation.html'
+        },
+
+        external_evaluation: {
+            description: "Externally originated Negative Evaluation fear applied.",
+            treatment: 'treatment_external_eval_vin.html',
+            treatment_2: 'treatment_2_external_eval.html',
+            treatment_3: 'treatment_external_evaluation.html'
+        },
+
+        internal_repraisal: {
             description: "Internally originated Repraisal fear applied from vingette.",
             treatment: 'treatment_internal_repraisal_vin.html',
             treatment_2: 'treatment_2_internal_rep.html',
-            treatment_3: 'treatment_control.html'
+            treatment_3: 'treatment_internal_reprisal.html'
         },
 
-        external_repraisal_vin: {
+        external_repraisal: {
             description: "Externally originated Repraisal fear applied from vingette.",
             treatment: 'treatment_external_repraisal_vin.html',
             treatment_2: 'treatment_2_external_rep.html',
-            treatment_3: 'treatment_control.html'
+            treatment_3: 'treatment_external_reprisal.html'
         }
     }
 };

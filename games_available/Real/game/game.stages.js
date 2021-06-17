@@ -21,7 +21,10 @@ module.exports = function (stager, settings) {
   stager
 
     // Title
-    .stage('title')
+    .stage('info_and_consent')
+    .step('info_and_consent_1')
+    .step('info_and_consent_2')
+    .step('title')
 
     // A setup to the experiment, this is in the form of a vignette, each background page is followed by an attention check
     .stage('pre_task')

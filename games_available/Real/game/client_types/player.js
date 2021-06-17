@@ -19,7 +19,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
     // Sets the default globals.
     stager.setDefaultGlobals({
-        tabData: ['dummy']
+        tabData: ['dummy'],
+        attentionCheck: null,
     });
 
     stager.setOnInit(function () {
@@ -52,6 +53,20 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
         // Additional debug information while developing the game.
         // this.debugInfo = node.widgets.append('DebugInfo', header)
+    });
+
+    stager.extendStep('info_and_consent_1', {
+        frame: 'information_sheet.html',
+        cb: function () {
+            this.doneButton = this.addDoneButton('Continue');
+        },
+    });
+
+    stager.extendStep('info_and_consent_2', {
+        frame: 'consent_form.html',
+        cb: function () {
+            this.doneButton = this.addDoneButton('Continue');
+        },
     });
 
     // This bit
@@ -148,8 +163,15 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
         cb: function () {
             this.doneButton = this.addDoneButton('Continue');
+            var title = W.getElementById('title');
+            node.game.globals.attentionCheck = false;
+            title.onclick = function () {
+                node.game.globals.attentionCheck = true;
+                node.done();
+            }
         },
         exit: function () {
+            // node.set({ value: { attention_check: node.game.globals.attentionCheck } });
             node.game.visualTimer.show();
         },
     });
