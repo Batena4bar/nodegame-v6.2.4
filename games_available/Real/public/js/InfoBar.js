@@ -119,7 +119,7 @@
       var $button = $('<button>')
         .prop('type', 'button')
         .addClass('btn btn-lg btn-outline-secondary')
-        .text(tab.id);
+        .html('<span class="fa fa-' + tab.icon + '"></span>');
       $button.click(function (event) {
         closeBubble();
 

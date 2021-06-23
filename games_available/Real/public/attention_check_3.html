@@ -6,67 +6,65 @@
 
 <script src="https://kit.fontawesome.com/5ec0f5153d.js" crossorigin="anonymous"></script>
 
+
 <body>
-  <div id="container">
-    <div style="background-color:rgb(210, 210, 210); padding: 10px;">
-      <br>
+  <div id="container" class="background">
+    <div id="header">
       <h1 style="text-align:center">Attention Check III</h1>
       <h3 style="color:rgb(90, 90, 90); text-align:center"><i>Please answer the following comprehension question</i>
       </h3>
     </div>
-    <br>
-    <h3>Which food type(s) would you invest in most heavily?</h3>
-    <br>
-    <h5 style="text-align:center">If you believed that the price of;
+    <div id="information">
+      <h3>Which food type(s) would you invest in most heavily?</h3>
       <br>
-      - <strong>Coffee</strong> would <strong>decrease</strong>
-      <br>
-      - <strong>Wheat</strong> would remain the <strong>same</strong>
-      <br>
-      - <strong>Sugar</strong> would <strong>decrease</strong>
-    </h5>
-    <br>
-
-    <form class="hide-answers" style="text-align:center">
-      <p class="form-check">
-        <input class="form-check-input" type="checkbox" id="com_1" name="which_commodities" value="Tea">
-        <label class="form-check-label" for="com_1">Coffee</label>
-      </p>
-      <p class="form-check">
-        <input class="form-check-input" type="checkbox" id="com_2" name="which_commodities" value="Wheat">
-        <label class="form-check-label" for="com_2">Wheat <i class="fas fa-check"></i></label>
-      </p>
-      <p class="form-check">
-        <input class="form-check-input" type="checkbox" id="com_3" name="which_commodities" value="Coffee">
-        <label class="form-check-label" for="com_3">Sugar</label>
-      </p>
-    </form>
-
-
-
-    <br>
-    <div style="color:rgb(90, 90, 90)"><strong>Remember</strong>: It is best to buy food types whose prices are
-      predicted
-      to rise
-      the most (or lose the least) throughout the coming year.</div>
-    <br>
-    <div id="step_1">
-      <div style="background-color:rgb(210, 210, 210); padding: 10px; color:rgb(90, 90, 90)">
+      <div style="width: 400px; margin: 0 auto;">
+        <h5>If you believed that the price of:</h5>
+        <ul>
+          <li>
+            <strong>Coffee</strong> would <strong>decrease</strong>
+          </li>
+          <li>
+            <strong>Wheat</strong> would remain the <strong>same</strong>
+          </li>
+          <li>
+            <strong>Sugar</strong> would <strong>decrease</strong>
+          </li>
+        </ul>
         <br>
-        Once you have completed the questions, please press <strong>Done</strong>.
-        <br><br>
+        <form class="hide-answers" style="width: 200px; margin: 0 auto;">
+          <p class="form-check">
+            <input class="form-check-input" type="checkbox" id="com_1" name="which_commodities" value="Tea">
+            <label class="form-check-label" for="com_1">Coffee</label>
+          </p>
+          <p class="form-check">
+            <input class="form-check-input" type="checkbox" id="com_2" name="which_commodities" value="Wheat">
+            <label class="form-check-label" for="com_2">Wheat <i class="fas fa-check"></i></label>
+          </p>
+          <p class="form-check">
+            <input class="form-check-input" type="checkbox" id="com_3" name="which_commodities" value="Coffee">
+            <label class="form-check-label" for="com_3">Sugar</label>
+          </p>
+        </form>
       </div>
+
       <br>
-      <input type="button" id="done" value="Done" class="btn btn-lg btn-primary" />
+      <p style="color:rgb(90, 90, 90)"><strong>Remember</strong>: It is best to buy food types whose prices are
+        predicted to rise the most (or lose the least) throughout the coming year.
+      </p>
     </div>
-    <div id="step_2">
-      <div style="background-color:rgb(210, 210, 210); padding: 10px; color:rgb(90, 90, 90)">
-        <br>
-        The correct answer is marked with a tick (<i class="fas fa-check"></i>) above. Now, please press <strong>Continue</strong>.
-        <br><br>
+    <div id="footer">
+      <div id="step_1">
+        <p>
+          Once you have completed the questions, please press...
+          <input type="button" id="done" value="Done" class="btn btn-lg btn-primary" />
+        </p>
       </div>
-      <br><br>
-      <div id="done-button"></div>
+      <div id="step_2">
+        <p>
+          The correct answer is marked with a (<i class="fas fa-check"></i>). Now, please press...
+          <span id="done-button"></span>
+        </p>
+      </div>
     </div>
   </div>
 </body>

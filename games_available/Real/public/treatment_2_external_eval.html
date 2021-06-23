@@ -5,31 +5,32 @@
 <link rel="stylesheet" href="css/style.css">
 
 <body>
-  <div id="container">
-    <div style="background-color:rgb(255, 32, 32); color:white">
-      <br>
-      <h1 style="text-align:center;">Reflection</h1>
-      <br>
+  <div id="container" class="warning">
+    <div id="header">
+      <h1>Reflection</h1>
     </div>
-    <div id="instructions">
-      <br>
-      <img src="imgs/fear_face_140_y_f_f_b.jpg" alt="Title Picture" class="center" style="width:260px; height:auto;">
-      <br>
-      <h3>
+    <div id="information">
+      <p>
+        <img src="imgs/fear_face_140_y_f_f_b.jpg" alt="Title Picture" class="center" style="width:260px; height:auto;">
+      </p>
+      <p>
         Please provide one/two sentences describing how it would make you feel for a superior to identify you as
         detrimental to the rest of the team.
-      </h3>
+      </p>
+      <p>
+        <textarea id="justification" maxlength="240"
+          placeholder="Please enter your description here (max. 240 chars)..."></textarea>
+      </p>
       <br>
-      <textarea id="justification" maxlength="240"
-        placeholder="Please enter your description here (max. 240 chars)..."></textarea>
-      <br><br>
-      <div style="background-color:rgb(255, 32, 32); padding: 10px; color:rgb(255, 180, 180)">
-        <br>
+      <div id="footer">
         If you are ready to start the group task, press <strong>Begin</strong>.
-        <br><br>
       </div>
-      <br>
     </div>
-    <div id="done-button"></div>
+    <div id="footer">
+      <p>
+        Once you have filled out the textbox provided, press...
+        <span id="done-button"></span>
+      </p>
+    </div>
   </div>
 </body>

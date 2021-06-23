@@ -7,51 +7,46 @@
 <script src="https://kit.fontawesome.com/5ec0f5153d.js" crossorigin="anonymous"></script>
 
 
-
 <body>
-  <div id="container">
-    <div style="background-color:rgb(210, 210, 210); padding: 10px;">
-      <br>
-      <h1 style="text-align:center">Attention Check II</h1>
-      <h3 style="color:rgb(90, 90, 90); text-align:center"><i>Please answer the following comprehension question</i>
-      </h3>
+  <div id="container" class="background">
+    <div id="header">
+      <h1 style="text-align:center">Attention Check I</h1>
+      <h3 style="color:rgb(90, 90, 90); text-align:center"><i>Please answer the following question</i></h3>
     </div>
-    <br>
-    <h3>Which best describes how information is distributed within the group?</h3>
-    <br><br>
-    <form class="hide-answers">
-      <p class="form-check">
-        <input class="form-check-input" type="radio" id="why_1" name="why" value="make_money">
-        <label class="form-check-label" for="why_1">All pieces of information are held by one individual.</label>
+    <div id="information">
+      <p>
+      <h3>Which best describes how information is distributed within the group?</h3>
       </p>
-      <p class="form-check">
-        <input class="form-check-input" type="radio" id="why_2" name="why" value="protect">
-        <label class="form-check-label" for="why_2">All pieces of information are shared between everyone.</label>
-      </p>
-      <p class="form-check">
-        <input class="form-check-input" type="radio" id="why_3" name="why" value="maximise">
-        <label class="form-check-label" for="why_3">Some pieces of information are held by one individual, some are
-          shared. <i class="fas fa-check"></i></label>
-      </p>
-    </form>
-    <br><br>
-    <div id="step_1">
-      <div style="background-color:rgb(210, 210, 210); padding: 10px; color:rgb(90, 90, 90)">
-        <br>
-        Once you have completed the questions, please press <strong>Done</strong>.
-        <br><br>
-      </div>
       <br>
-      <input type="button" id="done" value="Done" class="btn btn-lg btn-primary" />
+      <form class="hide-answers">
+        <p class="form-check">
+          <input class="form-check-input" type="radio" id="why_1" name="why" value="make_money">
+          <label class="form-check-label" for="why_1">All pieces of information are held by one individual.</label>
+        </p>
+        <p class="form-check">
+          <input class="form-check-input" type="radio" id="why_2" name="why" value="protect">
+          <label class="form-check-label" for="why_2">All pieces of information are shared between everyone.</label>
+        </p>
+        <p class="form-check">
+          <input class="form-check-input" type="radio" id="why_3" name="why" value="maximise">
+          <label class="form-check-label" for="why_3">Some pieces of information are held by one individual, some are
+            shared. <i class="fas fa-check"></i></label>
+        </p>
+      </form>
     </div>
-    <div id="step_2">
-      <div style="background-color:rgb(210, 210, 210); padding: 10px; color:rgb(90, 90, 90)">
-        <br>
-        The correct answer is marked with a tick (<i class="fas fa-check"></i>) above. Now, please press <strong>Continue</strong>.
-        <br><br>
+    <div id="footer">
+      <div id="step_1">
+        <p>
+          Once you have completed the questions, please press...
+          <input type="button" id="done" value="Done" class="btn btn-lg btn-primary" />
+        </p>
       </div>
-      <br><br>
-      <div id="done-button"></div>
+      <div id="step_2">
+        <p>
+          The correct answer is marked with a (<i class="fas fa-check"></i>). Now, please press...
+          <span id="done-button"></span>
+        </p>
+      </div>
     </div>
   </div>
 </body>

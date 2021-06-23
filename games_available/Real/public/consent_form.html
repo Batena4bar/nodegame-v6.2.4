@@ -9,60 +9,70 @@
 
 
 <body>
-    <div id="container">
-        <div style="padding: 10px; outline:0.01em solid black;">
-            <br>
-            <h1 style="text-align:center">Consent Form</h1>
-            <h5 style="color:rgb(90, 90, 90); text-align:center"><i>Please read the each declaration and check each box
+    <div id="container" class="consent">
+        <div id="header" style="padding-bottom: 20px">
+            <h1>Consent Form</h1>
+            <h5 h5 style="color:rgb(90, 90, 90); text-align:center"><i>Please read the each declaration and check each
+                    box
                     if you are happy to participate in the study.</i>
             </h5>
         </div>
-        <br>
-        <form>
-            <p class="form-check">
-                <input class="form-check-input" type="checkbox" id="com_1" name="Consent_1" value=1>
-                <label class="form-check-label" for="com_1">I confirm that I have read the attached information sheet
-                    (Version 1, Date 17/06/2021) for the above study and have had the opportunity to consider the
-                    information and ask questions and had these answered satisfactorily.</label>
-            </p>
-            <p class="form-check">
-                <input class="form-check-input" type="checkbox" id="com_2" name="Consent_2" value=2>
-                <label class="form-check-label" for="com_2">I understand that my participation in the study is voluntary
-                    and that I am free to withdraw at any time without giving a reason and without detriment to myself.
-                    I understand that it will not be possible to remove my data from the project once it has been
-                    anonymised and forms part of the data set.</label>
-            </p>
-            <p class="form-check">
-                <input class="form-check-input" type="checkbox" id="com_3" name="Consent_3" value=3>
-                <label class="form-check-label" for="com_3">I agree that any data collected may be published in
-                    anonymous form in academic journals, a PhD thesis and on a public online repository.</label>
-            </p>
-            <p class="form-check">
-                <input class="form-check-input" type="checkbox" id="com_3" name="Consent_4" value=4>
-                <label class="form-check-label" for="com_3">I have read and understood the potential risks outlined in
-                    the information sheet, and am happy to take part in this study.</label>
-            </p>
-            <p class="form-check">
-                <input class="form-check-input" type="checkbox" id="com_3" name="Consent_5" value=5>
-                <label class="form-check-label" for="com_3">I agree to take part in this study.</label>
-            </p>
-        </form>
-        <br><br>
-        The personal information we collect and use to conduct this research will be processed in accordance with data
-        protection law as explained in the Participant Information Sheet and the <a
-            href="http://documents.manchester.ac.uk/display.aspx?DocID=37095">Privacy Notice for Research
-            Participants</a>.
-        <br><br>
-        Evidence that you have completed this consent form will be saved along with your personal information for the
-        pseudo anonymisation in an encrypted file and saved in the same secure location.
-        <br><br>
-        <div style="outline:0.01em solid black; padding: 10px; color:rgb(90, 90, 90)">
+        <div id="information">
+            <form>
+                <p class="form-check">
+                    <input class="form-check-input" type="checkbox" id="com_1" name="Consent_1" value=1>
+                    <label class="form-check-label" for="com_1">I confirm that I have read the attached information
+                        sheet
+                        (Version 1, Date 17/06/2021) for the above study and have had the opportunity to consider the
+                        information and ask questions and had these answered satisfactorily.</label>
+                </p>
+                <p class="form-check">
+                    <input class="form-check-input" type="checkbox" id="com_2" name="Consent_2" value=2>
+                    <label class="form-check-label" for="com_2">I understand that my participation in the study is
+                        voluntary
+                        and that I am free to withdraw at any time without giving a reason and without detriment to
+                        myself.
+                        I understand that it will not be possible to remove my data from the project once it has been
+                        anonymised and forms part of the data set.</label>
+                </p>
+                <p class="form-check">
+                    <input class="form-check-input" type="checkbox" id="com_3" name="Consent_3" value=3>
+                    <label class="form-check-label" for="com_3">I agree that any data collected may be published in
+                        anonymous form in academic journals, a PhD thesis and on a public online repository.</label>
+                </p>
+                <p class="form-check">
+                    <input class="form-check-input" type="checkbox" id="com_3" name="Consent_4" value=4>
+                    <label class="form-check-label" for="com_3">I have read and understood the potential risks outlined
+                        in
+                        the information sheet, and am happy to take part in this study.</label>
+                </p>
+                <p class="form-check">
+                    <input class="form-check-input" type="checkbox" id="com_3" name="Consent_5" value=5>
+                    <label class="form-check-label" for="com_3">I agree to take part in this study.</label>
+                </p>
+            </form>
             <br>
-            If you have agreed to all declarations, press
-            <strong>Continue</strong>.
-            <br><br>
+            <p>
+                The personal information we collect and use to conduct this research will be processed in accordance
+                with
+                data
+                protection law as explained in the Participant Information Sheet and the <a
+                    href="http://documents.manchester.ac.uk/display.aspx?DocID=37095">Privacy Notice for Research
+                    Participants</a>.
+            </p>
+            <p>
+                Evidence that you have completed this consent form will be saved along with your personal information
+                for
+                the
+                pseudo anonymisation in an encrypted file and saved in the same secure location.
+            </p>
         </div>
-        <br>
-        <div id="done-button"></div>
+
+        <div id="footer" style="outline:0.01em solid black;">
+            <p>
+                If you have agreed to all declarations, press...
+                <span id="done-button"></span>
+            </p>
+        </div>
     </div>
 </body>

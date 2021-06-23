@@ -9,67 +9,68 @@
 <script src="https://kit.fontawesome.com/5ec0f5153d.js" crossorigin="anonymous"></script>
 
 <body>
-  <div id="container">
-    <div style="background-color:rgb(34, 34, 34); padding: 10px; color:white">
-      <br>
-      <h1 style="text-align:center">Group Chat</h1>
-      <br>
+  <div id="container" class="task">
+    <div id="header">
+      <p>
+      <h1>Group Chat</h1>
+      </p>
     </div>
-    <br>
-    <div style="border: 1px solid tomato; padding: 10px;">
-      <strong>Instructions</strong>: The chat box provided can be used to exchange information with the other
-      participants. To send a
-      message; you are required to provide a Topic, a Belief and a Justification.
+    <div id="information">
       <br>
-      The Topic <strong>must</strong> be one of the pieces of
-      information you have been given. To choose a Topic, simply select the information tab and click
-      on it's title.
-    </div>
-    <br>
-    <div class="panels">
-      <div id="info-bar"></div>
-      <div>
-        <div id="chat"></div>
-        <div id="message-template">
-          <div>
-            <span>Topic:</span>
-            <span id="topic"></span>
+      <div style="border: 1px solid tomato; padding: 10px;">
+        <strong>Instructions</strong>: The chat box provided can be used to exchange information with the other
+        participants. To send a
+        message; you are required to provide a Topic, a Belief and a Justification.
+        <br>
+        The Topic <strong>must</strong> be one of the pieces of
+        information you have been given. To choose a Topic, simply select the information tab and click
+        on it's title.
+      </div>
+      <br>
+      <div class="panels">
+        <div id="info-bar"></div>
+        <div>
+          <div id="chat"></div>
+          <div id="message-template">
+            <div>
+              <span>Topic:</span>
+              <span id="topic"></span>
+            </div>
+            <div>
+              <span>Belief:</span>
+              <select id="commodity_1">
+                <option value="">Commodity 1</option>
+                <option value="Wheat">Wheat</option>
+                <option value="Coffee">Coffee</option>
+                <option value="Sugar">Sugar</option>
+                <option value="Others">Others</option>
+              </select>
+              <select id="proposition">
+                <option value="">Proposition</option>
+                <option value="<">is a worse investment than</option>
+                <option value="=">is as good an investment as</option>
+                <option value=">">is a better investment than</option>
+              </select>
+              <select id="commodity_2">
+                <option value="">Commodity 2</option>
+                <option value="Wheat">Wheat</option>
+                <option value="Coffee">Coffee</option>
+                <option value="Sugar">Sugar</option>
+                <option value="Others">Others</option>
+              </select>
+            </div>
+            <div>
+              <span>Justification: </span>
+              <textarea id="justification" maxlength="120"
+                placeholder="Enter your justification here (max. 120 chars)..."></textarea>
+            </div>
+            <div>
+              <button id="send" class="btn btn-light">Send</button>
+            </div>
           </div>
-          <div>
-            <span>Belief:</span>
-            <select id="commodity_1">
-              <option value="">Commodity 1</option>
-              <option value="Wheat">Wheat</option>
-              <option value="Coffee">Coffee</option>
-              <option value="Sugar">Sugar</option>
-              <option value="Others">Others</option>
-            </select>
-            <select id="proposition">
-              <option value="">Proposition</option>
-              <option value="<">is a worse investment than</option>
-              <option value="=">is as good an investment as</option>
-              <option value=">">is a better investment than</option>
-            </select>
-            <select id="commodity_2">
-              <option value="">Commodity 2</option>
-              <option value="Wheat">Wheat</option>
-              <option value="Coffee">Coffee</option>
-              <option value="Sugar">Sugar</option>
-              <option value="Others">Others</option>
-            </select>
-          </div>
-          <div>
-            <span>Justification: </span>
-            <textarea id="justification" maxlength="120"
-              placeholder="Enter your justification here (max. 120 chars)..."></textarea>
-          </div>
-          <div>
-            <button id="send" class="btn btn-light">Send</button>
-          </div>
+          <div id="continue"></div>
         </div>
-        <div id="continue"></div>
       </div>
     </div>
-
   </div>
 </body>

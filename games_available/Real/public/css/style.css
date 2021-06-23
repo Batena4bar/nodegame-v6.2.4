@@ -1,5 +1,4 @@
 #container {
-  background-color:rgb(210, 210, 210);
   overflow: auto;
   margin: 0 auto;
   padding-top: 20px;
@@ -8,14 +7,18 @@
   position: relative;
 }
 
+#container.background {
+  background-color:rgb(210, 210, 210);
+}
+
 #container.warning {
   color: white;
-  background-color: darkred;
+  background-color: rgb(255, 100, 100);
 }
 
 #container.task {
   color: white;
-  background-color: black;
+  background-color: rgb(100, 100, 100);
 }
 
 #header,
@@ -27,17 +30,43 @@
   text-align: right;
 }
 
+#header {
+  text-align:center;
+}
+
+#container.consent>#header {
+  padding: 20px;
+}
+
 #information {
   color: black;
   background-color: white;
   padding: 40px 20px;
+  
+}
+
+#container.consent>#information {
+  padding-top: 0px;
+}
+
+#container.consent>#information>h3 {
+  color:rgb(210, 210, 210);
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+#container.consent>#information>h5 {
+  font-weight: bold; 
+  
 }
 
 #information.big {
   font-size: larger;
 }
 
-span#done-button {
+span#done-button,
+input#done {
   margin-left: 20px;
 }
 

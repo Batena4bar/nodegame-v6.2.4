@@ -58,6 +58,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('info_and_consent_1', {
         frame: 'information_sheet.html',
         cb: function () {
+            console.log(W)
+            W.willResizeFrame = true;
             this.doneButton = this.addDoneButton('Continue');
         },
     });
@@ -171,7 +173,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             }
         },
         exit: function () {
-            // node.set({ value: { attention_check: node.game.globals.attentionCheck } });
+            node.set({ value: { attention_check: node.game.globals.attentionCheck } });
             node.game.visualTimer.show();
         },
     });
