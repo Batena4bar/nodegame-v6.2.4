@@ -5,30 +5,30 @@
 <link rel="stylesheet" href="css/style.css">
 
 <body>
-    <div id="container">
-        <div style="background-color:rgb(255, 32, 32); color:white">
-            <br>
-            <h1 style="text-align:center">Reflection</h1>
+    <div id="container" class="warning">
+        <div id="header">
+            <h1>Reflection</h1>
+        </div>
+        <div id="information">
+            <p>
+                <img src="imgs/fear_face_140_y_f_f_b.jpg" alt="Title Picture" class="center"
+                    style="width:260px; height:auto;">
+            </p>
+            <p>
+                Please provide one/two sentences describing how you think you might feel if you received an outburst of
+                anger from one of your colleagues.
+            </p>
+            <p>
+                <textarea id="justification" maxlength="240"
+                    placeholder="Please enter your description here (max. 240 chars)..."></textarea>
+            </p>
             <br>
         </div>
-        <div id="instructions">
-            <br>
-            <img src="imgs/fear_face_140_y_f_f_b.jpg" alt="Title Picture" class="center"
-                style="width:260px; height:auto;">
-            <br>
-            <h3>Please provide one/two sentences describing how you think you might feel if you received an outburst of
-                anger from one of your colleagues.</h3>
-            <br>
-            <textarea id="justification" maxlength="240"
-                placeholder="Please enter your description here (max. 240 chars)..."></textarea>
-            <br><br>
-            <div style="background-color:rgb(255, 32, 32); padding: 10px; color:rgb(255, 180, 180)">
-                <br>
-                If you are ready to start the group task, press <strong>Begin</strong>.
-                <br><br>
-            </div>
-            <br>
+        <div id="footer">
+            <p>
+                Once you have filled out the textbox provided, press...
+                <span id="done-button"></span>
+            </p>
         </div>
-        <div id="done-button"></div>
     </div>
 </body>
