@@ -25,6 +25,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
     stager.setOnInit(function () {
 
+        //W.init({ adjustFrameHeight: false });
+
         // Initialize the client.
 
         this.addDoneButton = function (label) {
@@ -58,8 +60,6 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('info_and_consent_1', {
         frame: 'information_sheet.html',
         cb: function () {
-            console.log(W)
-            W.willResizeFrame = true;
             this.doneButton = this.addDoneButton('Continue');
         },
     });
@@ -190,38 +190,58 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         /////////////////////////////////////////////////////////////
         frame: settings.treatment,
         cb: function () {
-            this.doneButton = this.addDoneButton('Continue');
+            console.log('HERE *****', node.game.settings.treatment, node.game.treatmentName);
+            if (node.game.settings.treatment) {
+                this.doneButton = this.addDoneButton('Continue');
+            } else {
+                node.done();
+            }
+
         },
     });
 
     stager.extendStep('the_scenario_2', {
         frame: settings.treatment_2,
         cb: function () {
-            // var justification = W.getElementById('justification');
-            // justification.addEventListener('keydown', function (event) {
-            //     if (event.target.value < 120) {
-            //         this.doneButton.disable();
-            //     } else {
-            //         this.doneButton.enable();
-            //     }
-            // })
 
 
 
+            if (node.game.settings.treatment) {
+                this.doneButton = node.widgets.append('DoneButton', W.getElementById('done-button'), {
+                    text: 'Continue',
+                    enableOnPlaying: false
+                });
+                this.doneButton.removeFrame();
+                this.doneButton.disable();
+                var justification = W.getElementById('justification');
+                justification.addEventListener('keydown', function (event) {
+                    if (event.target.value.length < 120) {
+                        this.doneButton.disable();
+                    } else {
+                        this.doneButton.enable();
+                    }
+                })
+            } else {
+                node.done();
+            }
 
-            this.doneButton = node.widgets.append('DoneButton', W.getElementById('done-button'), {
-                text: 'Test',
-                enableOnPlaying: false
-            });
-            this.doneButton.removeFrame();
-            this.doneButton.disable();
+            // this.doneButton = node.widgets.append('DoneButton', W.getElementById('done-button'), {
+            //     text: 'Continue',
+            //     enableOnPlaying: false
+            // });
+            // this.doneButton.removeFrame();
+            // this.doneButton.disable();
         },
     });
 
     stager.extendStep('the_scenario_3', {
         frame: settings.treatment_3,
         cb: function () {
-            this.doneButton = this.addDoneButton('Continue');
+            if (node.game.settings.treatment) {
+                this.doneButton = this.addDoneButton('Continue');
+            } else {
+                node.done();
+            }
         },
     });
 

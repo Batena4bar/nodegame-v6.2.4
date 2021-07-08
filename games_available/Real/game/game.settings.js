@@ -74,9 +74,9 @@ module.exports = {
 
         control: {
             description: "No fear applied.",
-            treatment: 'treatment_control.html',
-            treatment_2: 'treatment_control.html',
-            treatment_3: 'treatment_control.html'
+            // treatment: 'treatment_control.html',
+            // treatment_2: 'treatment_control.html',
+            // treatment_3: 'treatment_control.html'
         },
 
         internal_rejection: {
