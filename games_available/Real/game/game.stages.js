@@ -19,6 +19,15 @@ module.exports = function (stager, settings) {
   //  });
 
   stager
+    .stage('instructions_video')
+
+
+    .stage('task', settings.ROUNDS)
+    .step('initial_choice')
+    .step('guided_communication')
+    .step('message_like')
+    .step('secondary_choice')
+    .step('group_choice')
 
     // Title
     .stage('info_and_consent')
@@ -35,7 +44,7 @@ module.exports = function (stager, settings) {
     .step('pre_task_6')
 
     // An explaination of the practical aspect of the task
-    .step('instructions_video')
+    //.step('instructions_video')
 
     // Manipulation screen
     .step('the_scenario_1')
@@ -44,11 +53,7 @@ module.exports = function (stager, settings) {
     .step('task_start')
 
     // The task
-    .repeatStage('task', settings.ROUNDS)
-    .step('initial_choice')
-    .step('guided_communication')
-    .step('secondary_choice')
-    .step('group_choice')
+
 
     // Manipulation Checks
     .step('post_task_1')

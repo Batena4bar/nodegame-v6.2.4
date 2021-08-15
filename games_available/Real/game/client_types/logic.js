@@ -220,12 +220,58 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
       console.log('guided_communication logic');
 
+      var messageId = 0;
+
+      function storeData(msg) {
+        var msgData = msg.data;
+
+        if (messageId !== msgData.id) {
+          messageId = msgData.id;
+
+          // Store the value in the registry under the ID of the player (msg.from).
+          var userData = channel.registry.getClient(msg.from);
+
+          memory.add({
+            player: userData.id,
+            stage: userData.stage,
+            chatMessage: msgData
+          });
+        }
+      }
+
+      node.on.data('CHAT', function (msg) {
+        storeData(msg);
+      });
+
       // Loop through all connected players.
       node.game.pl.each(function (player) {
         // Calculate the infoBar tabs for each player and send them   
         node.say('INFODATA', player.id, tabData.slice(4, 10));
       });
     },
+    // exit: function () {
+    //   memory.save('data.json');
+    // },
+  });
+
+  stager.extendStep('message_like', {
+    cb: function () {
+      this.savedResults = {};
+
+      console.log('message_like logic');
+
+      var chatMessages = memory.select('chatMessage').fetch();
+
+      // Loop through all connected players.
+      node.game.pl.each(function (player) {
+        // Calculate the infoBar tabs for each player and send them   
+        node.say('INFODATA', player.id, tabData.slice(4, 10));
+        node.say('CHATMESSAGES', player.id, chatMessages);
+      });
+    },
+    // exit: function () {
+    //   memory.save('data.json');
+    // },
   });
 
   stager.extendStep('initial_choice', {
@@ -247,6 +293,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         node.say('PARTNERS', idx, ids.slice(0, i).concat(ids.slice(i + 1)));
       });
     },
+    // exit: function () {
+    //   memory.save('data.json');
+    // },
   });
 
   stager.extendStep('secondary_choice', {
@@ -268,6 +317,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
       //   node.say('PARTNERS', idx, ids.slice(0, i).concat(ids.slice(i + 1)));
       // });
     },
+    // exit: function () {
+    //   memory.save('data.json');
+    // },
   });
 
 
@@ -277,6 +329,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
       console.log('group_choice logic');
 
+    },
+    exit: function () {
+      memory.save('data.json');
     },
   });
 

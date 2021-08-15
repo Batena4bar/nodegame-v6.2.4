@@ -154,6 +154,35 @@ h1, h2, h3, h4, h5 {
   margin-top: 10px;
 }
 
+#messages {
+  padding: 20px 10px;
+  height: 400px;
+  overflow-y: auto;
+}
+
+#messages > .chat-message {
+  display: flex;
+  align-items: center;
+  margin: 0 0 10px 60px;
+}
+
+#messages > .chat-message.own-message {
+  opacity: 0.3;
+  margin: 0 120px 10px 0;
+}
+
+#messages > .chat-message > .message-content {
+  flex: 1;
+  border: 1px solid rgb(108, 117, 125);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+#messages > .chat-message > .thumbs-up {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
 /* Override bootstrap */
 .panel {
   box-shadow: none;
@@ -190,6 +219,10 @@ h1, h2, h3, h4, h5 {
 #message-template > div > :first-child {
   width: 128px;
   flex-shrink: 0;
+}
+
+#message-template > div > select {
+  font-size: smaller;
 }
 
 #justification {

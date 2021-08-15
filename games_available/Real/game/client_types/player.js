@@ -76,7 +76,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         frame: 'title.html',
         cb: function () {
             this.doneButton = this.addDoneButton('Begin');
-            node.set({ value: { sam: 'hello' } });
+            //node.set({ value: { sam: 'hello' } });
         },
     });
 
@@ -411,9 +411,95 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             this.doneButton.removeFrame();
             this.doneButton.disable();
         },
+        // exit: function () {
+        //     node.set({ value: { fred: 'hello' } });
+        //     node.set({ value: { joe: ['hello', 'there'] } });
+        // },
     });
 
+    stager.extendStep('message_like', {
+        frame: 'message_like.html',
+        init: function () {
+            node.game.visualTimer.hide();
+        },
+        cb: function () {
+            // Receive data from logic
+            node.on.data('INFODATA', function (msg) {
+                console.log('INFODATA', msg.data);
+                node.game.globals.tabData = msg.data;
+                // Construct infoBar
+                var infoBar = W.getElementById('info-bar');
+                var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
+                    data: node.game.globals.tabData,
+                    // Extra options available to all widgets.
+                    docked: false,
+                    collapsible: false,
+                    closable: false
+                });
+                infoBarWidget.removeFrame();
+            });
 
+            // Construct messages
+            var messages = W.getElementById('messages');
+            // Receive data from logic
+            node.on.data('CHATMESSAGES', function (msg) {
+                msg.data.forEach(function (message) {
+                    var chatMessage = document.createElement('div');
+                    chatMessage.classList.add('chat-message');
+                    var messageContent = document.createElement('div');
+                    messageContent.classList.add('message-content');
+                    messageContent.innerHTML = message.chatMessage.msg;
+                    chatMessage.appendChild(messageContent);
+
+                    if (node.player.id === message.player) {
+                        chatMessage.classList.add('own-message');
+                    } else {
+                        var thumbsUp = document.createElement('div');
+                        thumbsUp.classList.add('thumbs-up');
+
+                        thumbsUp.innerHTML = '<span class="far fa-thumbs-up fa-2x"></span>';
+                        chatMessage.appendChild(thumbsUp);
+
+                        var thumbsUpIcon = thumbsUp.getElementsByClassName('fa-thumbs-up').item(0);
+
+                        var att = document.createAttribute('id');
+                        att.value = message.chatMessage.id;
+                        thumbsUpIcon.setAttributeNode(att);
+
+                        thumbsUpIcon.addEventListener('click', function (event) {
+                            var element = event.target;
+                            if (element.classList.contains('far')) {
+                                element.classList.remove('far');
+                                element.classList.add('fas');
+                            } else {
+                                element.classList.remove('fas');
+                                element.classList.add('far');
+                            }
+                        });
+                    }
+
+                    messages.appendChild(chatMessage);
+                });
+            });
+            // Construct done button
+            var continueButton = W.getElementById('continue');
+            this.doneButton = node.widgets.append('DoneButton', continueButton, {
+                text: 'Done Talking',
+                enableOnPlaying: false
+            });
+            this.doneButton.removeFrame();
+            this.doneButton.disable();
+        },
+        exit: function () {
+            var messages = W.getElementById('messages');
+            var likes = messages.querySelectorAll('.fa-thumbs-up.fas')
+            var likesList = [];
+            Array.prototype.forEach.call(likes, function (like) {
+                likesList.push(like.id);
+            });
+            node.set({ value: { likes: likesList } });
+        },
+    });
 
     stager.extendStep('secondary_choice', {
         frame: 'secondary_choice.html',

@@ -34,7 +34,7 @@ module.exports = {
      *
      * The size of each group dispatched by the waiting room
      */
-    GROUP_SIZE: 2,
+    GROUP_SIZE: 3,
 
     /**
      * ## POOL_SIZE (number) Optional
@@ -65,7 +65,7 @@ module.exports = {
      *
      * After the max waiting time expired clients are disconnected
      */
-    MAX_WAIT_TIME: 90000,
+    MAX_WAIT_TIME: 900000,
 
     /**
      * ## START_DATE (string|object) Optional
@@ -96,8 +96,8 @@ module.exports = {
      *           return treatments[dispatchCounter % treatments.length];
      *       }
      */
-    CHOSEN_TREATMENT: function(treatments, roomCounter,
-                               groupIdx, dispatchCounter) {
+    CHOSEN_TREATMENT: function (treatments, roomCounter,
+        groupIdx, dispatchCounter) {
 
         // - treatments: array of available treatments.
         // - roomCounter: total number of room created (it is initialized to
@@ -221,11 +221,11 @@ module.exports = {
      * Receives as first parameter the waiting room object itself and as
      * second parameter the connecting client.
      */
-     // ON_CONNECT: function(waitRoom, player) {
-     //     // Auto play with bots on connect of a human player.
-     //     if (player.clientType === 'bot') return;
-     //     waitRoom.dispatchWithBots();
-     // },
+    // ON_CONNECT: function(waitRoom, player) {
+    //     // Auto play with bots on connect of a human player.
+    //     if (player.clientType === 'bot') return;
+    //     waitRoom.dispatchWithBots();
+    // },
 
     /**
      * ## ON_DISCONNECT (function) Optional
@@ -480,7 +480,7 @@ module.exports = {
      *
      * A button is added to the interface.
      */
-    ALLOW_PLAY_WITH_BOTS: true,
+    ALLOW_PLAY_WITH_BOTS: false,
 
     /** ### ALLOW_SELECT_TREATMENT
      *
