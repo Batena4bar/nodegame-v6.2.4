@@ -24,10 +24,11 @@ module.exports = function (stager, settings) {
 
     .stage('task', settings.ROUNDS)
     .step('initial_choice')
+    .step('group_choice')
     .step('guided_communication')
     .step('message_like')
     .step('secondary_choice')
-    .step('group_choice')
+
 
     // Title
     .stage('info_and_consent')

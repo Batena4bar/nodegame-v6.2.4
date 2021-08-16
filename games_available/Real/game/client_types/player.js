@@ -534,12 +534,12 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             });
             linkedSlidersWidget.removeFrame();
             node.on('complete', function () {
-                console.log('Done', linkedSlidersWidget.getValues());
+                //console.log('Done', linkedSlidersWidget.getValues());
                 this.doneButton.enable();
             });
             // Construct done button
             node.on('incomplete', function () {
-                console.log('Undone');
+                //console.log('Undone');
                 this.doneButton.disable();
             });
             this.doneButton = node.widgets.append('DoneButton', linkedSliders);
@@ -567,9 +567,38 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             enableOnPlaying: false,
         },
         cb: function () {
-            // var currentData;
-            // var topic = W.getElementById('topic');
-            // var justification = W.getElementById('justification');
+            var choices = {};
+            var that = this;
+
+            node.on.data('CHOICES', function (msg) { // Display offer.
+                choices[msg.from] = msg.data;
+                checkChoicesMatch();
+            });
+
+            function arraysEqual(a, b) {
+                if (a === b) return true;
+                if (a == null || b == null) return false;
+                if (a.length !== b.length) return false;
+
+                for (var i = 0; i < a.length; ++i) {
+                    if (a[i] !== b[i]) return false;
+                }
+                return true;
+            }
+
+            function checkChoicesMatch() {
+                var keys = Object.keys(choices);
+                if (keys.length < 3) {
+                    return false;
+                }
+                if ((choices[keys[0]][0] === choices[keys[1]][0]) && (choices[keys[1]][0] === choices[keys[2]][0]) &&
+                    (choices[keys[0]][1] === choices[keys[1]][1]) && (choices[keys[1]][1] === choices[keys[2]][1]) &&
+                    (choices[keys[0]][2] === choices[keys[1]][1]) && (choices[keys[1]][1] === choices[keys[2]][2])) {
+                    that.doneButton.enable();
+                } else {
+                    that.doneButton.disable();
+                }
+            }
 
             // Construct chat
             var chat = W.getElementById('chat');
@@ -595,18 +624,51 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             });
             linkedSlidersWidget.removeFrame();
             node.on('complete', function () {
-                console.log('Done', linkedSlidersWidget.getValues());
-                this.doneButton.enable();
+                //console.log('Done', linkedSlidersWidget.getValues());
+                submitChoiceButton.disabled = false;
             });
             // Construct done button
             node.on('incomplete', function () {
-                console.log('Undone');
-                this.doneButton.disable();
+                //console.log('Undone');
+                submitChoiceButton.disabled = true;
             });
-            this.doneButton = node.widgets.append('DoneButton', linkedSliders);
+            var submitChoiceButton = W.getElementById('send');
+            var lastSuggestion = [];
+            submitChoiceButton.addEventListener('click', function (event) {
+                //console.log('submitChoice');
+                var suggestion = linkedSlidersWidget.getValues();
+                if (!arraysEqual(suggestion, lastSuggestion)) {
+                    choices[node.player.id] = suggestion;
+                    node.game.partners.forEach(function (participantId) {
+                        node.say('CHOICES', participantId, suggestion);
+                    });
+                    //console.log('choices', choices);
+                    chatWidget.sendMsg({
+                        suggestion: suggestion,
+                        msg: function (data, code) {
+                            if (code === 'incoming') {
+                                //
+                            } else if (code === 'outgoing') {
+                                return '<div><strong>Suggested</strong></div><div>Wheat: ' +
+                                    data.suggestion[0] + '; Sugar: ' +
+                                    data.suggestion[1] + '; Coffee: ' +
+                                    data.suggestion[2] + '</div>';
+                            }
+                        }
+                    });
+                    checkChoicesMatch();
+                    lastSuggestion = suggestion;
+                }
+            });
+
+            // Construct done button
+            var continueButton = W.getElementById('continue');
+            this.doneButton = node.widgets.append('DoneButton', continueButton, {
+                text: 'Continue',
+                enableOnPlaying: false
+            });
             this.doneButton.removeFrame();
             this.doneButton.disable();
-
         },
     });
 
