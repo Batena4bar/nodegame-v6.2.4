@@ -19,22 +19,24 @@ module.exports = function (stager, settings) {
   //  });
 
   stager
-    .stage('instructions_video')
-
-
-    .stage('task', settings.ROUNDS)
-    .step('initial_choice')
-    .step('group_choice')
-    .step('guided_communication')
-    .step('message_like')
-    .step('secondary_choice')
-
-
     // Title
     .stage('info_and_consent')
     .step('info_and_consent_1')
+
+    .stage('task', settings.ROUNDS)
+    .step('initial_choice')
+    .step('guided_communication')
+    .step('message_like')
+    .step('secondary_choice')
+    .step('group_choice')
+
+
     .step('info_and_consent_2')
     .step('title')
+
+    .step('instructions_video')
+
+
 
     // A setup to the experiment, this is in the form of a vignette, each background page is followed by an attention check
     .stage('pre_task')
@@ -66,29 +68,8 @@ module.exports = function (stager, settings) {
     .step('thank_you')
     .step('debrief')
     .step('feedback')
-
-
-    .step('pre_task_2')
-    .step('post_task_3')
-    .step('sliders')
-    .step('chat')
-    .step('multi_sliders')
     .step('end')
     .gameover();
-
-
-
-  //  // Test sliders
-  //  .stage('sliders')
-
-  //  // Test chat
-  //  .stage('chat')
-
-  //  // Test sliders
-  //  .stage('multi_sliders')
-
-
-
 
   // The task
   // .repeatStage('task', settings.ROUNDS)

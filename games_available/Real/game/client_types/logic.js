@@ -13,7 +13,15 @@ const ngc = require('nodegame-client');
 const J = ngc.JSUS;
 const tabData = [
   {
-    id: 'D',
+    id: '1',
+    icon: 'file',
+    topic: 'El Niño & La El Nina',
+    html:
+      `<p>El Niño is a weather phenomenon that can have a number of effects, typically it entails excessive rains and floods in South America and severe drought and hotter average temperatures, for most regions of Asia-Pacific. This can frequently lead to food insecurity for affected countries.</p>
+      <p>La Nina is a somewhat opposite weather phenomenon that entails wetter environments and cooler average temperatures, for the same regions of Asia-Pacific.</p>`
+  },
+  {
+    id: '2',
     icon: '',
     topic: 'Top 7 Wheat Producing Countries',
     html:
@@ -29,7 +37,7 @@ const tabData = [
       </table>`,
   },
   {
-    id: 'E',
+    id: 'A1',
     icon: 'anchor',
     topic: 'ENSO weather cycle',
     html:
@@ -37,66 +45,79 @@ const tabData = [
       <p>The three phases of the ENSO cycle are named El Niño, La Nina and Neutral.</p>`
   },
   {
-    id: '1A',
-    icon: 'file',
-    topic: 'El Niño & La El Nina',
-    html:
-      `<p>El Niño is a weather phenomenon that can have a number of effects, typically it entails excessive rains and floods in South America and severe drought and hotter average temperatures, for most regions of Asia-Pacific. This can frequently lead to food insecurity for affected countries.</p>
-      <p>La Nina is a somewhat opposite weather phenomenon that entails wetter environments and cooler average temperatures, for the same regions of Asia-Pacific.</p>`
-  },
-  {
-    id: '2A',
+    id: 'A2',
     icon: 'star',
     topic: 'Weather issues for sugar',
     html:
       `<p>Sugar is regarded as a robust crop, it can be grown in many regions across the world in either sugar cane or sugar beet form. Sugar cane grows best in a consistently temperate climate and with plenty of water. This means the most damaging conditions for sugar are draught, far more so than excess water.</p>`
   },
   {
-    id: '3A',
+    id: 'A3',
     icon: 'calendar',
     topic: 'Weather Forecast',
     html:
       `<p>The El Niño weather pattern (as referenced in F) is predicted to begin this March and will carry on throughout the rest of the year.</p>`
   },
   {
-    id: '1B',
+    id: 'A4',
     icon: 'play',
     topic: 'Price of the dollar',
     html:
       `<p>The depreciating price of the US dollar has caused the price of commodities to increase when imported from foreign countries. This leads farmers to seek internal forms of sale if available.</p>`
   },
   {
-    id: '2B',
+    id: 'B1',
     icon: 'folder',
     topic: 'Brazil\'s move to using sugar as fuel',
     html:
       '<p>Brazil is in the midst of a national transition towards favouring transport which uses ethanol instead of fossil fuels to power its engines. Ethanol is a far cheaper alternative to fossil fuels for the nation since ethanol is made from sugar and so Brazilian farmers are able to sell sugar straight to the refineries.</p>',
   },
   {
-    id: '3B',
+    id: 'B2',
     icon: 'square',
     topic: 'Principal sugar exporting countries in 2019/2020',
     html:
       `<img src="imgs/sugar_exporting_countries.png" width="100%">`,
   },
   {
-    id: '1C',
+    id: 'B3',
     icon: 'diamond',
     topic: 'British farming subsidies',
     html:
       '<p>Britain relies on exports of most commodities. Typically, those producers inside the UK are given subsidies by the government to keep pricing competitive. Those crops commonly produced in the UK are less subject to global price shocks since they are less reliant on imports.</p>',
   },
   {
-    id: '2C',
+    id: 'B4',
     icon: 'film',
     topic: 'UK wheat consumption',
     html:
       '<p>The total production of wheat in the UK is 80% of that this it consumes.</p>',
   },
   {
-    id: '3C',
+    id: 'C1',
     icon: 'image',
-    topic: 'Global wheat supply',
+    topic: 'Global wheat supply 1',
+    html:
+      '<p>The global wheat supply is expected to shrink this year due to poor weather and other grains taking priority to farmers over the previous year.</p>',
+  },
+  {
+    id: 'C2',
+    icon: 'image',
+    topic: 'Global wheat supply 2',
+    html:
+      '<p>The global wheat supply is expected to shrink this year due to poor weather and other grains taking priority to farmers over the previous year.</p>',
+  },
+  {
+    id: 'C3',
+    icon: 'image',
+    topic: 'Global wheat supply 3',
+    html:
+      '<p>The global wheat supply is expected to shrink this year due to poor weather and other grains taking priority to farmers over the previous year.</p>',
+  },
+  {
+    id: 'C4',
+    icon: 'image',
+    topic: 'Global wheat supply 4',
     html:
       '<p>The global wheat supply is expected to shrink this year due to poor weather and other grains taking priority to farmers over the previous year.</p>',
   },
@@ -111,7 +132,29 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
   // Must implement the stages here.
 
   stager.setOnInit(function () {
-    // Initialize the client.
+    var messageId = 0;
+
+    function storeChatData(msg) {
+      // Initialize the client.
+      var msgData = msg.data;
+
+      if (messageId !== msgData.id) {
+        messageId = msgData.id;
+
+        // Store the value in the registry under the ID of the player (msg.from).
+        var userData = channel.registry.getClient(msg.from);
+
+        memory.add({
+          player: userData.id,
+          stage: userData.stage,
+          chatMessage: msgData
+        });
+      }
+    }
+
+    node.on.data('CHAT', function (msg) {
+      storeChatData(msg);
+    });
   });
 
   //    stager.extendStep('game', {
@@ -176,78 +219,56 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
   // Extends Stages and Steps where needed.
 
-  stager.extendStep('title', {
-    exit: function () {
-      node.game.pl.each(function (player) {
-        console.log('hello!', player.id);
-        memory.player[player.id].save('data_player_' + player.id + '.json');
-      });
-    },
-  });
-
-  stager.extendStep('sliders', {
+  stager.extendStep('info_and_consent_1', {
     cb: function () {
-      this.savedResults = {};
-
-      console.log('sliders logic');
+      console.log('info_and_consent_1 logic');
 
       // Get the ids of all players.
       let ids = node.game.pl.id.getAllKeys();
-      ids.forEach(function (idx, i) {
-        // Send the other ids to each player.
-        node.say('PARTNERS', idx, ids.slice(0, i).concat(ids.slice(i + 1)));
+      var players = {};
+      var infoSelector = {};
+      players[ids[0]] = 'Player A';
+      players[ids[1]] = 'Player B';
+      players[ids[2]] = 'Player C';
+      infoSelector[ids[0]] = 'A';
+      infoSelector[ids[1]] = 'B';
+      infoSelector[ids[2]] = 'C';
+      // Send all player ids and names to each player.
+      ids.forEach(function (playerId) {
+        node.say('PLAYERS', playerId, players);
+      });
+
+      // Send correct selection of data tabs to each player
+      ids.forEach(function (playerId) {
+        node.say('INFODATA', playerId, tabData.filter(function (tab) {
+          return tab.id === '1' || tab.id === '2' || tab.id.includes(infoSelector[playerId]);
+        }));
       });
     },
-  });
-
-  stager.extendStep('chat', {
-    cb: function () {
-      this.savedResults = {};
-
-      console.log('chat logic');
-
-      // Loop through all connected players.
-      node.game.pl.each(function (player) {
-        // Calculate the infoBar tabs for each player and send them   
-        node.say('INFODATA', player.id, tabData.slice(4, 10));
-      });
-    },
+    // exit: function () {
+    //   node.game.pl.each(function (player) {
+    //     console.log('hello!', player.id);
+    //     memory.player[player.id].save('data_player_' + player.id + '.json');
+    //   });
+    // },
   });
 
   stager.extendStep('guided_communication', {
     cb: function () {
-      this.savedResults = {};
-
       console.log('guided_communication logic');
 
-      var messageId = 0;
+      this.savedResults = {};
+      //var messageId = 0;
 
-      function storeData(msg) {
-        var msgData = msg.data;
-
-        if (messageId !== msgData.id) {
-          messageId = msgData.id;
-
-          // Store the value in the registry under the ID of the player (msg.from).
-          var userData = channel.registry.getClient(msg.from);
-
-          memory.add({
-            player: userData.id,
-            stage: userData.stage,
-            chatMessage: msgData
-          });
-        }
-      }
-
-      node.on.data('CHAT', function (msg) {
-        storeData(msg);
-      });
+      // node.on.data('CHAT', function (msg) {
+      //   storeData(msg);
+      // });
 
       // Loop through all connected players.
-      node.game.pl.each(function (player) {
-        // Calculate the infoBar tabs for each player and send them   
-        node.say('INFODATA', player.id, tabData.slice(4, 10));
-      });
+      // node.game.pl.each(function (player) {
+      //   // Calculate the infoBar tabs for each player and send them   
+      //   node.say('INFODATA', player.id, tabData.slice(4, 10));
+      // });
     },
     // exit: function () {
     //   memory.save('data.json');
@@ -265,7 +286,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
       // Loop through all connected players.
       node.game.pl.each(function (player) {
         // Calculate the infoBar tabs for each player and send them   
-        node.say('INFODATA', player.id, tabData.slice(4, 10));
+        // node.say('INFODATA', player.id, tabData.slice(4, 10));
         node.say('CHATMESSAGES', player.id, chatMessages);
       });
     },
@@ -281,10 +302,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
       console.log('initial_choice logic');
 
       // Loop through all connected players.
-      node.game.pl.each(function (player) {
-        // Calculate the infoBar tabs for each player and send them   
-        node.say('INFODATA', player.id, tabData.slice(4, 10));
-      });
+      // node.game.pl.each(function (player) {
+      //   // Calculate the infoBar tabs for each player and send them   
+      //   node.say('INFODATA', player.id, tabData.slice(4, 10));
+      // });
 
       // Get the ids of all players.
       let ids = node.game.pl.id.getAllKeys();
@@ -305,10 +326,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
       console.log('secondary_choice logic');
 
       // Loop through all connected players.
-      node.game.pl.each(function (player) {
-        // Calculate the infoBar tabs for each player and send them   
-        node.say('INFODATA', player.id, tabData.slice(4, 10));
-      });
+      // node.game.pl.each(function (player) {
+      //   // Calculate the infoBar tabs for each player and send them   
+      //   node.say('INFODATA', player.id, tabData.slice(4, 10));
+      // });
 
       // // Get the ids of all players.
       // let ids = node.game.pl.id.getAllKeys();

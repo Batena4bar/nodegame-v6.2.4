@@ -37,10 +37,29 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             return doneButton;
         }
 
-        node.on.data('PARTNERS', function (msg) {
-            // Store a reference to the ids for later use.
-            node.game.partners = msg.data;
-            console.log('Partners', node.game.partners);
+        node.on.data('PLAYERS', function (msg) {
+            // Store a reference to the players for later use.
+            node.game.players = msg.data;
+            node.game.partners = Object.keys(node.game.players).filter(function (playerId) {
+                return playerId !== node.player.id;
+            });
+            node.game.chatPartners = node.game.partners.map(function (partnerId) {
+                return {
+                    recipient: partnerId,
+                    sender: partnerId,
+                    name: node.game.players[partnerId]
+                };
+            });
+            node.player.name = node.game.players[node.player.id];
+            console.log('PLAYERS', node.game.players);
+            console.log('PARTNERS', node.game.partners);
+            console.log('CHAT_PARTNERS', node.game.chatPartners);
+        });
+
+        node.on.data('INFODATA', function (msg) {
+            // Store player's tabData for later use
+            console.log('INFODATA', msg.data);
+            node.game.infoData = msg.data;
         });
 
         // Setup page: header + frame.
@@ -87,24 +106,24 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('pre_task_2', {
-        frame: 'attention_check_1.html',
-        cb: function () {
-            var step1 = W.getElementById('step_1');
-            var step2 = W.getElementById('step_2');
-            this.doneButton = this.addDoneButton('Continue');
-            var button = W.getElementById('done');
-            button.onclick = function () {
-                step1.style = "display: none;";
-                step2.style = "display: block;";
-                var forms = W.getElementsByTagName('form');
-                for (var i = 0; i < forms.length; i++) {
-                    forms[i].classList.remove('hide-answers');
-                }
-            };
-            step2.style = "display: none;"
-        },
-    });
+    // stager.extendStep('pre_task_2', {
+    //     frame: 'attention_check_1.html',
+    //     cb: function () {
+    //         var step1 = W.getElementById('step_1');
+    //         var step2 = W.getElementById('step_2');
+    //         this.doneButton = this.addDoneButton('Continue');
+    //         var button = W.getElementById('done');
+    //         button.onclick = function () {
+    //             step1.style = "display: none;";
+    //             step2.style = "display: block;";
+    //             var forms = W.getElementsByTagName('form');
+    //             for (var i = 0; i < forms.length; i++) {
+    //                 forms[i].classList.remove('hide-answers');
+    //             }
+    //         };
+    //         step2.style = "display: none;"
+    //     },
+    // });
 
     stager.extendStep('pre_task_3', {
         frame: 'background_2.html',
@@ -204,8 +223,6 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         frame: settings.treatment_2,
         cb: function () {
 
-
-
             if (node.game.settings.treatment) {
                 this.doneButton = node.widgets.append('DoneButton', W.getElementById('done-button'), {
                     text: 'Continue',
@@ -261,26 +278,18 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             enableOnPlaying: false,
         },
         cb: function () {
-            // var currentData;
-            // var topic = W.getElementById('topic');
-            // var justification = W.getElementById('justification');
-
-            // Receive data from logic
-            node.on.data('INFODATA', function (msg) {
-                console.log('INFODATA', msg.data);
-                node.game.globals.tabData = msg.data;
-                // Construct infoBar
-                var infoBar = W.getElementById('info-bar');
-                var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
-                    data: node.game.globals.tabData,
-                    // Extra options available to all widgets.
-                    docked: false,
-                    collapsible: false,
-                    closable: false
-                });
-                infoBarWidget.removeFrame();
+            // Construct infoBar
+            var infoBar = W.getElementById('info-bar');
+            var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
+                data: node.game.infoData,
+                // Extra options available to all widgets.
+                docked: false,
+                collapsible: false,
+                closable: false
             });
+            infoBarWidget.removeFrame();
 
+            // Construct linkedSliders
             var linkedSliders = W.getElementById('linked-sliders');
             var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
                 labels: ['Wheat', 'Sugar', 'Coffee']
@@ -289,6 +298,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             node.on('complete', function () {
                 this.doneButton.enable();
             });
+
             // Construct done button
             node.on('incomplete', function () {
                 this.doneButton.disable();
@@ -296,17 +306,6 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             this.doneButton = node.widgets.append('DoneButton', linkedSliders);
             this.doneButton.removeFrame();
             this.doneButton.disable();
-
-
-            // Receive data from infoBar
-            // node.on('BUBBLE_DATA', function (data, index) {
-            //     console.log('BUBBLE_DATA', data, index);
-            //     currentData = data;
-            //     topic.innerText = currentData.topic;
-            // });
-
-
-
         },
     });
 
@@ -320,21 +319,16 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             var topic = W.getElementById('topic');
             var justification = W.getElementById('justification');
 
-            // Receive data from logic
-            node.on.data('INFODATA', function (msg) {
-                console.log('INFODATA', msg.data);
-                node.game.globals.tabData = msg.data;
-                // Construct infoBar
-                var infoBar = W.getElementById('info-bar');
-                var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
-                    data: node.game.globals.tabData,
-                    // Extra options available to all widgets.
-                    docked: false,
-                    collapsible: false,
-                    closable: false
-                });
-                infoBarWidget.removeFrame();
+            // Construct infoBar
+            var infoBar = W.getElementById('info-bar');
+            var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
+                data: node.game.infoData,
+                // Extra options available to all widgets.
+                docked: false,
+                collapsible: false,
+                closable: false
             });
+            infoBarWidget.removeFrame();
 
             // Receive data from infoBar
             node.on('BUBBLE_DATA', function (data, index) {
@@ -346,12 +340,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             // Construct chat
             var chat = W.getElementById('chat');
             var chatWidget = node.widgets.append('Chat', chat, {
-                participants: node.game.partners,
-                initialMsg: {
-                    id: 'game',
-                    msg: 'Swap information by chatting...'
-                },
-                title: '',
+                participants: node.game.chatPartners,
+                title: 'Chat',
                 chatEvent: 'CHAT',
                 printStartTime: false,
                 storeMsgs: true,
@@ -411,10 +401,6 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             this.doneButton.removeFrame();
             this.doneButton.disable();
         },
-        // exit: function () {
-        //     node.set({ value: { fred: 'hello' } });
-        //     node.set({ value: { joe: ['hello', 'there'] } });
-        // },
     });
 
     stager.extendStep('message_like', {
@@ -423,21 +409,16 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             node.game.visualTimer.hide();
         },
         cb: function () {
-            // Receive data from logic
-            node.on.data('INFODATA', function (msg) {
-                console.log('INFODATA', msg.data);
-                node.game.globals.tabData = msg.data;
-                // Construct infoBar
-                var infoBar = W.getElementById('info-bar');
-                var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
-                    data: node.game.globals.tabData,
-                    // Extra options available to all widgets.
-                    docked: false,
-                    collapsible: false,
-                    closable: false
-                });
-                infoBarWidget.removeFrame();
+            // Construct infoBar
+            var infoBar = W.getElementById('info-bar');
+            var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
+                data: node.game.infoData,
+                // Extra options available to all widgets.
+                docked: false,
+                collapsible: false,
+                closable: false
             });
+            infoBarWidget.removeFrame();
 
             // Construct messages
             var messages = W.getElementById('messages');
@@ -481,6 +462,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                     messages.appendChild(chatMessage);
                 });
             });
+
             // Construct done button
             var continueButton = W.getElementById('continue');
             this.doneButton = node.widgets.append('DoneButton', continueButton, {
@@ -508,26 +490,18 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             enableOnPlaying: false,
         },
         cb: function () {
-            // var currentData;
-            // var topic = W.getElementById('topic');
-            // var justification = W.getElementById('justification');
-
-            // Receive data from logic
-            node.on.data('INFODATA', function (msg) {
-                console.log('INFODATA', msg.data);
-                node.game.globals.tabData = msg.data;
-                // Construct infoBar
-                var infoBar = W.getElementById('info-bar');
-                var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
-                    data: node.game.globals.tabData,
-                    // Extra options available to all widgets.
-                    docked: false,
-                    collapsible: false,
-                    closable: false
-                });
-                infoBarWidget.removeFrame();
+            // Construct infoBar
+            var infoBar = W.getElementById('info-bar');
+            var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
+                data: node.game.infoData,
+                // Extra options available to all widgets.
+                docked: false,
+                collapsible: false,
+                closable: false
             });
+            infoBarWidget.removeFrame();
 
+            // Construct linkedSliders
             var linkedSliders = W.getElementById('linked-sliders');
             var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
                 labels: ['Wheat', 'Sugar', 'Coffee']
@@ -545,32 +519,20 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             this.doneButton = node.widgets.append('DoneButton', linkedSliders);
             this.doneButton.removeFrame();
             this.doneButton.disable();
-
-
-            // Receive data from infoBar
-            // node.on('BUBBLE_DATA', function (data, index) {
-            //     console.log('BUBBLE_DATA', data, index);
-            //     currentData = data;
-            //     topic.innerText = currentData.topic;
-            // });
-
-
-
         },
     });
-
 
     stager.extendStep('group_choice', {
         frame: 'group_choice.html',
         donebutton: {
-            text: 'Submit Choices',
+            text: 'Accept Descision',
             enableOnPlaying: false,
         },
         cb: function () {
             var choices = {};
             var that = this;
 
-            node.on.data('CHOICES', function (msg) { // Display offer.
+            node.on.data('CHOICES', function (msg) {
                 choices[msg.from] = msg.data;
                 checkChoicesMatch();
             });
@@ -603,12 +565,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             // Construct chat
             var chat = W.getElementById('chat');
             var chatWidget = node.widgets.append('Chat', chat, {
-                participants: node.game.partners,
-                initialMsg: {
-                    id: 'game',
-                    msg: 'Swap information by chatting...'
-                },
-                title: '',
+                participants: node.game.chatPartners,
+                title: 'Chat',
                 chatEvent: 'CHAT',
                 printStartTime: false,
                 storeMsgs: true,
@@ -663,10 +621,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
             // Construct done button
             var continueButton = W.getElementById('continue');
-            this.doneButton = node.widgets.append('DoneButton', continueButton, {
-                text: 'Continue',
-                enableOnPlaying: false
-            });
+            this.doneButton = node.widgets.append('DoneButton', continueButton);
             this.doneButton.removeFrame();
             this.doneButton.disable();
         },
@@ -777,157 +732,157 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('chat', {
-        frame: 'chat.html',
-        init: function () {
-            node.game.visualTimer.hide();
-        },
-        cb: function () {
-            var currentData;
-            var topic = W.getElementById('topic');
-            var justification = W.getElementById('justification');
+    // stager.extendStep('chat', {
+    //     frame: 'chat.html',
+    //     init: function () {
+    //         node.game.visualTimer.hide();
+    //     },
+    //     cb: function () {
+    //         var currentData;
+    //         var topic = W.getElementById('topic');
+    //         var justification = W.getElementById('justification');
 
-            // Receive data from logic
-            node.on.data('INFODATA', function (msg) {
-                console.log('INFODATA', msg.data);
-                node.game.globals.tabData = msg.data;
-                // Construct infoBar
-                var infoBar = W.getElementById('info-bar');
-                var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
-                    data: node.game.globals.tabData,
-                    // Extra options available to all widgets.
-                    docked: false,
-                    collapsible: false,
-                    closable: false
-                });
-                infoBarWidget.removeFrame();
-            });
+    //         // Receive data from logic
+    //         node.on.data('INFODATA', function (msg) {
+    //             console.log('INFODATA', msg.data);
+    //             node.game.globals.tabData = msg.data;
+    //             // Construct infoBar
+    //             var infoBar = W.getElementById('info-bar');
+    //             var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
+    //                 data: node.game.globals.tabData,
+    //                 // Extra options available to all widgets.
+    //                 docked: false,
+    //                 collapsible: false,
+    //                 closable: false
+    //             });
+    //             infoBarWidget.removeFrame();
+    //         });
 
-            // Receive data from infoBar
-            node.on('BUBBLE_DATA', function (data, index) {
-                console.log('BUBBLE_DATA', data, index);
-                currentData = data;
-                topic.innerText = currentData.topic;
-            });
+    //         // Receive data from infoBar
+    //         node.on('BUBBLE_DATA', function (data, index) {
+    //             console.log('BUBBLE_DATA', data, index);
+    //             currentData = data;
+    //             topic.innerText = currentData.topic;
+    //         });
 
-            // Construct chat
-            var chat = W.getElementById('chat');
-            var chatWidget = node.widgets.append('Chat', chat, {
-                participants: node.game.partners,
-                initialMsg: {
-                    id: 'game',
-                    msg: 'Swap information by chatting...'
-                },
-                title: '',
-                chatEvent: 'CHAT',
-                printStartTime: false,
-                storeMsgs: true,
-                receiverOnly: true,
-                docked: false,
-                collapsible: false,
-                closable: false
-            });
+    //         // Construct chat
+    //         var chat = W.getElementById('chat');
+    //         var chatWidget = node.widgets.append('Chat', chat, {
+    //             participants: node.game.partners,
+    //             initialMsg: {
+    //                 id: 'game',
+    //                 msg: 'Swap information by chatting...'
+    //             },
+    //             title: '',
+    //             chatEvent: 'CHAT',
+    //             printStartTime: false,
+    //             storeMsgs: true,
+    //             receiverOnly: true,
+    //             docked: false,
+    //             collapsible: false,
+    //             closable: false
+    //         });
 
-            // Attach functionality to chat input form
-            var propostionMap = {
-                '<': 'worse than',
-                '=': 'as good as',
-                '>': 'better than'
-            }
-            var commodity1 = W.getElementById('commodity_1');
-            var proposition = W.getElementById('proposition');
-            var commodity2 = W.getElementById('commodity_2');
-            var button = W.getElementById('send');
-            button.onclick = function () {
-                if (messageComplete()) {
-                    chatWidget.sendMsg({
-                        infoId: currentData.id,
-                        id: Math.trunc(Math.random() * 10000),
-                        senderAlias: 'John',
-                        topic: currentData.topic,
-                        belief: [commodity1.value, proposition.value, commodity2.value],
-                        justification: justification.value,
-                        msg: function (data, code) {
-                            if (code === 'incoming') {
-                                //
-                            } else if (code === 'outgoing') {
-                                return '<div><strong>' + data.topic + '</strong></div><div>Belief: ' +
-                                    data.belief[0] + ' <strong>' + propostionMap[data.belief[1]] + '</strong> ' + data.belief[2] +
-                                    '</div><div>' + data.justification + '</div>';
-                            }
-                        }
-                    });
-                    currentData = null;
-                    topic.innerText = '';
-                    commodity1.value = proposition.value = commodity2.value = '';
-                    justification.value = '';
-                } else {
-                    alert('Please complete all message fields');
-                }
-            };
-            var messageComplete = function () {
-                return topic.innerText && commodity1.value && proposition.value && commodity2.value && justification.value;
-            }
+    //         // Attach functionality to chat input form
+    //         var propostionMap = {
+    //             '<': 'worse than',
+    //             '=': 'as good as',
+    //             '>': 'better than'
+    //         }
+    //         var commodity1 = W.getElementById('commodity_1');
+    //         var proposition = W.getElementById('proposition');
+    //         var commodity2 = W.getElementById('commodity_2');
+    //         var button = W.getElementById('send');
+    //         button.onclick = function () {
+    //             if (messageComplete()) {
+    //                 chatWidget.sendMsg({
+    //                     infoId: currentData.id,
+    //                     id: Math.trunc(Math.random() * 10000),
+    //                     senderAlias: 'John',
+    //                     topic: currentData.topic,
+    //                     belief: [commodity1.value, proposition.value, commodity2.value],
+    //                     justification: justification.value,
+    //                     msg: function (data, code) {
+    //                         if (code === 'incoming') {
+    //                             //
+    //                         } else if (code === 'outgoing') {
+    //                             return '<div><strong>' + data.topic + '</strong></div><div>Belief: ' +
+    //                                 data.belief[0] + ' <strong>' + propostionMap[data.belief[1]] + '</strong> ' + data.belief[2] +
+    //                                 '</div><div>' + data.justification + '</div>';
+    //                         }
+    //                     }
+    //                 });
+    //                 currentData = null;
+    //                 topic.innerText = '';
+    //                 commodity1.value = proposition.value = commodity2.value = '';
+    //                 justification.value = '';
+    //             } else {
+    //                 alert('Please complete all message fields');
+    //             }
+    //         };
+    //         var messageComplete = function () {
+    //             return topic.innerText && commodity1.value && proposition.value && commodity2.value && justification.value;
+    //         }
 
-            // Construct done button
-            var continueButton = W.getElementById('continue');
-            this.doneButton = node.widgets.append('DoneButton', continueButton, {
-                text: 'Done Talking',
-                enableOnPlaying: false
-            });
-            this.doneButton.removeFrame();
-            this.doneButton.disable();
-        },
-    });
+    //         // Construct done button
+    //         var continueButton = W.getElementById('continue');
+    //         this.doneButton = node.widgets.append('DoneButton', continueButton, {
+    //             text: 'Done Talking',
+    //             enableOnPlaying: false
+    //         });
+    //         this.doneButton.removeFrame();
+    //         this.doneButton.disable();
+    //     },
+    // });
 
-    stager.extendStep('sliders', {
-        frame: 'sliders.html',
-        donebutton: {
-            text: 'Continue',
-            enableOnPlaying: false,
-        },
-        init: function () {
-            node.game.visualTimer.hide();
-        },
-        cb: function () {
-            var linkedSliders = W.getElementById('linked-sliders');
-            var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
-                labels: ['Wheat', 'Sugar', 'Coffee']
-            });
-            linkedSlidersWidget.removeFrame();
-            node.on('complete', function () {
-                console.log('Done', linkedSlidersWidget.getValues());
-                this.doneButton.enable();
-            });
-            node.on('incomplete', function () {
-                console.log('Undone');
-                this.doneButton.disable();
-            });
-            this.doneButton = node.widgets.append('DoneButton', linkedSliders);
-            this.doneButton.removeFrame();
-        },
-    });
+    // stager.extendStep('sliders', {
+    //     frame: 'sliders.html',
+    //     donebutton: {
+    //         text: 'Continue',
+    //         enableOnPlaying: false,
+    //     },
+    //     init: function () {
+    //         node.game.visualTimer.hide();
+    //     },
+    //     cb: function () {
+    //         var linkedSliders = W.getElementById('linked-sliders');
+    //         var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
+    //             labels: ['Wheat', 'Sugar', 'Coffee']
+    //         });
+    //         linkedSlidersWidget.removeFrame();
+    //         node.on('complete', function () {
+    //             console.log('Done', linkedSlidersWidget.getValues());
+    //             this.doneButton.enable();
+    //         });
+    //         node.on('incomplete', function () {
+    //             console.log('Undone');
+    //             this.doneButton.disable();
+    //         });
+    //         this.doneButton = node.widgets.append('DoneButton', linkedSliders);
+    //         this.doneButton.removeFrame();
+    //     },
+    // });
 
-    stager.extendStep('multi_sliders', {
-        frame: 'multi_sliders.html',
-        donebutton: {
-            text: 'Continue',
-            enableOnPlaying: false,
-        },
-        init: function () {
-            node.game.visualTimer.hide();
-        },
-        cb: function () {
-            var linkedSliders1 = W.getElementById('linked-sliders-1');
-            var linkedSlidersWidget1 = node.widgets.append('LinkedSliders', linkedSliders1, {
-                labels: ['Wheat', 'Sugar', 'Coffee']
-            });
-            linkedSlidersWidget1.removeFrame();
+    // stager.extendStep('multi_sliders', {
+    //     frame: 'multi_sliders.html',
+    //     donebutton: {
+    //         text: 'Continue',
+    //         enableOnPlaying: false,
+    //     },
+    //     init: function () {
+    //         node.game.visualTimer.hide();
+    //     },
+    //     cb: function () {
+    //         var linkedSliders1 = W.getElementById('linked-sliders-1');
+    //         var linkedSlidersWidget1 = node.widgets.append('LinkedSliders', linkedSliders1, {
+    //             labels: ['Wheat', 'Sugar', 'Coffee']
+    //         });
+    //         linkedSlidersWidget1.removeFrame();
 
-            this.doneButton = node.widgets.append('DoneButton', linkedSliders1);
-            this.doneButton.removeFrame();
-        },
-    });
+    //         this.doneButton = node.widgets.append('DoneButton', linkedSliders1);
+    //         this.doneButton.removeFrame();
+    //     },
+    // });
 
     // stager.extendStep('quiz', {
     //     init: function() {
