@@ -58,7 +58,7 @@ module.exports = function (stager, settings) {
     .stage('end_study')
     .step('thank_you')
     .step('debrief')
-    .step('task_complete')
+    .step('end_of_game')
     .gameover();
 
   // Modify the stager to skip one stage.

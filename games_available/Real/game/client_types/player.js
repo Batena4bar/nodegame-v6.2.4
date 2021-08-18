@@ -75,9 +75,6 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         this.disconnectBox = node.widgets.append('DisconnectBox', header, {
             showDiscBtn: false,
             showStatus: true,
-            disconnectCb: function () {
-                alert('Hey you disconnected!');
-            },
             connectCb: function () {
                 alert('Hey you connected!');
             }
@@ -367,6 +364,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             var infoBar = W.getElementById('info-bar');
             var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
                 data: node.game.infoData,
+                messageButton: true,
                 // Extra options available to all widgets.
                 docked: false,
                 collapsible: false,
@@ -818,7 +816,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('task_complete', {
+    stager.extendStep('end_of_game', {
         init: function () {
             node.game.visualTimer.destroy();
         },
@@ -828,7 +826,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 texts: {
                     message: 'You have now completed this task and your responses have been saved. Please go back to the Prolific website and submit your exit code.'
                 },
-                showEmailForm: true
+                showEmailForm: true,
+                feedback: {
+                    minChars: undefined
+                }
             },
         },
     });

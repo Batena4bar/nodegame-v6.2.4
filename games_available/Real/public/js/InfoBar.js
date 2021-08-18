@@ -32,6 +32,7 @@
     // You can define widget properties here,
     // but they should get assigned a value in init.
     this.data = null;
+    this.messageButton = false;
   }
 
   InfoBar.prototype.init = function (options) {
@@ -40,9 +41,10 @@
 
     if (options.data && 'object' === typeof options.data) {
       this.data = options.data;
+      this.messageButton = options.messageButton || false;
     } else {
       throw new TypeError(
-        'InfoBar.init: data must ' + 'be object. Found: ' + options.data
+        'InfoBar.init: data must be an object. Found: ' + options.data
       );
     }
     // Furthermore, you can add internal listeners here
@@ -63,6 +65,8 @@
     //   - bodyDiv:    the main container
     //   - footerDiv:  the footer container
     //
+
+    var that = this;
 
     var widget = this;
     // Get jQuery from the host window
@@ -126,15 +130,19 @@
         $pointer.css('top', 52 * index + 8);
 
         var $title = $('<h2>').text(tab.topic);
-        var $messageButton = $('<button>')
-          .prop('type', 'button')
-          .addClass('btn btn-light')
-          .html('<span class="far fa-comment"></span>');
-        $messageButton.click(function () {
-          node.emit('BUBBLE_DATA', tab, index);
-          closeBubble();
-        });
-        $title.append($messageButton);
+
+        if (that.messageButton) {
+          var $messageButton = $('<button>')
+            .prop('type', 'button')
+            .addClass('btn btn-light')
+            .html('<span class="far fa-comment"></span>');
+          $messageButton.click(function () {
+            node.emit('BUBBLE_DATA', tab, index);
+            closeBubble();
+          });
+          $title.append($messageButton);
+        }
+
         $panel = $('<div>')
           .addClass('panel')
           .append($title)

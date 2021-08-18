@@ -259,23 +259,6 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     },
   });
 
-  stager.extendStep('message_like', {
-    cb: function () {
-      console.log('message_like logic');
-
-      var chatMessages = memory.select('chatMessage').fetch();
-
-      // Loop through all connected players.
-      node.game.pl.each(function (player) {
-        console.log('Sent CHATMESSAGES to', player.id);
-        node.say('CHATMESSAGES', player.id, chatMessages);
-      });
-    },
-    exit: function () {
-      memory.save('data.json');
-    },
-  });
-
   stager.extendStep('initial_choice', {
     cb: function () {
       console.log('initial_choice logic');
@@ -304,6 +287,14 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
   stager.extendStep('message_like', {
     cb: function () {
       console.log('message_like logic');
+
+      var chatMessages = memory.select('chatMessage').fetch();
+
+      // Loop through all connected players.
+      node.game.pl.each(function (player) {
+        // console.log('Sent CHATMESSAGES to', player.id);
+        node.say('CHATMESSAGES', player.id, chatMessages);
+      });
     },
     exit: function () {
       memory.save('data.json');
