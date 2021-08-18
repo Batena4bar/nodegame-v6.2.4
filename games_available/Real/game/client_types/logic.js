@@ -144,6 +144,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         // Store the value in the registry under the ID of the player (msg.from).
         var userData = channel.registry.getClient(msg.from);
 
+        console.log('storeChatData');
+
         memory.add({
           player: userData.id,
           stage: userData.stage,
@@ -245,67 +247,38 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         }));
       });
     },
-    // exit: function () {
-    //   node.game.pl.each(function (player) {
-    //     console.log('hello!', player.id);
-    //     memory.player[player.id].save('data_player_' + player.id + '.json');
-    //   });
-    // },
+    exit: function () {
+      memory.save('data.json');
+    },
   });
 
-  stager.extendStep('guided_communication', {
-    cb: function () {
-      console.log('guided_communication logic');
-
-      this.savedResults = {};
-      //var messageId = 0;
-
-      // node.on.data('CHAT', function (msg) {
-      //   storeData(msg);
-      // });
-
-      // Loop through all connected players.
-      // node.game.pl.each(function (player) {
-      //   // Calculate the infoBar tabs for each player and send them   
-      //   node.say('INFODATA', player.id, tabData.slice(4, 10));
-      // });
+  stager.extendStep('task_start', {
+    exit: function () {
+      console.log('Saving all data');
+      memory.save('data.json');
     },
-    // exit: function () {
-    //   memory.save('data.json');
-    // },
   });
 
   stager.extendStep('message_like', {
     cb: function () {
-      this.savedResults = {};
-
       console.log('message_like logic');
 
       var chatMessages = memory.select('chatMessage').fetch();
 
       // Loop through all connected players.
       node.game.pl.each(function (player) {
-        // Calculate the infoBar tabs for each player and send them   
-        // node.say('INFODATA', player.id, tabData.slice(4, 10));
+        console.log('Sent CHATMESSAGES to', player.id);
         node.say('CHATMESSAGES', player.id, chatMessages);
       });
     },
-    // exit: function () {
-    //   memory.save('data.json');
-    // },
+    exit: function () {
+      memory.save('data.json');
+    },
   });
 
   stager.extendStep('initial_choice', {
     cb: function () {
-      this.savedResults = {};
-
       console.log('initial_choice logic');
-
-      // Loop through all connected players.
-      // node.game.pl.each(function (player) {
-      //   // Calculate the infoBar tabs for each player and send them   
-      //   node.say('INFODATA', player.id, tabData.slice(4, 10));
-      // });
 
       // Get the ids of all players.
       let ids = node.game.pl.id.getAllKeys();
@@ -314,50 +287,71 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         node.say('PARTNERS', idx, ids.slice(0, i).concat(ids.slice(i + 1)));
       });
     },
-    // exit: function () {
-    //   memory.save('data.json');
-    // },
-  });
-
-  stager.extendStep('secondary_choice', {
-    cb: function () {
-      this.savedResults = {};
-
-      console.log('secondary_choice logic');
-
-      // Loop through all connected players.
-      // node.game.pl.each(function (player) {
-      //   // Calculate the infoBar tabs for each player and send them   
-      //   node.say('INFODATA', player.id, tabData.slice(4, 10));
-      // });
-
-      // // Get the ids of all players.
-      // let ids = node.game.pl.id.getAllKeys();
-      // ids.forEach(function (idx, i) {
-      //   // Send the other ids to each player.
-      //   node.say('PARTNERS', idx, ids.slice(0, i).concat(ids.slice(i + 1)));
-      // });
+    exit: function () {
+      memory.save('data.json');
     },
-    // exit: function () {
-    //   memory.save('data.json');
-    // },
   });
 
-
-  stager.extendStep('group_choice', {
+  stager.extendStep('guided_communication', {
     cb: function () {
-      this.savedResults = {};
-
-      console.log('group_choice logic');
-
+      console.log('guided_communication logic');
     },
     exit: function () {
       memory.save('data.json');
     },
   });
 
+  stager.extendStep('message_like', {
+    cb: function () {
+      console.log('message_like logic');
+    },
+    exit: function () {
+      memory.save('data.json');
+    },
+  });
+
+  stager.extendStep('secondary_choice', {
+    cb: function () {
+      console.log('secondary_choice logic');
+    },
+    exit: function () {
+      memory.save('data.json');
+    },
+  });
+
+  stager.extendStep('group_choice', {
+    cb: function () {
+      console.log('group_choice logic');
+    },
+    exit: function () {
+      memory.save('data.json');
+    },
+  });
+
+  stager.extendStep('post_task_1', {
+    cb: function () {
+      console.log('post_task_1 logic');
+    },
+    exit: function () {
+      memory.save('data.json');
+    },
+  })
+
+  stager.extendStep('post_task_2', {
+    cb: function () {
+      console.log('post_task_2 logic');
+    },
+    exit: function () {
+      memory.save('data.json');
+    },
+  })
 
   stager.setOnGameOver(function () {
-    // Something to do.
+    memory.save('data.json');
+
+    node.game.pl.each(function (player) {
+      console.log('Saving data for', player.id);
+      memory.player[player.id].save('data_player_' + player.id + '.json');
+    });
   });
 };

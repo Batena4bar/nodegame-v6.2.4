@@ -9,59 +9,53 @@
 </head>
 
 <body>
-    <div id="root" style="max-width: 800px; margin: 0 auto; font-size: 20px">
-        <div class="ng_widget no-panel endscreen">
-            <div class="no-panel-body">
-                <div class="endscreen">
-                    <br>
-                    <h1 style="text-align:center">Thank you for participating!</h1>
-                    <br>
-                    <p>You have now completed this task and your responses have been saved. Please go back to the
-                        Prolific website and submit your exit code.</p>
-                    <div>
-                        <p><strong>Your total earnings:</strong>
-                            <input class="endscreen-total form-control" disabled="true">
-                        </p>
-                    </div>
-                    <span><strong>Your exit code:</strong></span>
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default endscreen-copy-btn" type="button">Copy</button>
-                        </span>
-                        <input id="exit_code" class="endscreen-exit-code form-control" disabled="true">
-                    </div>
-                    <br>
-                    <div class="ng_widget no-panel emailform">
-                        <div class="no-panel-body">
-                            <form class="emailform-form">
-                                <label>Enter your email (optional):</label>
-                                <input type="text" placeholder="Email" class="emailform-input form-control">
-                                <br>
-                                <input type="submit" value="Submit email"
-                                    class="btn btn-lg btn-primary emailform-submit">
-                            </form>
+    <div id="container">
+        <div id="root">
+            <div class="ng_widget no-panel endscreen">
+                <div class="no-panel-body">
+                    <div class="endscreen">
+                        <br>
+                        <h1 style="text-align:center">Thank you for participating!</h1>
+                        <br>
+                        <p>You have now completed this task and your responses have been saved. Please go back to the
+                            Prolific website and submit your exit code.</p>
+                        <div>
+                            <p><strong>Your total earnings:</strong>
+                                <input class="endscreen-total form-control" disabled="true">
+                            </p>
                         </div>
-                    </div>
-                    <br>
-                    <div class="ng_widget no-panel feedback">
-                        <div class="no-panel-body">
-                            <form class="feedback-form">
-                                <span class="feedback-maintext">Any feedback? Let us know here:
-                                    <span class="feedback-hint"></span>
-                                </span>
-                                <textarea class="form-control feedback-textarea" type="text" rows="3"></textarea>
-                                <br>
-                                <input class="btn btn-lg btn-primary" type="submit" value="Submit feedback" disabled="">
-                                <span class="feedback-char-count badge"
-                                    style="background-color: rgb(163, 32, 32);"></span>
-                            </form>
+                        <span><strong>Your exit code:</strong></span>
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default endscreen-copy-btn" type="button">Copy</button>
+                            </span>
+                            <input id="exit_code" class="endscreen-exit-code form-control" disabled="true">
+                        </div>
+                        <br>
+                        <div class="ng_widget no-panel feedback">
+                            <div class="no-panel-body">
+                                <form id="feedback-form" class="feedback-form">
+                                    <label>Enter your email (optional):</label>
+                                    <input type="text" placeholder="Email" class="emailform-input form-control">
+                                    <br>
+                                    <span class="feedback-maintext">Any feedback? Let us know here:
+                                        <span class="feedback-hint"></span>
+                                    </span>
+                                    <textarea class="form-control feedback-textarea" type="text" rows="3"></textarea>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div id="footer" style="outline:0.01em solid black;">
+            <p>
+                To complete the experiment, press...
+                <span id="done-button"></span>
+            </p>
+        </div>
     </div>
-
 </body>
 
 </html>

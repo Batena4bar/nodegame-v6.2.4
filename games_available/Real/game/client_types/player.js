@@ -19,8 +19,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
     // Sets the default globals.
     stager.setDefaultGlobals({
-        tabData: ['dummy'],
+        //tabData: ['dummy'],
         attentionCheck: null,
+        sliderValues: [0, 0, 0],
+        likertTableValues: null,
     });
 
     stager.setOnInit(function () {
@@ -70,6 +72,16 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         this.visualStage = node.widgets.append('VisualStage', header);
         this.visualRound = node.widgets.append('VisualRound', header);
         this.visualTimer = node.widgets.append('VisualTimer', header);
+        this.disconnectBox = node.widgets.append('DisconnectBox', header, {
+            showDiscBtn: false,
+            showStatus: true,
+            disconnectCb: function () {
+                alert('Hey you disconnected!');
+            },
+            connectCb: function () {
+                alert('Hey you connected!');
+            }
+        });
         // this.doneButton = node.widgets.append('DoneButton', header);
 
         // Additional debug information while developing the game.
@@ -85,7 +97,26 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('info_and_consent_2', {
         frame: 'consent_form.html',
+        donebutton: {
+            text: 'Continue',
+            enableOnPlaying: false,
+        },
         cb: function () {
+            var that = this;
+            var consentForm = W.getElementById('consent-form');
+
+            consentForm.onclick = function () {
+                var allTicked = true;
+                for (var i = 0; i < consentForm.elements.length; i++) {
+                    allTicked = allTicked && consentForm[i].checked;
+                }
+                if (allTicked) {
+                    that.doneButton.enable();
+                } else {
+                    that.doneButton.disable();
+                }
+            };
+
             this.doneButton = this.addDoneButton('Continue');
         },
     });
@@ -125,6 +156,17 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 for (var i = 0; i < forms.length; i++) {
                     forms[i].classList.remove('hide-answers');
                 }
+
+                var information = W.getElementById('information');
+                var why = information.getElementsByClassName('form-check-input');
+                var answer = 'nothing_selected';
+                for (var j = 0; j < why.length; j++) {
+                    if (why[j].checked) {
+                        answer = why[j].value;
+                    }
+                }
+                // console.log('comprehension_1: ' + answer);
+                node.set({ value: { comprehension_1: answer } });
             };
             step2.style = "display: none;"
         },
@@ -151,6 +193,16 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 for (var i = 0; i < forms.length; i++) {
                     forms[i].classList.remove('hide-answers');
                 }
+
+                var commoditiesForm = W.getElementById('commodities-form');
+                var commodities = [];
+                for (var j = 0; j < commoditiesForm.elements.length; j++) {
+                    if (commoditiesForm[j].checked) {
+                        commodities.push(commoditiesForm[j].value);
+                    }
+                }
+                console.log('comprehension_2', commodities);
+                node.set({ value: { comprehension_2: commodities } });
             };
             step2.style = "display: none;"
         },
@@ -160,6 +212,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         frame: 'video.html',
         init: function () {
             node.game.visualTimer.hide();
+        },
+        done: function (data) {
+            // console.log('attention_check', node.game.globals.attentionCheck);
+            node.set({ value: { attention_check: node.game.globals.attentionCheck } });
         },
         cb: function () {
             this.doneButton = this.addDoneButton('Continue');
@@ -171,7 +227,6 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             }
         },
         exit: function () {
-            node.set({ value: { attention_check: node.game.globals.attentionCheck } });
             node.game.visualTimer.show();
         },
     });
@@ -194,14 +249,18 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             } else {
                 node.done();
             }
-
         },
     });
 
     stager.extendStep('the_scenario_2', {
         frame: settings.treatment_2,
+        done: function (data) {
+            var justification = W.getElementById('justification');
+            if (justification.value) {
+                node.set({ value: { justification: justification.value } });
+            }
+        },
         cb: function () {
-
             if (node.game.settings.treatment) {
                 this.doneButton = node.widgets.append('DoneButton', W.getElementById('done-button'), {
                     text: 'Continue',
@@ -256,6 +315,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             text: 'Submit Choices',
             enableOnPlaying: false,
         },
+        done: function (data) {
+            // console.log('initial_choice', node.game.globals.sliderValues);
+            node.set({ value: { initial_choice: node.game.globals.sliderValues } });
+        },
         cb: function () {
             // Construct infoBar
             var infoBar = W.getElementById('info-bar');
@@ -275,6 +338,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             });
             linkedSlidersWidget.removeFrame();
             node.on('complete', function () {
+                node.game.globals.sliderValues = linkedSlidersWidget.getValues();
+                // console.log('initial_choice ->', node.game.globals.sliderValues);
                 this.doneButton.enable();
             });
 
@@ -387,6 +452,16 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         init: function () {
             node.game.visualTimer.hide();
         },
+        done: function (data) {
+            var messages = W.getElementById('messages');
+            var likes = messages.querySelectorAll('.fa-thumbs-up.fas')
+            var likesList = [];
+            Array.prototype.forEach.call(likes, function (like) {
+                likesList.push(like.id);
+            });
+            console.log('likes', likesList);
+            node.set({ value: { likes: likesList } });
+        },
         cb: function () {
             // Construct infoBar
             var infoBar = W.getElementById('info-bar');
@@ -403,6 +478,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             var messages = W.getElementById('messages');
             // Receive data from logic
             node.on.data('CHATMESSAGES', function (msg) {
+                console.log('Recieved CHATMESSAGES', msg.data);
                 msg.data.forEach(function (message) {
                     var chatMessage = document.createElement('div');
                     chatMessage.classList.add('chat-message');
@@ -451,15 +527,6 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             this.doneButton.removeFrame();
             this.doneButton.disable();
         },
-        exit: function () {
-            var messages = W.getElementById('messages');
-            var likes = messages.querySelectorAll('.fa-thumbs-up.fas')
-            var likesList = [];
-            Array.prototype.forEach.call(likes, function (like) {
-                likesList.push(like.id);
-            });
-            node.set({ value: { likes: likesList } });
-        },
     });
 
     stager.extendStep('secondary_choice', {
@@ -467,6 +534,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         donebutton: {
             text: 'Submit Choices',
             enableOnPlaying: false,
+        },
+        done: function (data) {
+            console.log('secondary_choice', node.game.globals.sliderValues);
+            node.set({ value: { secondary_choice: node.game.globals.sliderValues } });
         },
         cb: function () {
             // Construct infoBar
@@ -487,12 +558,12 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             });
             linkedSlidersWidget.removeFrame();
             node.on('complete', function () {
-                //console.log('Done', linkedSlidersWidget.getValues());
+                node.game.globals.sliderValues = linkedSlidersWidget.getValues();
+                console.log('secondary_choice ->', node.game.globals.sliderValues);
                 this.doneButton.enable();
             });
             // Construct done button
             node.on('incomplete', function () {
-                //console.log('Undone');
                 this.doneButton.disable();
             });
             this.doneButton = node.widgets.append('DoneButton', linkedSliders);
@@ -506,6 +577,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         donebutton: {
             text: 'Accept Descision',
             enableOnPlaying: false,
+        },
+        done: function (data) {
+            console.log('accepted_decision', node.game.globals.sliderValues);
+            node.set({ value: { group_choice: node.game.globals.sliderValues } });
         },
         cb: function () {
             var choices = {};
@@ -561,12 +636,12 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             });
             linkedSlidersWidget.removeFrame();
             node.on('complete', function () {
-                //console.log('Done', linkedSlidersWidget.getValues());
+                node.game.globals.sliderValues = linkedSlidersWidget.getValues();
+                console.log('accepted_decision ->', node.game.globals.sliderValues);
                 submitChoiceButton.disabled = false;
             });
             // Construct done button
             node.on('incomplete', function () {
-                //console.log('Undone');
                 submitChoiceButton.disabled = true;
             });
             var submitChoiceButton = W.getElementById('send');
@@ -606,10 +681,18 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-
     stager.extendStep('post_task_1', {
         frame: 'post_task_1.html',
+        donebutton: {
+            text: 'Next',
+            enableOnPlaying: false,
+        },
+        done: function (data) {
+            console.log('fear_factors', node.game.globals.likertTableValues);
+            node.set({ value: { fear_factors: node.game.globals.likertTableValues } });
+        },
         cb: function () {
+            var that = this;
 
             var items = {
                 'Being rejected by other group members?': 0,
@@ -629,22 +712,24 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 requiredChoice: true,
                 left: 'Lowest',
                 right: 'Highest',
-                // onclick: function (question, answer, deselecting) {
-                //     items[question] = deselecting ? 0 : answer + 1;
-                //     var answers = Object.values(items);
-                //     var allAnswered = true;
-                //     for (var index = 0; index < answers.length; index++) {
-                //         if (answers[index] === 0) {
-                //             allAnswered = false;
-                //             break;
-                //         }
-                //     }
-                //     if (allAnswered) {
-                //         this.doneButton.enable();
-                //     } else {
-                //         this.doneButton.disable();
-                //     }
-                // }
+                onclick: function (question, answer, deselecting) {
+                    items[question] = deselecting ? 0 : answer + 1;
+                    var answers = Object.values(items);
+                    var allAnswered = true;
+                    for (var index = 0; index < answers.length; index++) {
+                        if (answers[index] === 0) {
+                            allAnswered = false;
+                            break;
+                        }
+                    }
+                    if (allAnswered) {
+                        node.game.globals.likertTableValues = likertTableWidget.getValues();
+                        console.log('fear_factors ->', node.game.globals.likertTableValues);
+                        that.doneButton.enable();
+                    } else {
+                        that.doneButton.disable();
+                    }
+                }
             };
             // Create and append the widget to the body of the page.
             var likertTable = W.getElementById('likert_table');
@@ -655,29 +740,57 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             choicetableHint.remove();
 
             this.doneButton = this.addDoneButton('Next');
-            //this.doneButton.disable();
         },
     });
 
     stager.extendStep('post_task_2', {
         frame: 'post_task_2.html',
+        donebutton: {
+            text: 'Next',
+            enableOnPlaying: false,
+        },
+        done: function (data) {
+            console.log('PANAS_fears', node.game.globals.likertTableValues);
+            node.set({ value: { fear_factors: node.game.globals.likertTableValues } });
+        },
         cb: function () {
+            var that = this;
+
+            var items = {
+                'Afraid': 0,
+                'Scared': 0,
+                'Frightened': 0,
+                'Nervous': 0,
+                'Jittery': 0,
+                'Shaky': 0,
+            }
 
             var options = {
                 id: 'post_task_2',
-                items: [
-                    'Afraid',
-                    'Scared',
-                    'Frightened',
-                    'Nervous',
-                    'Jittery',
-                    'Shaky'
-                ],
+                items: Object.keys(items),
                 choices: [1, 2, 3, 4, 5, 6, 7],
                 shuffleItems: true,
                 requiredChoice: true,
                 left: 'Lowest',
-                right: 'Highest'
+                right: 'Highest',
+                onclick: function (question, answer, deselecting) {
+                    items[question] = deselecting ? 0 : answer + 1;
+                    var answers = Object.values(items);
+                    var allAnswered = true;
+                    for (var index = 0; index < answers.length; index++) {
+                        if (answers[index] === 0) {
+                            allAnswered = false;
+                            break;
+                        }
+                    }
+                    if (allAnswered) {
+                        node.game.globals.likertTableValues = likertTableWidget2.getValues();
+                        console.log('PANAS_fears ->', node.game.globals.likertTableValues);
+                        that.doneButton.enable();
+                    } else {
+                        that.doneButton.disable();
+                    }
+                }
             };
             // Create and append the widget to the body of the page.
             var likertTable2 = W.getElementById('likert_table_2');
@@ -705,20 +818,18 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('feedback', {
-        frame: 'feedback.html',
-        cb: function () {
-        },
-    });
-
-    stager.extendStep('end', {
+    stager.extendStep('task_complete', {
         init: function () {
-            // node.game.doneButton.destroy();
             node.game.visualTimer.destroy();
         },
         widget: {
             name: 'EndScreen',
-            options: { showEmailForm: false },
+            options: {
+                texts: {
+                    message: 'You have now completed this task and your responses have been saved. Please go back to the Prolific website and submit your exit code.'
+                },
+                showEmailForm: true
+            },
         },
     });
 };
