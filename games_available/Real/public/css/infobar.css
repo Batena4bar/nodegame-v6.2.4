@@ -24,7 +24,7 @@
   position: absolute;
   top: 0;
   left: 70px;
-  min-height: 320px;
+  min-height: 370px;
   width: 600px;
   background-color: white;
   border: 1px solid grey;
@@ -39,6 +39,17 @@
   width: 20px;
   height: 20px;
   left: -20px;
+}
+
+.info-bar>div>.bubble>.panel>p>.producer-tables {
+  display: flex;
+}
+.info-bar>div>.bubble>.panel>p>.producer-tables>table {
+  margin-right: 20px;
+}
+
+.info-bar>div>.bubble>.panel>p>.producer-tables>table>tbody>tr>td {
+  padding: 2px 8px;
 }
 
 .info-bar>div>.bubble>.panel>h2{

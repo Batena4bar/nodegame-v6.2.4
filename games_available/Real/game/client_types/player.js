@@ -408,7 +408,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                     chatWidget.sendMsg({
                         infoId: currentData.id,
                         id: Math.trunc(Math.random() * 10000),
-                        senderAlias: 'John',
+                        senderAlias: node.player.name,
                         topic: currentData.topic,
                         belief: [commodity1.value, proposition.value, commodity2.value],
                         justification: justification.value,

@@ -110,7 +110,10 @@ module.exports = {
 
         // console.log(roomCounter, batchCounter, dispatchCounter);
 
-        return treatments[roomCounter % treatments.length];
+        // console.log('treatments', treatments[0]);
+
+        //return treatments[roomCounter % treatments.length];
+        return treatments[0] // hard coded to control
     },
 
     /**
@@ -462,7 +465,6 @@ module.exports = {
      * @see WaitingRoom.sounds
      */
     SOUNDS: {
-
         /**
          * ## dispatch
          *
@@ -480,7 +482,7 @@ module.exports = {
      *
      * A button is added to the interface.
      */
-    ALLOW_PLAY_WITH_BOTS: false,
+    ALLOW_PLAY_WITH_BOTS: true,
 
     /** ### ALLOW_SELECT_TREATMENT
      *

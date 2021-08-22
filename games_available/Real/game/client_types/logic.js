@@ -9,117 +9,175 @@
 
 'use strict';
 
+// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+function shuffle(array) {
+  var currentIndex = array.length, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+
 const ngc = require('nodegame-client');
 const J = ngc.JSUS;
 const tabData = [
   {
     id: '1',
-    icon: 'file',
-    topic: 'El Niño & La El Nina',
+    icon: 'circle',
+    topic: 'El Niño',
     html:
-      `<p>El Niño is a weather phenomenon that can have a number of effects, typically it entails excessive rains and floods in South America and severe drought and hotter average temperatures, for most regions of Asia-Pacific. This can frequently lead to food insecurity for affected countries.</p>
-      <p>La Nina is a somewhat opposite weather phenomenon that entails wetter environments and cooler average temperatures, for the same regions of Asia-Pacific.</p>`
+      `<p>El Niño is a cyclical weather phenomenon that is about to begin. It often entails extreme weather conditions in South America and most regions of Asia-Pacific. This is usually well managed by farmers but can lead people to feel insecure about food in the affected regions.</p>`
   },
   {
     id: '2',
-    icon: '',
-    topic: 'Top 7 Wheat Producing Countries',
+    icon: 'triangle',
+    topic: 'Top 4 Food Producers',
     html:
-      `<table>
-        <tr><th>Country</th></tr>
-        <tr><td>1</td><td>China</td></tr>
-        <tr><td>2</td><td>India</td></tr>
-        <tr><td>3</td><td>Russia</td></tr>
-        <tr><td>4</td><td>USA</td></tr>
-        <tr><td>5</td><td>France</td></tr>
-        <tr><td>6</td><td>Canada</td></tr>
-        <tr><td>7</td><td>Germany</td></tr>
-      </table>`,
+      `<div class="producer-tables">
+        <table>
+          <tr><th>Wheat</th></tr>
+          <tr><td>1</td><td>China</td></tr>
+          <tr><td>2</td><td>India</td></tr>
+          <tr><td>3</td><td>Russia</td></tr>
+          <tr><td>4</td><td>USA</td></tr>
+        </table>
+        <br>
+        <table>
+          <tr><th>Sugar</th></tr>
+          <tr><td>1</td><td>Brazil</td></tr>
+          <tr><td>2</td><td>India</td></tr>
+          <tr><td>3</td><td>Thailand</td></tr>
+          <tr><td>4</td><td>China</td></tr>
+        </table>
+        <br>
+        <table>
+          <tr><th>Coffee</th></tr>
+          <tr><td>1</td><td>Brazil</td></tr>
+          <tr><td>2</td><td>Vietnam</td></tr>
+          <tr><td>3</td><td>Columbia</td></tr>
+          <tr><td>4</td><td>Etheopia</td></tr>
+        </table>
+      </div>`,
   },
   {
     id: 'A1',
-    icon: 'anchor',
-    topic: 'ENSO weather cycle',
+    icon: 'square',
+    topic: 'Forest fire',
     html:
-      `<p>Eastern and southern Africa, Latin America and the Asia-Pacific region experience a cyclical extreme weather pattern called ENSO. A warming of the central to eastern tropical Pacific Ocean, ENSO affects millions of people directly. This cycle can have a period of between 3 to 7 years.</p>
-      <p>The three phases of the ENSO cycle are named El Niño, La Nina and Neutral.</p>`
+      `<p>An Australian forest fire has started. It is predicted that this will tear through dry crop fields, such as wheatfields. If it does it would cause Australia to go from being one of the biggest exporters of wheat to being a net importer instead.
+      </p>`
   },
   {
     id: 'A2',
     icon: 'star',
-    topic: 'Weather issues for sugar',
+    topic: 'Wheat growing out of necessity',
     html:
-      `<p>Sugar is regarded as a robust crop, it can be grown in many regions across the world in either sugar cane or sugar beet form. Sugar cane grows best in a consistently temperate climate and with plenty of water. This means the most damaging conditions for sugar are draught, far more so than excess water.</p>`
+      `<p>A declining economy and poor crop last year has caused farmers in Canada to grow more wheat as it is one of the few crops that they can get a good return on at the moment. This will mean some areas of farmland will be heavily devoted to wheat.
+      </p>`
   },
   {
     id: 'A3',
-    icon: 'calendar',
-    topic: 'Weather Forecast',
+    icon: 'pentagon',
+    topic: 'Ethanol Production',
     html:
-      `<p>The El Niño weather pattern (as referenced in F) is predicted to begin this March and will carry on throughout the rest of the year.</p>`
+      `<p>Due to governmental incentives, much of the infrastructure within Brazil is now powered by ethanol. This means that when they have a better than average sugar crop, it is more valuable for the farmers to sell the sugar internally to ethanol refineries instead of exporting it.
+      </p>`
   },
   {
     id: 'A4',
-    icon: 'play',
-    topic: 'Price of the dollar',
+    icon: 'diamond',
+    topic: 'Brazilian weather',
     html:
-      `<p>The depreciating price of the US dollar has caused the price of commodities to increase when imported from foreign countries. This leads farmers to seek internal forms of sale if available.</p>`
+      `<p>The South American agricultural association has predicted weather conditions in Brazil which would be advantageous for growing sugar but likely to only yield a mediocre coffee crop. 
+      </p>`
+  },
+  {
+    id: 'A5',
+    icon: 'hexagon',
+    topic: 'Particularly Wet Monsoon',
+    html:
+      `<p>A reliable meteorological office report has predicted a particularly wet monsoon season which would create the perfect conditions for growing coffee. However, a second reliable source predicts that strong winds could push the monsoon much further north than usual. This would leave the big coffee growing regions in India unusually dry and the grain-growing regions unusually wet. India does not have a sophisticated reservoir or irrigation system to cope with dry seasons like Singapore or Vietnam. 
+      </p>`
   },
   {
     id: 'B1',
-    icon: 'folder',
-    topic: 'Brazil\'s move to using sugar as fuel',
+    icon: 'square',
+    topic: 'Crop Transitions',
     html:
-      '<p>Brazil is in the midst of a national transition towards favouring transport which uses ethanol instead of fossil fuels to power its engines. Ethanol is a far cheaper alternative to fossil fuels for the nation since ethanol is made from sugar and so Brazilian farmers are able to sell sugar straight to the refineries.</p>',
+      '<p>Data collected from Indian farmers indicates that regions that used to predominantly grow grains, such as wheat, are transitioning over to berry crops, like coffee, and vice versa. They are basing this change on weather behaviours in these regions over the last two years. However, these weather patterns are not guaranteed to continue.</p>',
   },
   {
     id: 'B2',
-    icon: 'square',
-    topic: 'Principal sugar exporting countries in 2019/2020',
+    icon: 'star',
+    topic: 'Chinese import and export tax',
     html:
-      `<img src="imgs/sugar_exporting_countries.png" width="100%">`,
+      `<p>The Chinese government is predicted to increase tax on imported and exported goods in an attempt to encourage their farmers to move away from growing food types that they have previously exported to food types which they currently have to import. This move is in the hope that China can become more self-sufficient. It is expected that this will cause a substantial reduction in exported sugar.</p>`,
   },
   {
     id: 'B3',
-    icon: 'diamond',
-    topic: 'British farming subsidies',
+    icon: 'pentagon',
+    topic: 'New farming techniques',
     html:
-      '<p>Britain relies on exports of most commodities. Typically, those producers inside the UK are given subsidies by the government to keep pricing competitive. Those crops commonly produced in the UK are less subject to global price shocks since they are less reliant on imports.</p>',
+      '<p>Due to new farming techniques, sugar beet and wheat crop is now a viable option for farmers in more regions within the US. Farmers have started moving over to growing these crops so there should be an increase in the production of these two crops throughout the coming years.</p>',
   },
   {
     id: 'B4',
-    icon: 'film',
-    topic: 'UK wheat consumption',
+    icon: 'diamond',
+    topic: 'Pirate activity',
     html:
-      '<p>The total production of wheat in the UK is 80% of that this it consumes.</p>',
+      '<p>The apparent increase in the activity of pirates off the coast of East Africa could disrupt the smooth passage of food exports, such as coffee, out of Ethiopia and Kenya. The situation is being carefully monitored.</p>',
+  },
+  {
+    id: 'B5',
+    icon: 'hexagon',
+    topic: 'Weather conditions in Columbia',
+    html:
+      '<p>Advanced weather predictions based on the El Nino weather patterns have indicated that there will be heavy rainfall throughout the entire typical flowering period for coffee in Columbia. Following this strong winds will cause an exceptionally dry period. This will create ideal weather conditions for growing coffee.</p>',
   },
   {
     id: 'C1',
-    icon: 'image',
-    topic: 'Global wheat supply 1',
+    icon: 'square',
+    topic: 'Currency decrease',
     html:
-      '<p>The global wheat supply is expected to shrink this year due to poor weather and other grains taking priority to farmers over the previous year.</p>',
+      '<p>The Russian currency has devalued recently due to a sudden fall in global oil prices. Buying Russian exports has become much cheaper. Their biggest food exports are fish, such as pilchard and salmon, and grains, such as wheat and barley.</p>',
   },
   {
     id: 'C2',
-    icon: 'image',
-    topic: 'Global wheat supply 2',
+    icon: 'star',
+    topic: 'Crop Rust',
     html:
-      '<p>The global wheat supply is expected to shrink this year due to poor weather and other grains taking priority to farmers over the previous year.</p>',
+      '<p>Due to current wet weather conditions, various forms of crop rust are expected to start spreading through both North and South America. This form of the disease is particularly an issue for large areas of any single crop type, especially wheat. It can ruin large areas if it takes hold but hasn’t been considered an issue at the moment.</p>',
   },
   {
     id: 'C3',
-    icon: 'image',
-    topic: 'Global wheat supply 3',
+    icon: 'pentagon',
+    topic: 'Cost of weedkiller',
     html:
-      '<p>The global wheat supply is expected to shrink this year due to poor weather and other grains taking priority to farmers over the previous year.</p>',
+      '<p>A rise in the cost of the weedkiller used in the main sugar-growing regions of Thailand has meant that farmers are now having to use them more sparingly than they have previously. This hasn’t been identified as an immediate issue but the Thai government is remaining cautious.</p>',
   },
   {
     id: 'C4',
-    icon: 'image',
-    topic: 'Global wheat supply 4',
+    icon: 'diamond',
+    topic: 'Drought in Vietnam',
     html:
-      '<p>The global wheat supply is expected to shrink this year due to poor weather and other grains taking priority to farmers over the previous year.</p>',
+      '<p>Weather conditions in Vietnam are approaching drought levels in the next few months. They are the second biggest growers of coffee in the world. Coffee plants require wet conditions when flowering and dry conditions to be harvested.</p>',
+  },
+  {
+    id: 'C5',
+    icon: 'hexagon',
+    topic: 'Change in coffee type',
+    html:
+      '<p>A new type of coffee bean has started to grow in popularity in Ethiopia. It is expected that these beans will be far more resilient to the Ethiopian climate and have the potential to increase crop yield by 3%.</p>',
   },
 ];
 
@@ -242,13 +300,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
       // Send correct selection of data tabs to each player
       ids.forEach(function (playerId) {
-        node.say('INFODATA', playerId, tabData.filter(function (tab) {
+        node.say('INFODATA', playerId, shuffle(tabData.filter(function (tab) {
           return tab.id === '1' || tab.id === '2' || tab.id.includes(infoSelector[playerId]);
-        }));
+        })));
       });
     },
     exit: function () {
-      memory.save('data.json');
+      memory.save('data.json')
     },
   });
 
