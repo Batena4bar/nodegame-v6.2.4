@@ -310,6 +310,25 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     },
   });
 
+  // Check these 3 steps
+  stager.extendStep('the_scenario_1', {
+    cb: function () {
+      if (node.game.settings.treatmentName === 'control') node.done();
+    },
+  });
+
+  stager.extendStep('the_scenario_2', {
+    cb: function () {
+      if (node.game.settings.treatmentName === 'control') node.done();
+    },
+  });
+
+  stager.extendStep('the_scenario_3', {
+    cb: function () {
+      if (node.game.settings.treatmentName === 'control') node.done();
+    },
+  });
+
   stager.extendStep('task_start', {
     exit: function () {
       console.log('Saving all data');

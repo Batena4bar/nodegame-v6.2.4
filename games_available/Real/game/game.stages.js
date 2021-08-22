@@ -34,16 +34,18 @@ module.exports = function (stager, settings) {
     .step('pre_task_5')
 
     // An explaination of the practical aspect of the task
+    .stage('video')
     .step('instructions_video')
 
     // Manipulation screen
+    .stage('backgound')
     .step('the_scenario_1')
     .step('the_scenario_2')
     .step('the_scenario_3')
     .step('task_start')
 
     // The task
-    .stage('task', settings.ROUNDS)
+    .loopStage('task', function () { return false; })
     .step('initial_choice')
     .step('guided_communication')
     .step('message_like')
@@ -51,6 +53,7 @@ module.exports = function (stager, settings) {
     .step('group_choice')
 
     // Manipulation Checks
+    .stage('task_2')
     .step('post_task_1')
     .step('post_task_2')
 

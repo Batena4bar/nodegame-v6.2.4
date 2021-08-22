@@ -253,7 +253,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         frame: settings.treatment_2,
         done: function (data) {
             var justification = W.getElementById('justification');
-            if (justification.value) {
+            if (justification && justification.value) {
                 node.set({ value: { justification: justification.value } });
             }
         },
