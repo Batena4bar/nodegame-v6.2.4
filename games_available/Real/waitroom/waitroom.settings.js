@@ -96,8 +96,7 @@ module.exports = {
      *           return treatments[dispatchCounter % treatments.length];
      *       }
      */
-    CHOSEN_TREATMENT: function (treatments, roomCounter,
-        groupIdx, dispatchCounter) {
+    CHOSEN_TREATMENT: function (treatments, roomCounter, groupIdx, dispatchCounter) {
 
         // - treatments: array of available treatments.
         // - roomCounter: total number of room created (it is initialized to
@@ -108,13 +107,13 @@ module.exports = {
         //                    send players to an existing room, so it may
         //                    differ from roomCounter).
 
-        // console.log(roomCounter, batchCounter, dispatchCounter);
+        // console.log(treatments, roomCounter, groupIdx, dispatchCounter);
 
         // console.log('treatments', treatments[0]);
 
-        //return treatments[roomCounter % treatments.length];
-        return treatments[0] // hard coded to control
+        return treatments[roomCounter % treatments.length];
     },
+
 
     /**
      * ## ROTATION_OFFSET (integer > 0) Optional

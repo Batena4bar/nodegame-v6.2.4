@@ -67,6 +67,9 @@ module.exports = {
     // Exchange rate coins to dollars.
     EXCHANGE_RATE: 0.05,
 
+    // Don't use any treatments
+    CONTROL: false,
+
     // # Treatments definition.
 
     // They can contain any number of properties, and also overwrite
@@ -77,12 +80,12 @@ module.exports = {
 
     treatments: {
 
-        control: {
-            description: "No fear applied.",
-            // treatment: 'treatment_control.html',
-            // treatment_2: 'treatment_control.html',
-            // treatment_3: 'treatment_control.html'
-        },
+        // control: {
+        //     description: "No fear applied.",
+        //     treatment: 'task_start.html',
+        //     treatment_2: 'task_start.html',
+        //     treatment_3: 'task_start.html'
+        // },
 
         internal_rejection: {
             description: "Internally originated Interpersonal Rejection fear applied.",

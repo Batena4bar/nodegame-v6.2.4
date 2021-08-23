@@ -33,19 +33,34 @@ module.exports = function (stager, settings) {
     .step('pre_task_4')
     .step('pre_task_5')
 
-    // An explaination of the practical aspect of the task
+    // An explanation of the practical aspect of the task
     .stage('video')
     .step('instructions_video')
 
     // Manipulation screen
-    .stage('backgound')
+    .loopStage('backgound', function () {
+      console.log('treatment for ' + this.node.nodename, this.settings.CONTROL ? 'control' : this.settings.name);
+      if (this.settings.CONTROL || this.background_loop_ended) {
+        return false;
+      }
+      this.background_loop_ended = true;
+      return true;
+    })
     .step('the_scenario_1')
     .step('the_scenario_2')
     .step('the_scenario_3')
+
+    .stage('task_0')
     .step('task_start')
 
     // The task
-    .loopStage('task', function () { return false; })
+    .loopStage('task_1', function () {   
+      if (this.settings.CONTROL || this.task_loop_ended) {
+        return false;
+      }
+      this.task_loop_ended = true;
+      return true;
+    })
     .step('initial_choice')
     .step('guided_communication')
     .step('message_like')
