@@ -26,7 +26,7 @@ module.exports = function (stager, settings) {
     .step('title')
 
     // Pre-tasks
-    // .stage('pre_task') // For some reason this breaks the game
+    .stage('pre_task_0')
     .step('pre_task_1')
     .step('pre_task_2')
     .step('pre_task_3')
