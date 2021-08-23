@@ -55,6 +55,7 @@ module.exports = function (stager, settings) {
 
     // The task
     .loopStage('task_1', function () {   
+      // ADD: If using bots, skip this stage
       if (this.settings.CONTROL || this.task_loop_ended) {
         return false;
       }

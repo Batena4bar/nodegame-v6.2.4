@@ -66,14 +66,11 @@
     //   - footerDiv:  the footer container
     //
 
-    var that = this;
-
     var widget = this;
-    // Get jQuery from the host window
-    var $ = parent.$;
-    var $bodyDiv = $(widget.bodyDiv);
 
-    var $bubble = $('<div>').addClass('bubble');
+    var bubble = document.createElement('div');
+    bubble.classList.add('bubble');
+
     var pointer = document.createElement('div');
     pointer.innerHTML = `<svg
       version="1.1"
@@ -103,57 +100,66 @@
         <polyline class="st1" points="20,20 0,10 20,0" />
       </g>
     </svg>`;
-    var $pointer = $(pointer).addClass('pointer');
-    $bubble.append($pointer);
 
-    var $panel;
+    pointer.classList.add('pointer');
+    bubble.appendChild(pointer);
+
+    var panel;
     var closeBubble = function () {
-      if ($panel) {
-        $panel.remove();
-        $bubble.detach();
+      if (panel && panel.parentNode) {
+        panel.parentNode.removeChild(panel);
+        bubble.parentNode.removeChild(bubble);
       }
     };
 
-    var $closeButton = $('<i class="close fas fa-times fa-2x"></i>');
-    $closeButton.click(closeBubble);
-    $bubble.append($closeButton);
+    var closeButton = document.createElement('i');
+    closeButton.classList.add('close', 'fas', 'fa-times', 'fa-2x');
+    closeButton.onclick = closeBubble;
+    bubble.appendChild(closeButton);
 
-    var $ul = $('<ul>');
+    var ul = document.createElement('ul');
     this.data.forEach(function (tab, index) {
-      var $button = $('<button>')
-        .prop('type', 'button')
-        .addClass('btn btn-lg btn-outline-secondary')
-        .html('<img src="shapes/' + tab.icon + '.svg" alt="icon">');
-      $button.click(function (event) {
+      var button = document.createElement('button');
+      button.setAttribute('type', 'button');
+      button.classList.add('btn', 'btn-lg', 'btn-outline-secondary');
+      button.innerHTML = '<img src="shapes/' + tab.icon + '.svg" alt="icon">';
+
+      button.onclick = function (event) {
         closeBubble();
 
-        $pointer.css('top', 52 * index + 8);
+        pointer.setAttribute('style', 'top: ' + (52 * index + 8) + 'px')
 
-        var $title = $('<h2>').text(tab.topic);
+        var title = document.createElement('h2');
+        title.innerText = tab.topic;
 
-        if (that.messageButton) {
-          var $messageButton = $('<button>')
-            .prop('type', 'button')
-            .addClass('btn btn-light')
-            .html('<span class="far fa-comment"></span>');
-          $messageButton.click(function () {
+        if (widget.messageButton) {
+          var messageButton = document.createElement('button');
+          messageButton.setAttribute('type', 'button');
+          messageButton.classList.add('btn', 'btn-light');
+          messageButton.innerHTML = '<span class="far fa-comment"></span>';
+          messageButton.onclick = function () {
             node.emit('BUBBLE_DATA', tab, index);
             closeBubble();
-          });
-          $title.append($messageButton);
+          };
+          title.appendChild(messageButton);
         }
 
-        $panel = $('<div>')
-          .addClass('panel')
-          .append($title)
-          .append($('<p>').html(tab.html));
-        $bubble.append($panel);
+        panel = document.createElement('div');
+        panel.classList.add('panel');
+        panel.appendChild(title);
+        var p = document.createElement('p');
+        p.innerHTML = tab.html;
+        panel.appendChild(p);
+        bubble.appendChild(panel);
 
-        $bodyDiv.append($bubble);
-      });
-      $ul.append($('<li>').append($button));
+        widget.bodyDiv.appendChild(bubble);
+      };
+
+      var li = document.createElement('li');
+      li.appendChild(button);
+      ul.appendChild(li);
     });
-    $bodyDiv.append($ul);
+    widget.bodyDiv.appendChild(ul);
   };
 
   // Implements the Widget.listeners method (optional).
