@@ -56,6 +56,11 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             console.log('PLAYERS', node.game.players);
             console.log('PARTNERS', node.game.partners);
             console.log('CHAT_PARTNERS', node.game.chatPartners);
+
+            var identity = document.createElement('div');
+            identity.classList.add('ng_widget', 'no-panel')
+            identity.innerText = `You: ${node.player.name}`;
+            header.appendChild(identity);
         });
 
         node.on.data('INFODATA', function (msg) {
@@ -79,6 +84,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 alert('Hey you connected!');
             }
         });
+
         // this.doneButton = node.widgets.append('DoneButton', header);
 
         // Additional debug information while developing the game.
@@ -573,6 +579,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
             node.on.data('CHOICES', function (msg) {
                 choices[msg.from] = msg.data;
+                linkedSlidersWidget.setOtherChoices(choices);
                 checkChoicesMatch();
             });
 
@@ -588,16 +595,32 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             }
 
             function checkChoicesMatch() {
-                var keys = Object.keys(choices);
-                if (keys.length < 3) {
-                    return false;
-                }
-                if ((choices[keys[0]][0] === choices[keys[1]][0]) && (choices[keys[1]][0] === choices[keys[2]][0]) &&
-                    (choices[keys[0]][1] === choices[keys[1]][1]) && (choices[keys[1]][1] === choices[keys[2]][1]) &&
-                    (choices[keys[0]][2] === choices[keys[1]][1]) && (choices[keys[1]][1] === choices[keys[2]][2])) {
+                var participantIds = Object.keys(choices);
+                // console.log('checkChoicesMatch', choices);
+
+                if (participantIds.length === 3) {
+                    var agree = false;
+                    for (var i = 0; i < 3; i++) {
+                        var value = 0;
+                        for (var j = 0; j < 3; j++) {
+                            var participantId = participantIds[j];
+                            if (j === 0) {
+                                value = choices[participantId][i];
+                            } else if (choices[participantId][i] === value) {
+                                agree = true;
+                            } else {
+                                agree = false;
+                                break;
+                            }
+                        }
+                        if (!agree) {
+                            that.doneButton.disable();
+                            // console.log('disable button');
+                            return;
+                        }
+                    }
                     that.doneButton.enable();
-                } else {
-                    that.doneButton.disable();
+                    // console.log('enable button');
                 }
             }
 
@@ -615,9 +638,12 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 closable: false
             });
 
+            console.log('node.game.chatPartners', node.game.chatPartners);
+
             var linkedSliders = W.getElementById('linked-sliders');
             var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
-                labels: ['Wheat', 'Sugar', 'Coffee']
+                labels: ['Wheat', 'Sugar', 'Coffee'],
+                participants: node.game.chatPartners,
             });
             linkedSlidersWidget.removeFrame();
             node.on('complete', function () {

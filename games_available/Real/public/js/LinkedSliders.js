@@ -45,6 +45,9 @@
       options.labels.forEach(function (label, index) {
         widget.sliders.push({ id: 'slider_' + index, label: label, value: 0 });
       });
+      widget.participants = options.participants ? options.participants.map(function(participant, index)  {
+        return { id: participant.sender, name: participant.name, index: index };
+      }) : null;
     }
 
     // Furthermore, you can add internal listeners here
@@ -76,12 +79,26 @@
       return sum;
     }
 
+    if (widget.participants) {
+      var gameParticipants = document.createElement('div');
+      gameParticipants.classList.add('participants');
+      var gameParticipant = document.createElement('span');
+      gameParticipant.innerHTML = '<span>You: </span><span class="square"></span>';
+      gameParticipants.appendChild(gameParticipant); 
+      widget.participants.forEach(function(participant) {
+        gameParticipant = document.createElement('span');
+        gameParticipant.innerHTML = `<span>${participant.name}: </span><img src="shapes/${participant.index === 0 ? 'left_arrow' : 'right_arrow'}.svg" alt="indicator">`;
+        gameParticipants.appendChild(gameParticipant); 
+      });
+      widget.bodyDiv.appendChild(gameParticipants);
+    }
+
     var previousTotal = 0;
 
     var fragment = document.createDocumentFragment();
     var totalDiv = document.createElement('div');
     totalDiv.classList.add('totalcontainer');
-    totalDiv.innerHTML = `<span>Total purchases: £<span id="total-purchases">0</span> million</span><span id="warning">Must equal £12 million</span>`;
+    totalDiv.innerHTML = `<span>Total purchases: £<span id="total-purchases">0</span> M</span><span id="warning">Must equal £12 M</span>`;
     fragment.appendChild(totalDiv);
     var totalValue = fragment.getElementById('total-purchases');
     var warning = fragment.getElementById('warning');
@@ -90,6 +107,21 @@
       var sliderLabel = document.createElement('label');
       sliderLabel.classList.add('slidecontainer');
       sliderLabel.innerText = slider.label;
+      if (widget.participants) {
+        var otherChoices = document.createElement('div');
+        otherChoices.classList.add('other-choices');
+        var leftArrow = document.createElement('img');
+        leftArrow.setAttribute('src', 'shapes/left_arrow.svg');
+        leftArrow.setAttribute('alt', 'left');
+        otherChoices.appendChild(leftArrow);
+        var rightArrow = document.createElement('img');
+        rightArrow.setAttribute('src', 'shapes/right_arrow.svg');
+        rightArrow.setAttribute('alt', 'right');
+        otherChoices.appendChild(rightArrow);
+        sliderLabel.appendChild(otherChoices);
+        slider.leftArrow = leftArrow;
+        slider.rightArrow = rightArrow;
+      }
       var sliderInput = document.createElement('input');
       sliderInput.setAttribute('id', `${slider.id}_${index}`);
       sliderInput.classList.add('slider');
@@ -128,13 +160,33 @@
     });
 
     widget.bodyDiv.appendChild(fragment);
+    if (widget.participants) {
+      widget.bodyDiv.classList.add('group-choice');
+    }
+
+    console.log('width', );
   };
 
   LinkedSliders.prototype.getValues = function () {
     return this.sliders.map(function (slider) {
       return slider.value;
     })
-  }
+  };
+
+  LinkedSliders.prototype.setOtherChoices = function (choices) {
+    var widget = this;
+
+    widget.participants.forEach(function(participant) {
+      var suggestions = choices[participant.id];
+      if (suggestions) {
+        suggestions.forEach(function(suggestion, index) {
+          var slider = widget.sliders[index];
+          var arrow = participant.index === 0 ? slider.leftArrow : slider.rightArrow;
+          arrow.style.left = (suggestion * (widget.bodyDiv.offsetWidth /13)) + 'px';
+        })
+      }
+    })
+  };
 
   // Implements the Widget.listeners method (optional).
   LinkedSliders.prototype.listeners = function () {

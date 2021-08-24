@@ -4,6 +4,45 @@
   margin: 0;
 }
 
+.linked-sliders>.group-choice .participants {
+  display: flex;
+  justify-content: space-between;
+  font-size: smaller;
+  margin-bottom: 12px;
+}
+
+.linked-sliders>.group-choice .participants>span>.square {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: #4caf50;
+  vertical-align: text-bottom;
+}
+
+.linked-sliders>.group-choice .participants>span>img {
+  height: 16px;
+}
+
+.linked-sliders>.group-choice .slidecontainer {
+  padding: 0 3px;
+}
+
+.linked-sliders .slidecontainer .other-choices {
+  /* display: none; */
+  margin-top: 4px;
+  position: relative;
+}
+
+.linked-sliders .slidecontainer .other-choices>img {
+  height: 13px;
+  position: absolute;
+  top: -5px;
+}
+
+.linked-sliders .slidecontainer .other-choices>img:last-child {
+  margin-left: 13px;
+}
+
 /* The slider itself */
 .linked-sliders .slidecontainer .slider {
   -webkit-appearance: none; /* Override default CSS styles */
@@ -45,7 +84,10 @@
   justify-content: space-between;
   width: 100%; /* Width of the outside container */
   padding: 0 8px 20px;
-  margin: 0;
+}
+
+.linked-sliders>.group-choice .totalcontainer {
+  padding: 0 3px;
 }
 
 .linked-sliders .totalcontainer #warning {
