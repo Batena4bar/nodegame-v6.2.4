@@ -80,9 +80,11 @@
 
     var fragment = document.createDocumentFragment();
     var totalDiv = document.createElement('div');
-    totalDiv.innerHTML = `Total purchases: $<span id="total-purchases">0</span> million`;
+    totalDiv.classList.add('totalcontainer');
+    totalDiv.innerHTML = `<span>Total purchases: £<span id="total-purchases">0</span> million</span><span id="warning">Must equal £12 million</span>`;
     fragment.appendChild(totalDiv);
     var totalValue = fragment.getElementById('total-purchases');
+    var warning = fragment.getElementById('warning');
 
     widget.sliders.forEach(function (slider, index) {
       var sliderLabel = document.createElement('label');
@@ -98,17 +100,21 @@
       sliderInput.oninput = function () {
         var sliderIndex = this.id.split('_')[1];
         widget.sliders[sliderIndex].value = parseInt(this.value);
-        var total;
-        while ((total = sliderSum()) > 12) {
-          widget.sliders[sliderIndex].value--;
-          this.value = widget.sliders[sliderIndex].value;
-        }
+        // var total;
+        // while ((total = sliderSum()) > 12) {
+        //   widget.sliders[sliderIndex].value--;
+        //   this.value = widget.sliders[sliderIndex].value;
+        // }
+        // totalValue.innerText = total;
+        var total = sliderSum();
         totalValue.innerText = total;
         if (total !== previousTotal) {
           if (total === 12) {
             node.emit('complete');
+            warning.classList.remove('show');
           } else {
             node.emit('incomplete');
+            warning.classList.add('show');
           }
           previousTotal = total;
         }

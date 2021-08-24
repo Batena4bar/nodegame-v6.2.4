@@ -1,11 +1,11 @@
-.slidecontainer {
+.linked-sliders .slidecontainer {
   width: 100%; /* Width of the outside container */
-  padding: 8px 8px 0;
+  padding: 0 8px;
   margin: 0;
 }
 
 /* The slider itself */
-.slider {
+.linked-sliders .slidecontainer .slider {
   -webkit-appearance: none; /* Override default CSS styles */
   appearance: none;
   width: 100%; /* Full-width */
@@ -19,12 +19,12 @@
 }
 
 /* Mouse-over effects */
-.slider:hover {
+.linked-sliders .slidecontainer .slider:hover {
   opacity: 1; /* Fully shown on mouse-over */
 }
 
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-.slider::-webkit-slider-thumb {
+.linked-sliders .slidecontainer .slider::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
   width: 25px; /* Set a specific slider handle width */
@@ -33,9 +33,26 @@
   cursor: pointer; /* Cursor on hover */
 }
 
-.slider::-moz-range-thumb {
+.linked-sliders .slidecontainer .slider::-moz-range-thumb {
   width: 25px; /* Set a specific slider handle width */
   height: 25px; /* Slider handle height */
   background: #4caf50; /* Green background */
   cursor: pointer; /* Cursor on hover */
+}
+
+.linked-sliders .totalcontainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; /* Width of the outside container */
+  padding: 0 8px 20px;
+  margin: 0;
+}
+
+.linked-sliders .totalcontainer #warning {
+  display: none;
+  color: red;
+}
+
+.linked-sliders .totalcontainer #warning.show {
+  display: inline;
 }
