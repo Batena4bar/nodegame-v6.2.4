@@ -67,23 +67,6 @@
     //
 
     var widget = this;
-    // Get jQuery from the host window
-    var $ = parent.$;
-    var $bodyDiv = $(this.bodyDiv);
-
-    widget.sliders.forEach(function (slider, index) {
-      var sliderHtml =
-        `<label class="slidecontainer">
-          ${slider.label}
-          <input id="${slider.id}_${index}" class="slider" type="range" min="0" max="12" value="0">
-        </label>
-        <div class="slider-scale">
-          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
-        </div>`;
-      $bodyDiv.append(sliderHtml);
-    });
-    $bodyDiv.append(`<div>Total purchases: $<span id="total-purchases">0</span> million</div>`);
-    var $total = $bodyDiv.find('#total-purchases');
 
     var sliderSum = function () {
       var sum = 0;
@@ -95,24 +78,50 @@
 
     var previousTotal = 0;
 
-    $bodyDiv.find('.slider').on('input', function () {
-      var sliderIndex = this.id.split('_')[1];
-      widget.sliders[sliderIndex].value = parseInt(this.value);
-      var total;
-      while ((total = sliderSum()) > 12) {
-        widget.sliders[sliderIndex].value--;
-        this.value = widget.sliders[sliderIndex].value;
-      }
-      $total.text(total);
-      if (total !== previousTotal) {
-        if (total === 12) {
-          node.emit('complete');
-        } else {
-          node.emit('incomplete');
+    var fragment = document.createDocumentFragment();
+    var totalDiv = document.createElement('div');
+    totalDiv.innerHTML = `Total purchases: $<span id="total-purchases">0</span> million`;
+    fragment.appendChild(totalDiv);
+    var totalValue = fragment.getElementById('total-purchases');
+
+    widget.sliders.forEach(function (slider, index) {
+      var sliderLabel = document.createElement('label');
+      sliderLabel.classList.add('slidecontainer');
+      sliderLabel.innerText = slider.label;
+      var sliderInput = document.createElement('input');
+      sliderInput.setAttribute('id', `${slider.id}_${index}`);
+      sliderInput.classList.add('slider');
+      sliderInput.setAttribute('type', 'range');
+      sliderInput.setAttribute('min', '0');
+      sliderInput.setAttribute('max', '12');
+      sliderInput.setAttribute('value', '0');
+      sliderInput.oninput = function () {
+        var sliderIndex = this.id.split('_')[1];
+        widget.sliders[sliderIndex].value = parseInt(this.value);
+        var total;
+        while ((total = sliderSum()) > 12) {
+          widget.sliders[sliderIndex].value--;
+          this.value = widget.sliders[sliderIndex].value;
         }
-        previousTotal = total;
-      }
+        totalValue.innerText = total;
+        if (total !== previousTotal) {
+          if (total === 12) {
+            node.emit('complete');
+          } else {
+            node.emit('incomplete');
+          }
+          previousTotal = total;
+        }
+      };
+      sliderLabel.appendChild(sliderInput);
+      var sliderScale = document.createElement('div');
+      sliderScale.classList.add('slider-scale');
+      sliderScale.innerHTML = `<span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>`;
+      widget.bodyDiv.appendChild(sliderLabel);
+      widget.bodyDiv.appendChild(sliderScale);       
     });
+
+    widget.bodyDiv.appendChild(fragment);
   };
 
   LinkedSliders.prototype.getValues = function () {
