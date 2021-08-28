@@ -569,9 +569,15 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             text: 'Accept Descision',
             enableOnPlaying: false,
         },
-        done: function (data) {
-            console.log('accepted_decision', node.game.globals.sliderValues);
-            node.set({ value: { group_choice: node.game.globals.sliderValues } });
+        done: function (data) {   
+            if (!node.game.globals.deciderId) {
+                // This player decided, tell the others
+                node.game.partners.forEach(function (participantId) {
+                    node.say('DECISION_ACCEPTED', participantId);
+                });
+            }
+            console.log('accepted_decision', node.game.globals.sliderValues, node.game.globals.deciderId || node.player.id);
+            node.set({ value: { group_choice: node.game.globals.sliderValues, decider: node.game.globals.deciderId || node.player.id } });
         },
         cb: function () {
             var choices = {};
@@ -581,6 +587,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 choices[msg.from] = msg.data;
                 linkedSlidersWidget.setOtherChoices(choices);
                 checkChoicesMatch();
+            });
+
+            node.on.data('DECISION_ACCEPTED', function (msg) {
+                node.game.globals.deciderId = msg.from;
+                var deciderName = node.game.players[node.game.globals.deciderId];
+                alert(`${deciderName} has accepted the decision on behalf of the group. Close this message to continue.`);
+                node.done();
             });
 
             function arraysEqual(a, b) {
@@ -615,12 +628,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                         }
                         if (!agree) {
                             that.doneButton.disable();
-                            // console.log('disable button');
                             return;
                         }
                     }
                     that.doneButton.enable();
-                    // console.log('enable button');
                 }
             }
 
