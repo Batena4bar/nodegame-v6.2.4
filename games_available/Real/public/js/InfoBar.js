@@ -136,7 +136,7 @@
           var messageButton = document.createElement('button');
           messageButton.setAttribute('type', 'button');
           messageButton.classList.add('btn', 'btn-light');
-          messageButton.innerHTML = '<span class="far fa-comment"></span>';
+          messageButton.innerHTML = '<span class="far fa-comment"></span> Message';
           messageButton.onclick = function () {
             node.emit('BUBBLE_DATA', tab, index);
             closeBubble();

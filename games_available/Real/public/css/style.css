@@ -177,31 +177,16 @@ h1, h2, h3, h4, h5 {
   margin-top: 10px;
 }
 
-#messages {
-  padding: 20px 10px;
-  height: 400px;
-  overflow-y: auto;
+#chat.likes > .chat {
+  margin-bottom: 30px;
 }
 
-#messages > .chat-message {
+#messages.chat_chat .chat_msg_incoming {
   display: flex;
   align-items: center;
-  margin: 0 0 10px 60px;
 }
 
-#messages > .chat-message.own-message {
-  opacity: 0.3;
-  margin: 0 120px 10px 0;
-}
-
-#messages > .chat-message > .message-content {
-  flex: 1;
-  border: 1px solid rgb(108, 117, 125);
-  border-radius: 8px;
-  padding: 8px;
-}
-
-#messages > .chat-message > .thumbs-up {
+#messages.chat_chat .chat_msg_incoming > .thumbs-up {
   margin-left: 10px;
   cursor: pointer;
 }
@@ -225,9 +210,9 @@ h1, h2, h3, h4, h5 {
 
 #message-template {
   border: 1px solid rgb(108, 117, 125);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 30px;
 }
 
 #message-template > div:not(:last-child) {
@@ -246,6 +231,11 @@ h1, h2, h3, h4, h5 {
 
 #message-template > div > select {
   font-size: smaller;
+}
+
+#submit-suggestion {
+  text-align: right;
+  margin-bottom: 30px;
 }
 
 #justification {

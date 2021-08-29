@@ -348,7 +348,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         init: function () {
             node.game.visualTimer.hide();
         },
+        donebutton: {
+            text: 'Finished Chatting',
+            enableOnPlaying: false,
+        },
         cb: function () {
+            var that = this;
+
             var currentData;
             var topic = W.getElementById('topic');
             var justification = W.getElementById('justification');
@@ -419,6 +425,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                     topic.innerText = '';
                     commodity1.value = proposition.value = commodity2.value = '';
                     justification.value = '';
+                    that.doneButton.enable();
                 } else {
                     alert('Please complete all message fields');
                 }
@@ -429,10 +436,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
             // Construct done button
             var continueButton = W.getElementById('continue');
-            this.doneButton = node.widgets.append('DoneButton', continueButton, {
-                text: 'Done Talking',
-                enableOnPlaying: false
-            });
+            this.doneButton = node.widgets.append('DoneButton', continueButton);
             this.doneButton.removeFrame();
             this.doneButton.disable();
         },
@@ -442,6 +446,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         frame: 'message_like.html',
         init: function () {
             node.game.visualTimer.hide();
+        },
+        donebutton: {
+            text: 'Submit Likes',
+            enableOnPlaying: false,
         },
         done: function (data) {
             var messages = W.getElementById('messages');
@@ -454,6 +462,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             node.set({ value: { likes: likesList } });
         },
         cb: function () {
+            var that = this;
+
             // Construct infoBar
             var infoBar = W.getElementById('info-bar');
             var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
@@ -465,6 +475,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             });
             infoBarWidget.removeFrame();
 
+            var likeCount = 0;
+
             // Construct messages
             var messages = W.getElementById('messages');
             // Receive data from logic
@@ -472,15 +484,17 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 console.log('Recieved CHATMESSAGES', msg.data);
                 msg.data.forEach(function (message) {
                     var chatMessage = document.createElement('div');
-                    chatMessage.classList.add('chat-message');
+                    chatMessage.classList.add('chat_msg');
+                    var senderName = message.player !== node.player.id ? node.game.players[message.player] : null;
                     var messageContent = document.createElement('div');
                     messageContent.classList.add('message-content');
-                    messageContent.innerHTML = message.chatMessage.msg;
+                    messageContent.innerHTML = (senderName ? `<span class="chat_id_other">${senderName}</span>: ` : '') + message.chatMessage.msg;
                     chatMessage.appendChild(messageContent);
 
                     if (node.player.id === message.player) {
-                        chatMessage.classList.add('own-message');
+                        chatMessage.classList.add('chat_msg_outgoing');
                     } else {
+                        chatMessage.classList.add('chat_msg_incoming');
                         var thumbsUp = document.createElement('div');
                         thumbsUp.classList.add('thumbs-up');
 
@@ -498,9 +512,16 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                             if (element.classList.contains('far')) {
                                 element.classList.remove('far');
                                 element.classList.add('fas');
+                                likeCount++;
                             } else {
                                 element.classList.remove('fas');
                                 element.classList.add('far');
+                                likeCount--;
+                            }
+                            if (likeCount === 0) {
+                                that.doneButton.disable();
+                            } else {
+                                that.doneButton.enable();
                             }
                         });
                     }
@@ -511,10 +532,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
             // Construct done button
             var continueButton = W.getElementById('continue');
-            this.doneButton = node.widgets.append('DoneButton', continueButton, {
-                text: 'Done Talking',
-                enableOnPlaying: false
-            });
+            this.doneButton = node.widgets.append('DoneButton', continueButton);
             this.doneButton.removeFrame();
             this.doneButton.disable();
         },
