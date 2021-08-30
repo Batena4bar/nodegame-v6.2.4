@@ -17,6 +17,5 @@ function configure(servernode) {
     // Extra configuration goes here, e.g.:
     servernode.port = 80;
     servernode.homePage = false;
-
     return true;
 }

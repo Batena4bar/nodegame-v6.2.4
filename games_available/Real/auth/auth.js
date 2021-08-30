@@ -6,7 +6,7 @@
  * http://www.nodegame.org
  * ---
  */
-module.exports = function(auth) {
+module.exports = function (auth) {
 
     // The auth object contains a number of callbacks that specify
     // how the channel handles authorization / identification
@@ -48,10 +48,13 @@ module.exports = function(auth) {
     //         validSessionCookie: TRUE if the channel session is matched
     //      }
     //
+    // Reject connections without the PROLIFIC_ID field.
     function authPlayers(channel, info) {
-        // TRUE, means client is authorized.
+        if (!info.query.PROLIFIC_PID) return false;
         return true;
     }
+
+
 
     // ## Client ID generation function
     //
@@ -64,9 +67,9 @@ module.exports = function(auth) {
     //
     // @see ServerChannel.registry.generateClientId
     //
+    // Use the Prolific player Id in nodeGame.
     function idGen(channel, info) {
-        // Returns a valid client ID (string) or undefined.
-        return;
+        return info.query.PROLIFIC_PID;
     }
 
     // ## Client object decoration function
@@ -86,7 +89,18 @@ module.exports = function(auth) {
     //
     // In this example the type of browser is added.
     //
+    // Add information to the client object.
     function decorateClientObj(clientObj, info) {
-        if (info.headers) clientObj.userAgent = info.headers['user-agent'];
+        // PROLIFIC Exit code, same for all participants, as provided by  
+        // Prolific. Make sure you show this code at the end of the experiment.
+        clientObj.ExitCode = '34FDCE5F';
+        // Information about player ID and session (as provided by Prolific).
+        clientObj.PROLIFIC_STUDY = info.query.STUDY_ID;
+        clientObj.PROLIFIC_SESSION = info.query.SESSION_ID;
     }
+
+    // Enable the three callbacks for the player server.
+    auth.authorization('player', authPlayers);
+    auth.clientIdGenerator('player', idGen);
+    auth.clientObjDecorator('player', decorateClientObj);
 };
