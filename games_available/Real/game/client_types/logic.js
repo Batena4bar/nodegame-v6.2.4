@@ -377,7 +377,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     },
   });
 
-  stager.extendStep('post_task_1', {
+  stager.extendStep('intra_task_1', {
     cb: function () {
       console.log('post_task_1 logic');
     },
@@ -386,7 +386,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     },
   })
 
-  stager.extendStep('post_task_2', {
+  stager.extendStep('intra_task_2', {
     cb: function () {
       console.log('post_task_2 logic');
     },

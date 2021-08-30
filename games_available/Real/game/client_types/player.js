@@ -272,9 +272,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             });
             this.doneButton.removeFrame();
             this.doneButton.disable();
-            
+
             justification.addEventListener('keydown', function (event) {
-                if (event.target.value.length < 120) {
+                if (event.target.value.length < 20) {
                     that.doneButton.disable();
                 } else {
                     that.doneButton.enable();
@@ -587,7 +587,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             text: 'Accept Descision',
             enableOnPlaying: false,
         },
-        done: function (data) {   
+        done: function (data) {
             if (!node.game.globals.deciderId) {
                 // This player decided, tell the others
                 node.game.partners.forEach(function (participantId) {
@@ -721,7 +721,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('post_task_1', {
+    stager.extendStep('intra_task_1', {
         frame: 'post_task_1.html',
         donebutton: {
             text: 'Next',
@@ -783,7 +783,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('post_task_2', {
+    stager.extendStep('intra_task_2', {
         frame: 'post_task_2.html',
         donebutton: {
             text: 'Next',
@@ -844,7 +844,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('thank_you', {
+    stager.extendStep('examination', {
         frame: 'positive_mood.html',
         cb: function () {
             this.doneButton = this.addDoneButton('Done');

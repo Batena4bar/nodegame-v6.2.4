@@ -39,8 +39,9 @@ module.exports = function (stager, settings) {
 
     // Manipulation screen
     .loopStage('backgound', function () {
+      console.log('>>', this.node, settings)
       console.log('treatment for ' + this.node.nodename, this.settings.CONTROL ? 'control' : this.settings.name);
-      if (this.settings.CONTROL || this.background_loop_ended) {
+      if (this.settings.NO_TREATMENTS || this.background_loop_ended) {
         return false;
       }
       this.background_loop_ended = true;
@@ -54,9 +55,9 @@ module.exports = function (stager, settings) {
     .step('task_start')
 
     // The task
-    .loopStage('task_1', function () {   
+    .loopStage('Year_1', function () {
       // ADD: If using bots, skip this stage
-      if (this.settings.CONTROL || this.task_loop_ended) {
+      if (this.settings.NO_TASK || this.task_loop_ended) {
         return false;
       }
       this.task_loop_ended = true;
@@ -69,13 +70,13 @@ module.exports = function (stager, settings) {
     .step('group_choice')
 
     // Manipulation Checks
-    .stage('task_2')
-    .step('post_task_1')
-    .step('post_task_2')
+    .stage('intra_task')
+    .step('intra_task_1')
+    .step('intra_task_2')
 
     // Ends
     .stage('end_study')
-    .step('thank_you')
+    .step('examination')
     .step('debrief')
     .step('end_of_game')
     .gameover();

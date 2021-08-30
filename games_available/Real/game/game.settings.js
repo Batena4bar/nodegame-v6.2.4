@@ -68,7 +68,11 @@ module.exports = {
     EXCHANGE_RATE: 0.05,
 
     // Don't use any treatments
-    CONTROL: false,
+    NO_TREATMENTS: false,
+
+    // Don't use task
+    NO_TASK: true,
+
 
     // # Treatments definition.
 

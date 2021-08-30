@@ -15,8 +15,8 @@ function configure(servernode) {
     // node_modules/nodegame-server/conf/servernode.js
 
     // Extra configuration goes here, e.g.:
-    // servernode.port = 80;
-    // servernode.homePage = false;
+    servernode.port = 80;
+    servernode.homePage = false;
 
     return true;
 }

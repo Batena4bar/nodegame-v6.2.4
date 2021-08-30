@@ -89,7 +89,7 @@ module.exports = {
      *
      * Default: name-of-the-channel/admin
      */
-    // adminServer: 'Real/admin',
+    adminServer: 'Real/thegovernor',
 
     /**
      * ## getFromAdmins (boolean) Optional
@@ -194,7 +194,7 @@ module.exports = {
      *
      * Default: TRUE
      */
-    // sioQuery: false,
+    sioQuery: false,
 
     /**
      * ### defaultChannel (boolean) Optional

@@ -11,14 +11,14 @@
  * http://www.nodegame.org
  * ---
  */
-module.exports = function(settings, stages) {
+module.exports = function (settings, stages) {
 
     var setup;
     setup = {};
 
-    setup.debug = true;
+    setup.debug = false;
 
-    // setup.verbosity = 1;
+    setup.verbosity = 0;
 
     setup.window = {
         promptOnleave: !setup.debug
