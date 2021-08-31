@@ -85,7 +85,7 @@ module.exports = {
      * Modes: 'local'
      * Default: 'codes.json', 'codes.js', 'code.csv' (tried in sequence)
      */
-    inFile: 'prolific.codes.csv',
+    inFile: 'codes.csv',
 
     /**
      * ## dumpCodes
