@@ -17,39 +17,47 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
   let node = gameRoom.node;
   let channel = gameRoom.channel;
-  let memory = node.game.memory;
+  // let memory = node.game.memory;
 
   // Must implement the stages here.
 
   stager.setOnInit(function () {
     node.on.data('LEVEL_DONE', function (msg) {
+      channel.registry.updateClient(msg.from, { startRoomName: gameRoom.name });
+
       var levelName = 'Task';
-      // Move client to the next level.
-      // (async so that it finishes all current step operations).
       setTimeout(function () {
         console.log('moving client to next level: ', msg.from);
         channel.moveClientToGameLevel(msg.from, levelName, gameRoom.name);
       }, 100);
+    });
+
+    node.on.data('SAVE_DATA', function (msg) {
+      // console.log('SAVE_DATA', msg);
+      channel.registry.updateClient(msg.from, msg.data);
     });
   });
 
 
   // Extends Stages and Steps where needed.
 
-  stager.extendStep('info_and_consent_1', {
-    cb: function () {
-      console.log('info_and_consent_1 logic');
-    },
-    exit: function () {
-      memory.save('data.json')
-    },
-  });
+  // stager.extendStep('info_and_consent_1', {
+  //   cb: function () {
+  //     console.log('info_and_consent_1 logic');
+  //   },
+  //   // exit: function () {
+  //   //   memory.save('data.json')
+  //   // },
+  // });
 
-  stager.extendStep('instructions_video', {
-    exit: function () {
-      console.log('Saving all data');
-      memory.save('data.json');
-    },
-  });
+  // stager.extendStep('instructions_video', {
+  //   cb: function () {
+  //     console.log('instructions_video');
+  //   },
+  //   // exit: function () {
+  //   //   console.log('Saving all data');
+  //   //   memory.save('data.json');
+  //   // },
+  // });
 
 };

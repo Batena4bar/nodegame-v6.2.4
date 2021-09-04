@@ -12,21 +12,18 @@ module.exports = function (stager, settings) {
         .step('task_start')
 
         // Manipulation screen
-        // .loopStage('backgound', function () {
-        //     console.log('treatment for ' + this.node.nodename, this.settings.CONTROL ? 'control' : this.settings.name);
-        //     if (this.settings.NO_TREATMENTS || this.background_loop_ended) {
-        //         return false;
-        //     }
-        //     this.background_loop_ended = true;
-        //     return true;
-        // })
-        // .stage('backgound')
+        .loopStage('the_scenario', function () {
+            console.log('treatment for ' + this.node.nodename, this.settings.CONTROL ? 'control' : this.settings.name);
+            if (this.settings.NO_TREATMENTS || this.background_loop_ended) {
+                return false;
+            }
+            this.background_loop_ended = true;
+            return true;
+        })
+        // .stage('the_scenario')
         .step('the_scenario_1')
         .step('the_scenario_2')
         .step('the_scenario_3')
-
-
-
 
         // The task
         .loopStage('Year_1', function () {

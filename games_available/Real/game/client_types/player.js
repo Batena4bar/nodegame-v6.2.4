@@ -71,14 +71,14 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         // Add widgets.
         this.visualStage = node.widgets.append('VisualStage', header);
         this.visualRound = node.widgets.append('VisualRound', header);
-        this.visualTimer = node.widgets.append('VisualTimer', header);
-        this.disconnectBox = node.widgets.append('DisconnectBox', header, {
-            showDiscBtn: false,
-            showStatus: true,
-            connectCb: function () {
-                alert('Hey you connected!');
-            }
-        });
+        // this.visualTimer = node.widgets.append('VisualTimer', header);
+        // this.disconnectBox = node.widgets.append('DisconnectBox', header, {
+        //     showDiscBtn: false,
+        //     showStatus: true,
+        //     connectCb: function () {
+        //         alert('Hey you connected!');
+        //     }
+        // });
 
         // this.doneButton = node.widgets.append('DoneButton', header);
 
@@ -164,7 +164,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                     }
                 }
                 // console.log('comprehension_1: ' + answer);
-                node.set({ value: { comprehension_1: answer } });
+                // node.set({ value: { comprehension_1: answer } });
+                node.say('SAVE_DATA', 'SERVER', { comprehension_1: answer });
             };
             step2.style = "display: none;"
         },
@@ -200,7 +201,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                     }
                 }
                 console.log('comprehension_2', commodities);
-                node.set({ value: { comprehension_2: commodities } });
+                // node.set({ value: { comprehension_2: commodities } });
+                node.say('SAVE_DATA', 'SERVER', { comprehension_2: commodities });
             };
             step2.style = "display: none;"
         },
@@ -208,12 +210,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('instructions_video', {
         frame: 'video.html',
-        init: function () {
-            node.game.visualTimer.hide();
-        },
+        // init: function () {
+        //     node.game.visualTimer.hide();
+        // },
         done: function (data) {
             // console.log('attention_check', node.game.globals.attentionCheck);
-            node.set({ value: { attention_check: node.game.globals.attentionCheck } });
+            // node.set({ value: { attention_check: node.game.globals.attentionCheck } });
+            node.say('SAVE_DATA', 'SERVER', { attention_check: node.game.globals.attentionCheck });
             node.say('LEVEL_DONE');
         },
         cb: function () {

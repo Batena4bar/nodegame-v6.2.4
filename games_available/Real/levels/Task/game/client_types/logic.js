@@ -29,6 +29,7 @@ function shuffle(array) {
 }
 
 const ngc = require('nodegame-client');
+const player = require('./player');
 const J = ngc.JSUS;
 const tabData = [
   {
@@ -192,6 +193,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
   stager.setOnInit(function () {
     var messageId = 0;
 
+
+
     function storeChatData(msg) {
       // Initialize the client.
       var msgData = msg.data;
@@ -253,6 +256,18 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         node.say('INFODATA', playerId, shuffle(tabData.filter(function (tab) {
           return tab.id === '1' || tab.id === '2' || tab.id.includes(infoSelector[playerId]);
         })));
+      });
+
+      ids.forEach(function (playerId) {
+        var client = channel.registry.getClient(playerId);
+        console.log('client', client);
+        memory.add({
+          player: playerId,
+          stage: client.stage,
+          comprehension_1: client.comprehension_1,
+          comprehension_2: client.comprehension_2,
+          attention_check: client.attention_check
+        });
       });
     },
     exit: function () {

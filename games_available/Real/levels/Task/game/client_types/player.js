@@ -21,6 +21,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     stager.setDefaultGlobals({
         sliderValues: [0, 0, 0],
         likertTableValues: null,
+        chatWidget: null
     });
 
     stager.setOnInit(function () {
@@ -35,6 +36,12 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             });
             doneButton.removeFrame();
             return doneButton;
+        }
+
+        this.uuidv4 = function () {
+            return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+            );
         }
 
         node.on.data('PLAYERS', function (msg) {
@@ -75,13 +82,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         this.visualStage = node.widgets.append('VisualStage', header);
         this.visualRound = node.widgets.append('VisualRound', header);
         this.visualTimer = node.widgets.append('VisualTimer', header);
-        this.disconnectBox = node.widgets.append('DisconnectBox', header, {
-            showDiscBtn: false,
-            showStatus: true,
-            connectCb: function () {
-                alert('Hey you connected!');
-            }
-        });
+        // this.disconnectBox = node.widgets.append('DisconnectBox', header, {
+        //     showDiscBtn: false,
+        //     showStatus: true,
+        //     connectCb: function () {
+        //         alert('Hey you connected!');
+        //     }
+        // });
 
         // this.doneButton = node.widgets.append('DoneButton', header);
 
@@ -206,6 +213,14 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             text: 'Finished Chatting',
             enableOnPlaying: false,
         },
+        done: function () {
+            node.game.globals.chatWidget.sendMsg({
+                infoId: 'LEFT_CHAT',
+                id: this.uuidv4,
+                senderAlias: node.player.name,
+                msg: '<div><strong>Left chat</strong></div>'
+            });
+        },
         cb: function () {
             var that = this;
 
@@ -234,7 +249,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
             // Construct chat
             var chat = W.getElementById('chat');
-            var chatWidget = node.widgets.append('Chat', chat, {
+            node.game.globals.chatWidget = node.widgets.append('Chat', chat, {
                 participants: node.game.chatPartners,
                 title: 'Chat',
                 chatEvent: 'CHAT',
@@ -258,9 +273,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             var button = W.getElementById('send');
             button.onclick = function () {
                 if (messageComplete()) {
-                    chatWidget.sendMsg({
+                    node.game.globals.chatWidget.sendMsg({
                         infoId: currentData.id,
-                        id: Math.trunc(Math.random() * 10000),
+                        id: that.uuidv4(), // Math.trunc(Math.random() * 10000),
                         senderAlias: node.player.name,
                         topic: currentData.topic,
                         belief: [commodity1.value, proposition.value, commodity2.value],
@@ -349,35 +364,38 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                         chatMessage.classList.add('chat_msg_outgoing');
                     } else {
                         chatMessage.classList.add('chat_msg_incoming');
-                        var thumbsUp = document.createElement('div');
-                        thumbsUp.classList.add('thumbs-up');
 
-                        thumbsUp.innerHTML = '<span class="far fa-thumbs-up fa-2x"></span>';
-                        chatMessage.appendChild(thumbsUp);
+                        if (message.chatMessage.infoId !== 'LEFT_CHAT') {
+                            var thumbsUp = document.createElement('div');
+                            thumbsUp.classList.add('thumbs-up');
 
-                        var thumbsUpIcon = thumbsUp.getElementsByClassName('fa-thumbs-up').item(0);
+                            thumbsUp.innerHTML = '<span class="far fa-thumbs-up fa-2x"></span>';
+                            chatMessage.appendChild(thumbsUp);
 
-                        var att = document.createAttribute('id');
-                        att.value = message.chatMessage.id;
-                        thumbsUpIcon.setAttributeNode(att);
+                            var thumbsUpIcon = thumbsUp.getElementsByClassName('fa-thumbs-up').item(0);
 
-                        thumbsUpIcon.addEventListener('click', function (event) {
-                            var element = event.target;
-                            if (element.classList.contains('far')) {
-                                element.classList.remove('far');
-                                element.classList.add('fas');
-                                likeCount++;
-                            } else {
-                                element.classList.remove('fas');
-                                element.classList.add('far');
-                                likeCount--;
-                            }
-                            if (likeCount === 0) {
-                                that.doneButton.disable();
-                            } else {
-                                that.doneButton.enable();
-                            }
-                        });
+                            var att = document.createAttribute('id');
+                            att.value = message.chatMessage.id;
+                            thumbsUpIcon.setAttributeNode(att);
+
+                            thumbsUpIcon.addEventListener('click', function (event) {
+                                var element = event.target;
+                                if (element.classList.contains('far')) {
+                                    element.classList.remove('far');
+                                    element.classList.add('fas');
+                                    likeCount++;
+                                } else {
+                                    element.classList.remove('fas');
+                                    element.classList.add('far');
+                                    likeCount--;
+                                }
+                                if (likeCount === 0) {
+                                    that.doneButton.disable();
+                                } else {
+                                    that.doneButton.enable();
+                                }
+                            });
+                        }
                     }
 
                     messages.appendChild(chatMessage);
@@ -441,7 +459,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             text: 'Accept Descision',
             enableOnPlaying: false,
         },
-        done: function (data) {
+        done: function () {
             if (!node.game.globals.deciderId) {
                 // This player decided, tell the others
                 node.game.partners.forEach(function (participantId) {
