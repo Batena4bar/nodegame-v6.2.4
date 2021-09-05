@@ -29,49 +29,37 @@ module.exports = {
      * used to initialize the game timer for the step.
      */
     TIMER: {
-        // info_and_consent_1: 240000,
-        // info_and_consent_2: 240000,
-        // title: 20000,
+        the_scenario_1: 60000,
+        the_scenario_2: 60000,
+        the_scenario_3: 60000,
+        task_start: 20000,
 
-        // pre_task_1: 60000,
-        // pre_task_2: 40000,
-        // pre_task_3: 40000,
-        // pre_task_4: 60000,
-        // pre_task_5: 60000,
+        initial_choice: 300000,
+        guided_communication: 300000,
+        message_like: 120000,
+        secondary_choice: 120000,
+        group_choice: 240000,
 
-        // instructions_video: 120000,
-
-        // the_scenario_1: 60000,
-        // the_scenario_2: 60000,
-        // the_scenario_3: 60000,
-        // task_start: 20000,
-
-        // initial_choice: 300000,
-        // guided_communication: 300000,
-        // message_like: 120000,
-        // secondary_choice: 120000,
-        // group_choice: 240000,
-
-        // post_task_1: 120000,
-        // post_task_2: 120000,
+        post_task_1: 120000,
+        post_task_2: 120000,
     },
 
-    // # Game specific properties
+    // // # Game specific properties
 
-    // Number of game rounds to repeat.
-    ROUNDS: 1,
+    // // Number of game rounds to repeat.
+    // ROUNDS: 1,
 
-    // Number of coins available each round.
-    COINS: 100,
+    // // Number of coins available each round.
+    // COINS: 100,
 
-    // Exchange rate coins to dollars.
-    EXCHANGE_RATE: 0.05,
+    // // Exchange rate coins to dollars.
+    // EXCHANGE_RATE: 0.05,
 
-    // Don't use any treatments
-    NO_TREATMENTS: false,
+    // // Don't use any treatments
+    // NO_TREATMENTS: true,
 
-    // Don't use task
-    NO_TASK: false,
+    // // Don't use task
+    // NO_TASK: false,
 
 
     // # Treatments definition.

@@ -17,6 +17,8 @@
 
 module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
+    console.log('these settings', settings, gameRoom);
+
     stager.setOnInit(function () {
 
         //W.init({ adjustFrameHeight: false });
@@ -68,7 +70,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         // Add widgets.
         this.visualStage = node.widgets.append('VisualStage', header);
         this.visualRound = node.widgets.append('VisualRound', header);
-        this.visualTimer = node.widgets.append('VisualTimer', header);
+        // this.visualTimer = node.widgets.append('VisualTimer', header);
         // this.disconnectBox = node.widgets.append('DisconnectBox', header, {
         //     showDiscBtn: false,
         //     showStatus: true,
@@ -86,7 +88,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     });
 
     stager.extendStep('debrief', {
-        frame: 'debrief.html',
+        frame: settings.NO_TREATMENTS ? 'debrief_pilot_task.html' : 'debrief_pilot_treatment.html',
         cb: function () {
             this.doneButton = this.addDoneButton('Done');
         },

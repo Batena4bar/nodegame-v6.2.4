@@ -14,6 +14,26 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
   let node = gameRoom.node;
   let memory = node.game.memory;
 
+  stager.extendStep('end_of_game', {
+    init: function () {
+
+      // Feedback.
+      memory.view('feedback').save('feedback.csv', {
+        header: ['timestamp', 'player', 'feedback'],
+        keepUpdated: true
+      });
+
+      // Email.
+      memory.view('email').save('email.csv', {
+        header: ['timestamp', 'player', 'email'],
+        keepUpdated: true
+      });
+    },
+    cb: function () {
+      gameRoom.computeBonus();
+    }
+  });
+
   // Must implement the stages here.
   stager.setOnGameOver(function () {
     memory.save('data.json');

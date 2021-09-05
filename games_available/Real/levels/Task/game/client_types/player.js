@@ -206,9 +206,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('guided_communication', {
         frame: 'guided_communication.html',
-        init: function () {
-            node.game.visualTimer.hide();
-        },
+        // init: function () {
+        //     node.game.visualTimer.hide();
+        // },
         donebutton: {
             text: 'Finished Chatting',
             enableOnPlaying: false,
@@ -313,9 +313,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('message_like', {
         frame: 'message_like.html',
-        init: function () {
-            node.game.visualTimer.hide();
-        },
+        // init: function () {
+        //     node.game.visualTimer.hide();
+        // },
         donebutton: {
             text: 'Submit Likes',
             enableOnPlaying: false,
@@ -657,6 +657,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('intra_task_2', {
         frame: 'post_task_2.html',
+        init: function () {
+            node.game.visualTimer.hide();
+        },
         donebutton: {
             text: 'Next',
             enableOnPlaying: false,

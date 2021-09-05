@@ -268,6 +268,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
           comprehension_2: client.comprehension_2,
           attention_check: client.attention_check
         });
+        gameRoom.updateWin(playerId, 2.5);
       });
     },
     exit: function () {
@@ -333,6 +334,19 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
       console.log('group_choice logic');
     },
     exit: function () {
+
+      console.log('***** here marks the spot:', memory.select('value.group_choice').fetch()[0].value.group_choice);
+      var sliderValues = memory.select('value.group_choice').fetch()[0].value.group_choice;
+      var wheat = sliderValues[0];
+      var sugar = sliderValues[1];
+      // Watchout I botched this, it starts at 2.5
+      var reward = Math.max((wheat * 0.5) + (sugar * 0.25) - 1.5, 0);
+
+      // Loop through all connected players.
+      node.game.pl.each(function (player) {
+        gameRoom.updateWin(player.id, reward);
+      });
+
       memory.save('data.json');
     },
   });
