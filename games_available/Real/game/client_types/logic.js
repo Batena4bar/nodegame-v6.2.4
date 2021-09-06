@@ -24,6 +24,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
   stager.setOnInit(function () {
     node.on.data('LEVEL_DONE', function (msg) {
       channel.registry.updateClient(msg.from, { startRoomName: gameRoom.name });
+      console.log("*******marks the spot*****:", msg.stage);
 
       var levelName = 'Task';
       setTimeout(function () {
@@ -32,9 +33,12 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
       }, 100);
     });
 
+
+
     node.on.data('SAVE_DATA', function (msg) {
       // console.log('SAVE_DATA', msg);
       channel.registry.updateClient(msg.from, msg.data);
+      channel.registry.updateClient(msg.from, { stage: msg.stage });
     });
   });
 

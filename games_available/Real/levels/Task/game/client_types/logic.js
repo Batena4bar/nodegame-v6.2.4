@@ -37,7 +37,7 @@ const tabData = [
     icon: 'circle',
     topic: 'El Niño',
     html:
-      `<p>El Niño is a cyclical weather phenomenon that is about to begin. It often entails extreme weather conditions in South America and most regions of Asia-Pacific. This is usually well managed by farmers but can lead people to feel insecure about food in the affected regions.</p>`
+      `<p>El Nino is due to begin shortly, a cyclical weather phenomenon that affects South America and much of Asia-Pacific. Although usually well managed by farmers in those regions, the extreme weather conditions can sometimes be cause for concern.</p>`
   },
   {
     id: '2',
@@ -75,7 +75,7 @@ const tabData = [
     icon: 'square',
     topic: 'Forest fire',
     html:
-      `<p>An Australian forest fire has started. It is predicted that this will tear through dry crop fields, such as wheatfields. If it does it would cause Australia to go from being one of the biggest exporters of wheat to being a net importer instead.
+      `<p>It is predicted that the recent outbreaks of Australian forest fires will tear through nearby dry crop fields. If it does Australia could move from a major exporter of wheat to a net importer instead.
       </p>`
   },
   {
@@ -83,7 +83,7 @@ const tabData = [
     icon: 'star',
     topic: 'Wheat growing out of necessity',
     html:
-      `<p>A declining economy and poor crop last year has caused farmers in Canada to grow more wheat as it is one of the few crops that they can get a good return on at the moment. This will mean some areas of farmland will be heavily devoted to wheat.
+      `<p>A change in tariffs between Canada and neighbouring regions, poor crop yields last year, and current high prices are leading to many farmers converting much of their farmland to the growing of wheat.
       </p>`
   },
   {
@@ -91,7 +91,7 @@ const tabData = [
     icon: 'pentagon',
     topic: 'Ethanol Production',
     html:
-      `<p>Due to governmental incentives, much of the infrastructure within Brazil is now powered by ethanol. This means that when they have a better than average sugar crop, it is more valuable for the farmers to sell the sugar internally to ethanol refineries instead of exporting it.
+      `<p>Supported by governmental incentives much of the Brazilian infrastructure is now powered by ethanol. It has been made more lucrative to farmers to sell any excess sugar supply internally to ethanol refineries rather than exporting it.
       </p>`
   },
   {
@@ -99,7 +99,7 @@ const tabData = [
     icon: 'diamond',
     topic: 'Brazilian weather',
     html:
-      `<p>The South American agricultural association has predicted weather conditions in Brazil which would be advantageous for growing sugar but likely to only yield a mediocre coffee crop. 
+      `<p>The South American Agricultural Association has predicted that weather conditions in Brazil this year will be advantageous to sugar production but are likely to provide only a mediocre coffee yield.
       </p>`
   },
   {
@@ -107,7 +107,7 @@ const tabData = [
     icon: 'hexagon',
     topic: 'Particularly Wet Monsoon',
     html:
-      `<p>A reliable meteorological office report has predicted a particularly wet monsoon season which would create the perfect conditions for growing coffee. However, a second reliable source predicts that strong winds could push the monsoon much further north than usual. This would leave the big coffee growing regions in India unusually dry and the grain-growing regions unusually wet. India does not have a sophisticated reservoir or irrigation system to cope with dry seasons like Singapore or Vietnam. 
+      `<p>A meteorological office report suggests that a particularly wet monsoon season will hit India allowing for the perfect conditions for growing coffee. However, a supplementary report suggests that strong winds will push the monsoon further north than usual leaving the coffee growing regions unusually dry, similar to the previous year. Unlike Indonesia and Vietnam, India wouldn’t have the appropriate irrigation and reservoir systems to cope with this. 
       </p>`
   },
   {
@@ -115,70 +115,70 @@ const tabData = [
     icon: 'square',
     topic: 'Crop Transitions',
     html:
-      '<p>Data collected from Indian farmers indicates that regions that used to predominantly grow grains, such as wheat, are transitioning over to berry crops, like coffee, and vice versa. They are basing this change on weather behaviours in these regions over the last two years. However, these weather patterns are not guaranteed to continue.</p>',
+      '<p>Data collections show regions in India that used to grow cereal crops are now starting to grow more coffee and traditional coffee growing regions have now switched to growing cereals. The success of this change depends on a repeat of the unusual weather patterns that have been occurring over the previous 2 years.</p>',
   },
   {
     id: 'B2',
     icon: 'star',
     topic: 'Chinese import and export tax',
     html:
-      `<p>The Chinese government is predicted to increase tax on imported and exported goods in an attempt to encourage their farmers to move away from growing food types that they have previously exported to food types which they currently have to import. This move is in the hope that China can become more self-sufficient. It is expected that this will cause a substantial reduction in exported sugar.</p>`,
+      `<p>In an attempt to make China more self-sufficient, the Chinese government is increasing its import/export tax. Farmers are likely to grow more foods for home consumption and rely less on exporting foods like sugar in the coming years.</p>`,
   },
   {
     id: 'B3',
     icon: 'pentagon',
     topic: 'New farming techniques',
     html:
-      '<p>Due to new farming techniques, sugar beet and wheat crop is now a viable option for farmers in more regions within the US. Farmers have started moving over to growing these crops so there should be an increase in the production of these two crops throughout the coming years.</p>',
+      '<p>Due to new farming techniques, sugar beet and wheat crops are a more viable option for farmers in a greater number of USA regions. Farmers are starting to move over to growing these crops. It is predicted production will increase gradually over the coming years.</p>',
   },
   {
     id: 'B4',
     icon: 'diamond',
     topic: 'Pirate activity',
     html:
-      '<p>The apparent increase in the activity of pirates off the coast of East Africa could disrupt the smooth passage of food exports, such as coffee, out of Ethiopia and Kenya. The situation is being carefully monitored.</p>',
+      '<p>The apparent increase in pirate activity in the waters off the East African coast could disrupt the smooth passage of food exports from countries in that region, such as coffee from Ethiopia and Kenya. The situation is being carefully monitored.</p>',
   },
   {
     id: 'B5',
     icon: 'hexagon',
     topic: 'Weather conditions in Columbia',
     html:
-      '<p>Advanced weather predictions based on the El Nino weather patterns have indicated that there will be heavy rainfall throughout the entire typical flowering period for coffee in Columbia. Following this strong winds will cause an exceptionally dry period. This will create ideal weather conditions for growing coffee.</p>',
+      '<p>Advanced weather predictions indicate that there will be heavy rainfall throughout the whole of the flowering period for coffee in Columbia. Strong winds will follow causing an exceptionally dry period. Perfect conditions for growing coffee.</p>',
   },
   {
     id: 'C1',
     icon: 'square',
     topic: 'Currency decrease',
     html:
-      '<p>The Russian currency has devalued recently due to a sudden fall in global oil prices. Buying Russian exports has become much cheaper. Their biggest food exports are fish, such as pilchard and salmon, and grains, such as wheat and barley.</p>',
+      '<p>A sudden fall in global oil prices has caused the Russian currency to devalue. Buying Russian exports is now much cheaper. Their largest food exports are fish, such as pilchards and salmon, and grains, such as wheat and barley.</p>',
   },
   {
     id: 'C2',
     icon: 'star',
     topic: 'Crop Rust',
     html:
-      '<p>Due to current wet weather conditions, various forms of crop rust are expected to start spreading through both North and South America. This form of the disease is particularly an issue for large areas of any single crop type, especially wheat. It can ruin large areas if it takes hold but hasn’t been considered an issue at the moment.</p>',
+      '<p>Wet weather conditions in North and South America is causing Crop Rust to become more prevalent. The disease is a particular issue where there are large areas of the same crop planted, especially wheat. It has the potential to decimate large areas but isn’t yet considered a concern.</p>',
   },
   {
     id: 'C3',
     icon: 'pentagon',
     topic: 'Cost of weedkiller',
     html:
-      '<p>A rise in the cost of the weedkiller used in the main sugar-growing regions of Thailand has meant that farmers are now having to use them more sparingly than they have previously. This hasn’t been identified as an immediate issue but the Thai government is remaining cautious.</p>',
+      '<p>A rise in the cost of weedkillers used in the sugar-growing regions of Thailand means farmers are likely going to have to use it a lot more sparingly. It is unsure what effect this will have on crop yield. The Thai government is keeping this under review.</p>',
   },
   {
     id: 'C4',
     icon: 'diamond',
     topic: 'Drought in Vietnam',
     html:
-      '<p>Weather conditions in Vietnam are approaching drought levels in the next few months. They are the second biggest growers of coffee in the world. Coffee plants require wet conditions when flowering and dry conditions to be harvested.</p>',
+      '<p>If the weather conditions in Vietnam do not improve, they are set to reach drought levels in the coming 6 months. in general, coffee plants require wet conditions when flowering and dry conditions for harvesting.</p>',
   },
   {
     id: 'C5',
     icon: 'hexagon',
     topic: 'Change in coffee type',
     html:
-      '<p>A new type of coffee bean has started to grow in popularity in Ethiopia. It is expected that these beans will be far more resilient to the Ethiopian climate and have the potential to increase crop yield by 3%.</p>',
+      '<p>Some Ethiopian farmers have started growing a new variety of coffee beans. The coffee plants are more suited to the Ethiopian climate and have the potential to increase crop yield by 3%.</p>',
   },
 ];
 

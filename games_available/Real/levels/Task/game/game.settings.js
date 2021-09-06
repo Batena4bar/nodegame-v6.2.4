@@ -40,8 +40,8 @@ module.exports = {
         secondary_choice: 120000,
         group_choice: 240000,
 
-        post_task_1: 120000,
-        post_task_2: 120000,
+        intra_task_1: 120000,
+        intra_task_2: 120000,
     },
 
     // // # Game specific properties

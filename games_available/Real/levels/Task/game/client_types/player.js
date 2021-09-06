@@ -80,7 +80,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
         // Add widgets.
         this.visualStage = node.widgets.append('VisualStage', header);
-        this.visualRound = node.widgets.append('VisualRound', header);
+        //this.visualRound = node.widgets.append('VisualRound', header);
         this.visualTimer = node.widgets.append('VisualTimer', header);
         // this.disconnectBox = node.widgets.append('DisconnectBox', header, {
         //     showDiscBtn: false,
@@ -89,6 +89,24 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         //         alert('Hey you connected!');
         //     }
         // });
+
+        this.visualRound = node.widgets.append('VisualRound', header, {
+            displayModeNames: [
+                'COUNT_UP_STAGES_TO_TOTAL',
+                'COUNT_UP_ROUNDS'
+            ],
+            // preprocess: function(info) {
+            //     if (node.game.isStage('tutorial')) {
+            //         info.totStep--;
+            //         info.totRound-- 1;
+            //         info.totStep: 2;
+            //         info.totStage: 5;
+            //         info.curStep: 1;
+            //         info.curStage: 1;
+            //         info.curRound: 1;
+            //     }
+            // }
+        });
 
         // this.doneButton = node.widgets.append('DoneButton', header);
 
@@ -658,7 +676,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('intra_task_2', {
         frame: 'post_task_2.html',
         init: function () {
-            node.game.visualTimer.hide();
+            //node.game.visualTimer.hide();
         },
         donebutton: {
             text: 'Next',

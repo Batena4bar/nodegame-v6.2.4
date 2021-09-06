@@ -68,8 +68,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         W.generateFrame();
 
         // Add widgets.
-        this.visualStage = node.widgets.append('VisualStage', header);
-        this.visualRound = node.widgets.append('VisualRound', header);
+        //this.visualStage = node.widgets.append('VisualStage', header);
+        // this.visualRound = node.widgets.append('VisualRound', header);
         // this.visualTimer = node.widgets.append('VisualTimer', header);
         // this.disconnectBox = node.widgets.append('DisconnectBox', header, {
         //     showDiscBtn: false,
@@ -95,9 +95,6 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     });
 
     stager.extendStep('end_of_game', {
-        init: function () {
-            node.game.visualTimer.destroy();
-        },
         widget: {
             name: 'EndScreen',
             options: {
