@@ -34,11 +34,11 @@ module.exports = {
         the_scenario_3: 60000,
         task_start: 20000,
 
-        initial_choice: 300000,
-        guided_communication: 300000,
-        message_like: 120000,
-        secondary_choice: 120000,
-        group_choice: 240000,
+        initial_choice: 600000,
+        guided_communication: 600000,
+        message_like: 150000,
+        secondary_choice: 180000,
+        group_choice: 360000,
 
         intra_task_1: 120000,
         intra_task_2: 120000,

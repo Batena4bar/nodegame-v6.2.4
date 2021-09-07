@@ -37,10 +37,10 @@ module.exports = {
     // EXCHANGE_RATE: 0.05,
 
     // Don't use any treatments
-    NO_TREATMENTS: false,
+    //NO_TREATMENTS: false,
 
     // Don't use task
-    NO_TASK: false,
+    //NO_TASK: false,
 
     // if (NO_TREATMENTS) {
     //     debrief_page: 'debrief_pilot_task.html';

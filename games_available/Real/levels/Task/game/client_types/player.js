@@ -162,7 +162,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             this.doneButton.disable();
 
             justification.addEventListener('keydown', function (event) {
-                if (event.target.value.length < 20) {
+                if (event.target.value.length < 10) {
                     that.doneButton.disable();
                 } else {
                     that.doneButton.enable();
