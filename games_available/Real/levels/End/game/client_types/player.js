@@ -78,6 +78,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('examination', {
         frame: 'positive_mood.html',
+        init: function () {
+            node.game.visualTimer.hide();
+        },
         cb: function () {
             this.doneButton = this.addDoneButton('Done');
         },
@@ -91,6 +94,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     });
 
     stager.extendStep('end_of_game', {
+        init: function () {
+            node.game.visualTimer.show();
+        },
         widget: {
             name: 'EndScreen',
             options: {
