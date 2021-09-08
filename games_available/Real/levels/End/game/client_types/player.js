@@ -104,6 +104,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                     message: 'You have now completed this task and your responses have been saved. Please go back to the Prolific website and submit your exit code.'
                 },
                 showEmailForm: true,
+                totalWinCurrency: 'GBP',
                 feedback: {
                     minChars: undefined
                 }
