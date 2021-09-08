@@ -13,11 +13,7 @@
 
 "use strict";
 
-
-
 module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
-
-    console.log('these settings', settings, gameRoom);
 
     stager.setOnInit(function () {
 
@@ -68,9 +64,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         W.generateFrame();
 
         // Add widgets.
-        //this.visualStage = node.widgets.append('VisualStage', header);
+        this.visualStage = node.widgets.append('VisualStage', header);
         // this.visualRound = node.widgets.append('VisualRound', header);
-        // this.visualTimer = node.widgets.append('VisualTimer', header);
+        this.visualTimer = node.widgets.append('VisualTimer', header);
         // this.disconnectBox = node.widgets.append('DisconnectBox', header, {
         //     showDiscBtn: false,
         //     showStatus: true,

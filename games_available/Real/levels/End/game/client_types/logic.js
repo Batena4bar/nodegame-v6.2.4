@@ -38,9 +38,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
   stager.setOnGameOver(function () {
     memory.save('data.json');
 
-    node.game.pl.each(function (player) {
-      console.log('Saving data for', player.id);
-      memory.player[player.id].save('data_player_' + player.id + '.json');
-    });
+    // node.game.pl.each(function (player) {
+    //   console.log('Saving data for', player.id);
+    //   memory.player[player.id].save('data_player_' + player.id + '.json');
+    // });
   });
 };

@@ -29,37 +29,37 @@ module.exports = {
      * used to initialize the game timer for the step.
      */
     TIMER: {
-        info_and_consent_1: null,
-        info_and_consent_2: null,
-        title: null,
+        the_scenario_1: 60000,
+        the_scenario_2: 60000,
+        the_scenario_3: 60000,
+        task_start: 20000,
 
-        pre_task_1: null,
-        pre_task_2: null,
-        pre_task_3: null,
-        pre_task_4: null,
-        pre_task_5: null,
+        initial_choice: 600000,
+        guided_communication: 600000,
+        message_like: 150000,
+        secondary_choice: 180000,
+        group_choice: 360000,
 
-        instructions_video: null,
-
-
+        intra_task_1: 120000,
+        intra_task_2: 120000,
     },
 
-    // # Game specific properties
+    // // # Game specific properties
 
-    // Number of game rounds to repeat.
-    ROUNDS: 1,
+    // // Number of game rounds to repeat.
+    // ROUNDS: 1,
 
-    // Number of coins available each round.
-    COINS: 100,
+    // // Number of coins available each round.
+    // COINS: 100,
 
-    // Exchange rate coins to dollars.
-    EXCHANGE_RATE: 1,
+    // // Exchange rate coins to dollars.
+    // EXCHANGE_RATE: 0.05,
 
-    // Don't use any treatments
-    NO_TREATMENTS: false,
+    // // Don't use any treatments
+    // NO_TREATMENTS: true,
 
-    // Don't use task
-    NO_TASK: true,
+    // // Don't use task
+    // NO_TASK: false,
 
 
     // # Treatments definition.
@@ -79,46 +79,58 @@ module.exports = {
         //     treatment_3: 'task_start.html'
         // },
 
-        internal_rejection: {
+        internal_rejection_VT: {
             description: "Internally originated Interpersonal Rejection fear applied.",
             treatment: 'treatment_internal_rej_vin.html',
             treatment_2: 'treatment_2_internal_reject.html',
-            treatment_3: 'treatment_internal_rejection.html'
+            treatment_3: 'vignette_PANAS.html',
+            treatment_4: 'treatment_internal_rejection.html',
+            treatment_5: 'task_related_PANAS.html'
         },
 
-        external_rejection: {
+        external_rejection_VT: {
             description: "Externally originated Interpersonal Rejection fear applied.",
             treatment: 'treatment_external_rej_vin.html',
             treatment_2: 'treatment_2_external_reject.html',
-            treatment_3: 'treatment_external_rejection.html'
+            treatment_3: 'vignette_PANAS.html',
+            treatment_4: 'treatment_external_rejection.html',
+            treatment_5: 'task_related_PANAS.html'
         },
 
-        internal_evaluation: {
+        internal_evaluation_VT: {
             description: "Internally originated Negative Evaluation fear applied.",
             treatment: 'treatment_internal_eval_vin.html',
             treatment_2: 'treatment_2_internal_eval.html',
-            treatment_3: 'treatment_internal_evaluation.html'
+            treatment_3: 'vignette_PANAS.html',
+            treatment_4: 'treatment_internal_evaluation.html',
+            treatment_5: 'task_related_PANAS.html'
         },
 
-        external_evaluation: {
+        external_evaluation_VT: {
             description: "Externally originated Negative Evaluation fear applied.",
             treatment: 'treatment_external_eval_vin.html',
             treatment_2: 'treatment_2_external_eval.html',
-            treatment_3: 'treatment_external_evaluation.html'
+            treatment_3: 'vignette_PANAS.html',
+            treatment_4: 'treatment_external_evaluation.html',
+            treatment_5: 'task_related_PANAS.html'
         },
 
-        internal_repraisal: {
+        internal_repraisal_VT: {
             description: "Internally originated Repraisal fear applied from vingette.",
             treatment: 'treatment_internal_repraisal_vin.html',
             treatment_2: 'treatment_2_internal_rep.html',
-            treatment_3: 'treatment_internal_reprisal.html'
+            treatment_3: 'vignette_PANAS.html',
+            treatment_4: 'treatment_internal_reprisal.html',
+            treatment_5: 'task_related_PANAS.html'
         },
 
-        external_repraisal: {
+        external_repraisal_VT: {
             description: "Externally originated Repraisal fear applied from vingette.",
             treatment: 'treatment_external_repraisal_vin.html',
             treatment_2: 'treatment_2_external_rep.html',
-            treatment_3: 'treatment_external_reprisal.html'
+            treatment_3: 'vignette_PANAS.html',
+            treatment_4: 'treatment_external_reprisal.html',
+            treatment_5: 'task_related_PANAS.html'
         }
     }
 };

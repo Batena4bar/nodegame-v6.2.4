@@ -24,9 +24,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
   stager.setOnInit(function () {
     node.on.data('LEVEL_DONE', function (msg) {
       channel.registry.updateClient(msg.from, { startRoomName: gameRoom.name });
-      console.log("*******marks the spot*****:", msg.stage);
 
-      var levelName = 'Task';
+      // var levelName = 'Task';
+      var levelName = 'Pilot';
+
       setTimeout(function () {
         console.log('moving client to next level: ', msg.from);
         channel.moveClientToGameLevel(msg.from, levelName, gameRoom.name);
