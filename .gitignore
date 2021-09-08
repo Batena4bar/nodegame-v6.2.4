@@ -1,7 +1,7 @@
 node_modules
 log/*
 package-lock.json
-games_available/*
+games_available/Real/auth
 games/Real/data
 .DS_Store
 games_available/Real/data
