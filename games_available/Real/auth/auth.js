@@ -93,7 +93,7 @@ module.exports = function (auth) {
     function decorateClientObj(clientObj, info) {
         // PROLIFIC Exit code, same for all participants, as provided by  
         // Prolific. Make sure you show this code at the end of the experiment.
-        clientObj.ExitCode = '34FDCE5F';
+        clientObj.ExitCode = '1CAC0F0A';
         // Information about player ID and session (as provided by Prolific).
         clientObj.PROLIFIC_STUDY = info.query.STUDY_ID;
         clientObj.PROLIFIC_SESSION = info.query.SESSION_ID;
