@@ -26,7 +26,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
       channel.registry.updateClient(msg.from, { startRoomName: gameRoom.name });
 
       // var levelName = 'Task';
-      var levelName = 'Pilot';
+      var levelName = 'Task';
 
       setTimeout(function () {
         console.log('moving client to next level: ', msg.from);

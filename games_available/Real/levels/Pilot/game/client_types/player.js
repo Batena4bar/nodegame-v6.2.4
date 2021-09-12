@@ -83,7 +83,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         //this.visualRound = node.widgets.append('VisualRound', header);
         this.visualTimer = node.widgets.append('VisualTimer', header);
         // this.disconnectBox = node.widgets.append('DisconnectBox', header, {
-        //     showDiscBtn: false,
+        //     showDiscBtn: true,
         //     showStatus: true,
         //     connectCb: function () {
         //         alert('Hey you connected!');

@@ -13,8 +13,6 @@
 
 "use strict";
 
-
-
 module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
     // Sets the default globals.
@@ -44,7 +42,69 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             );
         }
 
-        node.on.data('PLAYERS', function (msg) {
+        function setUpInfoBar(showMessageButton) {
+            // Construct infoBar
+            var infoBar = W.getElementById('info-bar');
+            var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
+                data: node.game.infoData,
+                messageButton: showMessageButton,
+                // Extra options available to all widgets.
+                docked: false,
+                collapsible: false,
+                closable: false
+            });
+            infoBarWidget.removeFrame();
+        }
+
+        this.setUpReconnectableInfoBar = function (showMessageButton) {
+            if (node.game.infoData) {
+                setUpInfoBar(showMessageButton);
+            } else {
+                node.on.data('RESENT_DATA', function (msg) {
+                    node.game.infoData = msg.data;
+                    setUpInfoBar(showMessageButton);
+                });
+                node.say('RESEND_INFODATA', node.player.id);
+            }
+        }
+
+        function setUpChat(hideSendBox) {
+            // Construct chat
+            var chat = W.getElementById('chat');
+            node.game.globals.chatWidget = node.widgets.append('Chat', chat, {
+                participants: node.game.chatPartners,
+                title: 'Chat',
+                chatEvent: 'CHAT',
+                printStartTime: false,
+                storeMsgs: true,
+                receiverOnly: hideSendBox,
+                docked: false,
+                collapsible: false,
+                closable: false
+            });
+        }
+
+        this.setUpReconnectableChat = function (hideSendBox, action) {
+            if (node.game.chatPartners) {
+                console.log('rc A');
+                setUpChat(hideSendBox);
+                if (action) {
+                    action();
+                }
+            } else {
+                console.log('rc B');
+                node.on('PLAYERS_LOADED', function (msg) {
+                    console.log('rc PLAYERS_LOADED', action);
+                    setUpChat(hideSendBox);
+                    if (action) {
+                        action();
+                    }
+                });
+                node.say('RESEND_PLAYERS', node.player.id);
+            }
+        }
+
+        function setUpPlayers(msg) {
             // Store a reference to the players for later use.
             node.game.players = msg.data;
             node.game.partners = Object.keys(node.game.players).filter(function (playerId) {
@@ -66,7 +126,12 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             identity.classList.add('ng_widget', 'no-panel')
             identity.innerText = `You: ${node.player.name}`;
             header.appendChild(identity);
-        });
+
+            console.log('emitted PLAYERS_LOADED', msg);
+            node.emit('PLAYERS_LOADED', msg);
+        }
+
+        node.on.data('PLAYERS', setUpPlayers);
 
         node.on.data('INFODATA', function (msg) {
             // Store player's tabData for later use
@@ -82,13 +147,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         this.visualStage = node.widgets.append('VisualStage', header);
         //this.visualRound = node.widgets.append('VisualRound', header);
         this.visualTimer = node.widgets.append('VisualTimer', header);
-        // this.disconnectBox = node.widgets.append('DisconnectBox', header, {
-        //     showDiscBtn: false,
-        //     showStatus: true,
-        //     connectCb: function () {
-        //         alert('Hey you connected!');
-        //     }
-        // });
+        this.disconnectBox = node.widgets.append('DisconnectBox', header, {
+            showDiscBtn: true,
+            showStatus: true,
+            connectCb: function () {
+                alert('Hey you connected!');
+            }
+        });
 
         this.visualRound = node.widgets.append('VisualRound', header, {
             displayModeNames: [
@@ -189,16 +254,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             node.set({ value: { initial_choice: node.game.globals.sliderValues } });
         },
         cb: function () {
-            // Construct infoBar
-            var infoBar = W.getElementById('info-bar');
-            var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
-                data: node.game.infoData,
-                // Extra options available to all widgets.
-                docked: false,
-                collapsible: false,
-                closable: false
-            });
-            infoBarWidget.removeFrame();
+            this.setUpReconnectableInfoBar(false);
 
             // Construct linkedSliders
             var linkedSliders = W.getElementById('linked-sliders');
@@ -246,17 +302,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             var topic = W.getElementById('topic');
             var justification = W.getElementById('justification');
 
-            // Construct infoBar
-            var infoBar = W.getElementById('info-bar');
-            var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
-                data: node.game.infoData,
-                messageButton: true,
-                // Extra options available to all widgets.
-                docked: false,
-                collapsible: false,
-                closable: false
-            });
-            infoBarWidget.removeFrame();
+            this.setUpReconnectableInfoBar(true);
 
             // Receive data from infoBar
             node.on('BUBBLE_DATA', function (data, index) {
@@ -266,18 +312,20 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             });
 
             // Construct chat
-            var chat = W.getElementById('chat');
-            node.game.globals.chatWidget = node.widgets.append('Chat', chat, {
-                participants: node.game.chatPartners,
-                title: 'Chat',
-                chatEvent: 'CHAT',
-                printStartTime: false,
-                storeMsgs: true,
-                receiverOnly: true,
-                docked: false,
-                collapsible: false,
-                closable: false
-            });
+            // var chat = W.getElementById('chat');
+            // node.game.globals.chatWidget = node.widgets.append('Chat', chat, {
+            //     participants: node.game.chatPartners,
+            //     title: 'Chat',
+            //     chatEvent: 'CHAT',
+            //     printStartTime: false,
+            //     storeMsgs: true,
+            //     receiverOnly: true,
+            //     docked: false,
+            //     collapsible: false,
+            //     closable: false
+            // });
+
+            this.setUpReconnectableChat(true);
 
             // Attach functionality to chat input form
             var propostionMap = {
@@ -351,16 +399,12 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         cb: function () {
             var that = this;
 
-            // Construct infoBar
-            var infoBar = W.getElementById('info-bar');
-            var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
-                data: node.game.infoData,
-                // Extra options available to all widgets.
-                docked: false,
-                collapsible: false,
-                closable: false
-            });
-            infoBarWidget.removeFrame();
+            this.setUpReconnectableInfoBar(false);
+
+            if (!node.game.players) {
+                console.log('RESEND_PLAYERS', node.player.id);
+                node.say('RESEND_PLAYERS', node.player.id);
+            }
 
             var likeCount = 0;
 
@@ -420,6 +464,11 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 });
             });
 
+            node.on('PLAYERS_LOADED', function (msg) {
+                console.log('RESEND_CHATMESSAGES', node.player.id)
+                node.say('RESEND_CHATMESSAGES');
+            });
+
             // Construct done button
             var continueButton = W.getElementById('continue');
             this.doneButton = node.widgets.append('DoneButton', continueButton);
@@ -437,18 +486,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         done: function (data) {
             console.log('secondary_choice', node.game.globals.sliderValues);
             node.set({ value: { secondary_choice: node.game.globals.sliderValues } });
+            node.say('GROUP_CHOICE', node.game.globals.sliderValues);
         },
         cb: function () {
-            // Construct infoBar
-            var infoBar = W.getElementById('info-bar');
-            var infoBarWidget = node.widgets.append('InfoBar', infoBar, {
-                data: node.game.infoData,
-                // Extra options available to all widgets.
-                docked: false,
-                collapsible: false,
-                closable: false
-            });
-            infoBarWidget.removeFrame();
+            this.setUpReconnectableInfoBar(false);
 
             // Construct linkedSliders
             var linkedSliders = W.getElementById('linked-sliders');
@@ -490,12 +531,6 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         cb: function () {
             var choices = {};
             var that = this;
-
-            node.on.data('CHOICES', function (msg) {
-                choices[msg.from] = msg.data;
-                linkedSlidersWidget.setOtherChoices(choices);
-                checkChoicesMatch();
-            });
 
             node.on.data('DECISION_ACCEPTED', function (msg) {
                 node.game.globals.deciderId = msg.from;
@@ -543,65 +578,72 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 }
             }
 
-            // Construct chat
-            var chat = W.getElementById('chat');
-            var chatWidget = node.widgets.append('Chat', chat, {
-                participants: node.game.chatPartners,
-                title: 'Chat',
-                chatEvent: 'CHAT',
-                printStartTime: false,
-                storeMsgs: true,
-                receiverOnly: false,
-                docked: false,
-                collapsible: false,
-                closable: false
-            });
+            function loadChoicesThenSliders() {
+                node.on.data('GROUP_CHOICE', function (msg) {
+                    console.log('Recieved GROUP_CHOICE');
+                    choices = msg.data;
+                    setUpLinkedSliders();
+                });
+                node.say('RESEND_GROUP_CHOICE');
+            }
+
+            function setUpLinkedSliders() {
+                var linkedSliders = W.getElementById('linked-sliders');
+                var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
+                    labels: ['Wheat', 'Sugar', 'Coffee'],
+                    participants: node.game.chatPartners,
+                });
+                linkedSlidersWidget.removeFrame();
+
+                node.on.data('CHOICES', function (msg) {
+                    choices[msg.from] = msg.data;
+                    linkedSlidersWidget.setOtherChoices(choices);
+                    checkChoicesMatch();
+                });
+
+                node.on('complete', function () {
+                    node.game.globals.sliderValues = linkedSlidersWidget.getValues();
+                    console.log('accepted_decision ->', node.game.globals.sliderValues);
+                    submitChoiceButton.disabled = false;
+                });
+                // Construct done button
+                node.on('incomplete', function () {
+                    submitChoiceButton.disabled = true;
+                });
+                var submitChoiceButton = W.getElementById('send');
+                var lastSuggestion = [];
+                submitChoiceButton.addEventListener('click', function (event) {
+                    //console.log('submitChoice');
+                    var suggestion = linkedSlidersWidget.getValues();
+                    if (!arraysEqual(suggestion, lastSuggestion)) {
+                        choices[node.player.id] = suggestion;
+                        node.game.partners.forEach(function (participantId) {
+                            console.log('Sending Choice');
+                            node.say('CHOICES', participantId, suggestion);
+                        });
+                        //console.log('choices', choices);
+                        node.game.globals.chatWidget.sendMsg({
+                            suggestion: suggestion,
+                            msg: function (data, code) {
+                                if (code === 'incoming') {
+                                    //
+                                } else if (code === 'outgoing') {
+                                    return '<div><strong>Suggested</strong></div><div>Wheat: ' +
+                                        data.suggestion[0] + '; Sugar: ' +
+                                        data.suggestion[1] + '; Coffee: ' +
+                                        data.suggestion[2] + '</div>';
+                                }
+                            }
+                        });
+                        checkChoicesMatch();
+                        lastSuggestion = suggestion;
+                    }
+                });
+            }
 
             console.log('node.game.chatPartners', node.game.chatPartners);
 
-            var linkedSliders = W.getElementById('linked-sliders');
-            var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
-                labels: ['Wheat', 'Sugar', 'Coffee'],
-                participants: node.game.chatPartners,
-            });
-            linkedSlidersWidget.removeFrame();
-            node.on('complete', function () {
-                node.game.globals.sliderValues = linkedSlidersWidget.getValues();
-                console.log('accepted_decision ->', node.game.globals.sliderValues);
-                submitChoiceButton.disabled = false;
-            });
-            // Construct done button
-            node.on('incomplete', function () {
-                submitChoiceButton.disabled = true;
-            });
-            var submitChoiceButton = W.getElementById('send');
-            var lastSuggestion = [];
-            submitChoiceButton.addEventListener('click', function (event) {
-                //console.log('submitChoice');
-                var suggestion = linkedSlidersWidget.getValues();
-                if (!arraysEqual(suggestion, lastSuggestion)) {
-                    choices[node.player.id] = suggestion;
-                    node.game.partners.forEach(function (participantId) {
-                        node.say('CHOICES', participantId, suggestion);
-                    });
-                    //console.log('choices', choices);
-                    chatWidget.sendMsg({
-                        suggestion: suggestion,
-                        msg: function (data, code) {
-                            if (code === 'incoming') {
-                                //
-                            } else if (code === 'outgoing') {
-                                return '<div><strong>Suggested</strong></div><div>Wheat: ' +
-                                    data.suggestion[0] + '; Sugar: ' +
-                                    data.suggestion[1] + '; Coffee: ' +
-                                    data.suggestion[2] + '</div>';
-                            }
-                        }
-                    });
-                    checkChoicesMatch();
-                    lastSuggestion = suggestion;
-                }
-            });
+            this.setUpReconnectableChat(false, loadChoicesThenSliders);
 
             // Construct done button
             var continueButton = W.getElementById('continue');

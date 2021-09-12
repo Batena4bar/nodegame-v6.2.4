@@ -187,13 +187,23 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
   let node = gameRoom.node;
   let channel = gameRoom.channel;
   let memory = node.game.memory;
+  let participantInfo = {};
+  let players = {};
+  let groupChoice = {};
+
+  function sendInfoData() {
+    // Send correct selection of data tabs to each player
+    var playerIds = node.game.pl.id.getAllKeys();
+    playerIds.forEach(function (playerId) {
+      console.log('Sending INfro data to: ', playerId)
+      node.say('INFODATA', playerId, participantInfo[playerId]);
+    });
+  }
 
   // Must implement the stages here.
 
   stager.setOnInit(function () {
     var messageId = 0;
-
-
 
     function storeChatData(msg) {
       // Initialize the client.
@@ -228,6 +238,20 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         channel.moveClientToGameLevel(msg.from, levelName, gameRoom.name);
       }, 100);
     });
+
+    node.on.data('RESEND_INFODATA', function (msg) {
+      console.log('RESENT_DATA', msg.from);
+      node.say('RESENT_DATA', msg.from, participantInfo[msg.from]);
+    });
+
+    node.on.data('RESEND_PLAYERS', function (msg) {
+      console.log('Resent PLAYERS', msg.from);
+      node.say('PLAYERS', msg.from, players);
+    });
+
+    node.on.data('GROUP_CHOICE', function (msg) {
+      groupChoice[msg.from] = msg.data;
+    });
   });
 
   // The Task
@@ -238,7 +262,6 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
       // Get the ids of all players.
       let ids = node.game.pl.id.getAllKeys();
-      var players = {};
       var infoSelector = {};
       players[ids[0]] = 'Player C';
       players[ids[1]] = 'Player B';
@@ -251,16 +274,17 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         node.say('PLAYERS', playerId, players);
       });
 
-      // Send correct selection of data tabs to each player
+      // Store the correct selection of data tabs for each participant
       ids.forEach(function (playerId) {
-        node.say('INFODATA', playerId, shuffle(tabData.filter(function (tab) {
+        participantInfo[playerId] = shuffle(tabData.filter(function (tab) {
           return tab.id === '1' || tab.id === '2' || tab.id.includes(infoSelector[playerId]);
-        })));
+        }));
       });
+
+      sendInfoData();
 
       ids.forEach(function (playerId) {
         var client = channel.registry.getClient(playerId);
-        console.log('client', client);
         memory.add({
           player: playerId,
           stage: client.stage,
@@ -281,6 +305,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
   stager.extendStep('initial_choice', {
     cb: function () {
       console.log('initial_choice logic');
+      sendInfoData();
 
       // Get the ids of all players.
       let ids = node.game.pl.id.getAllKeys();
@@ -304,6 +329,17 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
   });
 
   stager.extendStep('message_like', {
+    // reconnect: function (player, reconOpts) {
+    //   // reconOpts.counter = 100;
+    //   // reconOpts.cb = function(reconOpts) {
+    //   //     node.game.counter = reconOpts.counter;
+    //   // };
+    //   var chatMessages = memory.select('chatMessage').fetch();
+    //   setTimeout(function () {
+    //     console.log('Resent CHATMESSAGES', player.id, chatMessages)
+    //     node.say('CHATMESSAGES', player.id, chatMessages);
+    //   }, 2000);
+    // },
     cb: function () {
       console.log('message_like logic');
 
@@ -311,8 +347,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
       // Loop through all connected players.
       node.game.pl.each(function (player) {
-        // console.log('Sent CHATMESSAGES to', player.id);
+        console.log('Sent CHATMESSAGES', player.id, chatMessages)
         node.say('CHATMESSAGES', player.id, chatMessages);
+      });
+
+      node.on.data('RESEND_CHATMESSAGES', function (msg) {
+        console.log('RESENT CHATMESSAGES', msg.from);
+        node.say('CHATMESSAGES', msg.from, chatMessages);
       });
     },
     exit: function () {
@@ -332,6 +373,17 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
   stager.extendStep('group_choice', {
     cb: function () {
       console.log('group_choice logic');
+
+      // Loop through all connected players.
+      node.game.pl.each(function (player) {
+        console.log('Sent GROUP_CHOICE', player.id, groupChoice)
+        node.say('GROUP_CHOICE', player.id, groupChoice);
+      });
+
+      node.on.data('RESEND_GROUP_CHOICE', function (msg) {
+        console.log('RESENT GROUP_CHOICE', msg.from);
+        node.say('GROUP_CHOICE', msg.from, groupChoice);
+      });
     },
     exit: function () {
 
