@@ -620,6 +620,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         done: function (data) {
             //console.log('Done: vignette_factors', node.game.globals.likertTableValues);
             node.set({ vignette_factors: node.game.globals.likertTableValues });
+            node.say('LEVEL_DONE');
         },
         cb: function () {
             var that = this;
@@ -711,7 +712,6 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         done: function (data) {
             //console.log('Done: task_related_factors', node.game.globals.likertTableValues);
             node.set({ task_related_factors: node.game.globals.likertTableValues });
-            node.say('LEVEL_DONE');
         },
         cb: function () {
             var that = this;
