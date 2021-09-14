@@ -12,6 +12,7 @@
 module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
   let node = gameRoom.node;
+  let channel = gameRoom.channel;
   let memory = node.game.memory;
 
   stager.extendStep('end_of_game', {
@@ -27,6 +28,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
       memory.view('email').save('email.csv', {
         header: ['timestamp', 'player', 'email'],
         keepUpdated: true
+      });
+
+      // Loop through all connected players.
+      node.game.pl.each(function (player) {
+        var client = channel.registry.getClient(player.id);
+        var reward = client.reward;
+        gameRoom.updateWin(player.id, reward);
       });
     },
     cb: function () {

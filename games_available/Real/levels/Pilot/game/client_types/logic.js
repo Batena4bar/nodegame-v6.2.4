@@ -345,6 +345,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
       // Loop through all connected players.
       node.game.pl.each(function (player) {
         gameRoom.updateWin(player.id, reward);
+        channel.registry.updateClient(player.id, { reward: reward });
       });
 
       memory.save('data.json');

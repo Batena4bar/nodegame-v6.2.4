@@ -292,7 +292,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
           comprehension_2: client.comprehension_2,
           attention_check: client.attention_check
         });
-        gameRoom.updateWin(playerId, 2.5);
+        gameRoom.updateWin(playerId, 0);
       });
     },
     exit: function () {
@@ -347,7 +347,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
       // Loop through all connected players.
       node.game.pl.each(function (player) {
-        console.log('Sent CHATMESSAGES', player.id, chatMessages)
+        // console.log('Sent CHATMESSAGES', player.id, chatMessages)
         node.say('CHATMESSAGES', player.id, chatMessages);
       });
 
@@ -374,14 +374,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     cb: function () {
       console.log('group_choice logic');
 
-      // Loop through all connected players.
-      node.game.pl.each(function (player) {
-        console.log('Sent GROUP_CHOICE', player.id, groupChoice)
-        node.say('GROUP_CHOICE', player.id, groupChoice);
-      });
-
       node.on.data('RESEND_GROUP_CHOICE', function (msg) {
-        console.log('RESENT GROUP_CHOICE', msg.from);
+        console.log('RESENT GROUP_CHOICE', msg.from, groupChoice);
         node.say('GROUP_CHOICE', msg.from, groupChoice);
       });
     },
@@ -391,12 +385,12 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
       var sliderValues = memory.select('value.group_choice').fetch()[0].value.group_choice;
       var wheat = sliderValues[0];
       var sugar = sliderValues[1];
-      // Watchout I botched this, it starts at 2.5
-      var reward = Math.max((wheat * 0.5) + (sugar * 0.25) - 1.5, 0);
+      var reward = Math.max((wheat * 0.5) + (sugar * 0.25), 2.5);
 
       // Loop through all connected players.
       node.game.pl.each(function (player) {
-        gameRoom.updateWin(player.id, reward);
+        // gameRoom.updateWin(player.id, reward);
+        channel.registry.updateClient(player.id, { reward: reward });
       });
 
       memory.save('data.json');

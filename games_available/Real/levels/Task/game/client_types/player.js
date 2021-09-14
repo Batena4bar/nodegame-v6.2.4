@@ -147,13 +147,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         this.visualStage = node.widgets.append('VisualStage', header);
         //this.visualRound = node.widgets.append('VisualRound', header);
         this.visualTimer = node.widgets.append('VisualTimer', header);
-        this.disconnectBox = node.widgets.append('DisconnectBox', header, {
-            showDiscBtn: true,
-            showStatus: true,
-            connectCb: function () {
-                alert('Hey you connected!');
-            }
-        });
+        // this.disconnectBox = node.widgets.append('DisconnectBox', header, {
+        //     showDiscBtn: true,
+        //     showStatus: true,
+        //     connectCb: function () {
+        //         alert('Hey you connected!');
+        //     }
+        // });
 
         this.visualRound = node.widgets.append('VisualRound', header, {
             displayModeNames: [
@@ -311,20 +311,6 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 topic.innerText = currentData.topic;
             });
 
-            // Construct chat
-            // var chat = W.getElementById('chat');
-            // node.game.globals.chatWidget = node.widgets.append('Chat', chat, {
-            //     participants: node.game.chatPartners,
-            //     title: 'Chat',
-            //     chatEvent: 'CHAT',
-            //     printStartTime: false,
-            //     storeMsgs: true,
-            //     receiverOnly: true,
-            //     docked: false,
-            //     collapsible: false,
-            //     closable: false
-            // });
-
             this.setUpReconnectableChat(true);
 
             // Attach functionality to chat input form
@@ -360,7 +346,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                     topic.innerText = '';
                     commodity1.value = proposition.value = commodity2.value = '';
                     justification.value = '';
-                    that.doneButton.enable();
+                    doneButton.disabled = false;
                 } else {
                     alert('Please complete all message fields');
                 }
@@ -370,10 +356,12 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             }
 
             // Construct done button
-            var continueButton = W.getElementById('continue');
-            this.doneButton = node.widgets.append('DoneButton', continueButton);
-            this.doneButton.removeFrame();
-            this.doneButton.disable();
+            var doneButton = W.getElementById('donebutton');
+            doneButton.addEventListener('click', function () {
+                if (confirm('Are you sure you want to leave the chat?')) {
+                    node.done();
+                }
+            });
         },
     });
 
@@ -486,7 +474,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         done: function (data) {
             console.log('secondary_choice', node.game.globals.sliderValues);
             node.set({ value: { secondary_choice: node.game.globals.sliderValues } });
-            node.say('GROUP_CHOICE', node.game.globals.sliderValues);
+            node.say('GROUP_CHOICE', 'SERVER', node.game.globals.sliderValues);
         },
         cb: function () {
             this.setUpReconnectableInfoBar(false);
@@ -579,8 +567,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             }
 
             function loadChoicesThenSliders() {
+                // console.log('loadChoicesThenSliders');
                 node.on.data('GROUP_CHOICE', function (msg) {
-                    console.log('Recieved GROUP_CHOICE');
+                    // console.log('Recieved GROUP_CHOICE', msg.data);
                     choices = msg.data;
                     setUpLinkedSliders();
                 });
@@ -588,10 +577,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             }
 
             function setUpLinkedSliders() {
+                // console.log('setUpLinkedSliders');
                 var linkedSliders = W.getElementById('linked-sliders');
                 var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
                     labels: ['Wheat', 'Sugar', 'Coffee'],
                     participants: node.game.chatPartners,
+                    ownId: node.player.id,
+                    choices: choices,
                 });
                 linkedSlidersWidget.removeFrame();
 
@@ -610,18 +602,21 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 node.on('incomplete', function () {
                     submitChoiceButton.disabled = true;
                 });
+
                 var submitChoiceButton = W.getElementById('send');
                 var lastSuggestion = [];
-                submitChoiceButton.addEventListener('click', function (event) {
+                submitChoiceButton.addEventListener('click', function () {
                     //console.log('submitChoice');
                     var suggestion = linkedSlidersWidget.getValues();
                     if (!arraysEqual(suggestion, lastSuggestion)) {
                         choices[node.player.id] = suggestion;
+                        // Send suggestion to other players
                         node.game.partners.forEach(function (participantId) {
                             console.log('Sending Choice');
                             node.say('CHOICES', participantId, suggestion);
                         });
-                        //console.log('choices', choices);
+                        // Send suggestion to server
+                        node.say('GROUP_CHOICE', 'SERVER', suggestion);
                         node.game.globals.chatWidget.sendMsg({
                             suggestion: suggestion,
                             msg: function (data, code) {
@@ -639,6 +634,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                         lastSuggestion = suggestion;
                     }
                 });
+
+                checkChoicesMatch();
+                node.game.globals.sliderValues = linkedSlidersWidget.getValues();
             }
 
             console.log('node.game.chatPartners', node.game.chatPartners);

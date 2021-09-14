@@ -45,10 +45,13 @@
       options.labels.forEach(function (label, index) {
         widget.sliders.push({ id: 'slider_' + index, label: label, value: 0 });
       });
-      widget.participants = options.participants ? options.participants.map(function(participant, index)  {
+      widget.participants = options.participants ? options.participants.map(function (participant, index) {
         return { id: participant.sender, name: participant.name, index: index };
       }) : null;
     }
+
+    widget.ownId = options.ownId;
+    widget.choices = options.choices;
 
     // Furthermore, you can add internal listeners here
     // or in the listeners method. (optional)
@@ -84,11 +87,11 @@
       gameParticipants.classList.add('participants');
       var gameParticipant = document.createElement('span');
       gameParticipant.innerHTML = '<span>You: </span><span class="square"></span>';
-      gameParticipants.appendChild(gameParticipant); 
-      widget.participants.forEach(function(participant) {
+      gameParticipants.appendChild(gameParticipant);
+      widget.participants.forEach(function (participant) {
         gameParticipant = document.createElement('span');
         gameParticipant.innerHTML = `<span>${participant.name}: </span><img src="shapes/${participant.index === 0 ? 'left_arrow' : 'right_arrow'}.svg" alt="indicator">`;
-        gameParticipants.appendChild(gameParticipant); 
+        gameParticipants.appendChild(gameParticipant);
       });
       widget.bodyDiv.appendChild(gameParticipants);
     }
@@ -123,7 +126,7 @@
         slider.rightArrow = rightArrow;
       }
       var sliderInput = document.createElement('input');
-      sliderInput.setAttribute('id', `${slider.id}_${index}`);
+      sliderInput.setAttribute('id', slider.id);
       sliderInput.classList.add('slider');
       sliderInput.setAttribute('type', 'range');
       sliderInput.setAttribute('min', '0');
@@ -156,7 +159,7 @@
       sliderScale.classList.add('slider-scale');
       sliderScale.innerHTML = `<span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>`;
       widget.bodyDiv.appendChild(sliderLabel);
-      widget.bodyDiv.appendChild(sliderScale);       
+      widget.bodyDiv.appendChild(sliderScale);
     });
 
     widget.bodyDiv.appendChild(fragment);
@@ -164,7 +167,23 @@
       widget.bodyDiv.classList.add('group-choice');
     }
 
-    console.log('width', );
+    if (widget.choices) {
+      widget.setOtherChoices(widget.choices);
+      // Set own choices
+      if (widget.ownId) {
+        var suggestions = widget.choices[widget.ownId];
+        if (suggestions) {
+          suggestions.forEach(function (suggestion, index) {
+            var slider = widget.sliders[index];
+            var sliderEl = widget.bodyDiv.querySelector(`#${slider.id}`);
+            slider.value = suggestion;
+            sliderEl.value = suggestion;
+          })
+        }
+        totalValue.innerText = sliderSum();
+      }
+    }
+
   };
 
   LinkedSliders.prototype.getValues = function () {
@@ -176,13 +195,13 @@
   LinkedSliders.prototype.setOtherChoices = function (choices) {
     var widget = this;
 
-    widget.participants.forEach(function(participant) {
+    widget.participants.forEach(function (participant) {
       var suggestions = choices[participant.id];
       if (suggestions) {
-        suggestions.forEach(function(suggestion, index) {
+        suggestions.forEach(function (suggestion, index) {
           var slider = widget.sliders[index];
           var arrow = participant.index === 0 ? slider.leftArrow : slider.rightArrow;
-          arrow.style.left = (suggestion * (widget.bodyDiv.offsetWidth /13)) + 'px';
+          arrow.style.left = (suggestion * (widget.bodyDiv.offsetWidth / 13)) + 'px';
         })
       }
     })
