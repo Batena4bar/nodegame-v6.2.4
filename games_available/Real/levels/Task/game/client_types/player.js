@@ -308,7 +308,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             node.on('BUBBLE_DATA', function (data, index) {
                 console.log('BUBBLE_DATA', data, index);
                 currentData = data;
-                topic.innerText = currentData.topic;
+                topic.value = currentData.topic;
             });
 
             this.setUpReconnectableChat(true);
@@ -343,7 +343,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                         }
                     });
                     currentData = null;
-                    topic.innerText = '';
+                    topic.value = '';
                     commodity1.value = proposition.value = commodity2.value = '';
                     justification.value = '';
                     doneButton.disabled = false;
@@ -352,7 +352,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 }
             };
             var messageComplete = function () {
-                return topic.innerText && commodity1.value && proposition.value && commodity2.value && justification.value;
+                return topic.value && commodity1.value && proposition.value && commodity2.value && justification.value;
             }
 
             // Construct done button

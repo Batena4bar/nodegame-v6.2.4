@@ -238,7 +238,8 @@ h1, h2, h3, h4, h5 {
   margin-bottom: 30px;
 }
 
-#justification {
+#topic, #justification {
+  border: 1px solid grey;
   width: 100%;
 }
 

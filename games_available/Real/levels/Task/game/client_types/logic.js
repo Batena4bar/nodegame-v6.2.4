@@ -37,14 +37,15 @@ const tabData = [
     icon: 'circle',
     topic: 'El Niño',
     html:
-      `<p>El Nino is due to begin shortly, a cyclical weather phenomenon that affects South America and much of Asia-Pacific. Although usually well managed by farmers in those regions, the extreme weather conditions can sometimes be cause for concern.</p>`
+      `<p style="color:rgb(130, 130, 130)">Shared</p><p>El Nino is due to begin shortly, a cyclical weather phenomenon that affects South America and much of Asia-Pacific. Although usually well managed by farmers in those regions, the extreme weather conditions can sometimes be cause for concern.</p>`
   },
   {
     id: '2',
     icon: 'triangle',
     topic: 'Top 4 Food Producers',
     html:
-      `<div class="producer-tables">
+      `<p style="color:rgb(130, 130, 130)">Shared</p>
+      <div class="producer-tables">
         <table>
           <tr><th>Wheat</th></tr>
           <tr><td>1</td><td>China</td></tr>
@@ -75,7 +76,7 @@ const tabData = [
     icon: 'square',
     topic: 'Forest fire',
     html:
-      `<p>(unique)</p><p>It is predicted that the recent outbreaks of Australian forest fires will tear through nearby dry crop fields. If it does Australia could move from a major exporter of wheat to a net importer instead.
+      `<p style="color:rgb(130, 130, 130)">Unique</p><p>It is predicted that the recent outbreaks of Australian forest fires will tear through nearby dry crop fields. If it does Australia could move from a major exporter of wheat to a net importer instead.
       </p>`
   },
   {
@@ -83,7 +84,7 @@ const tabData = [
     icon: 'star',
     topic: 'Wheat growing out of necessity',
     html:
-      `<p>(unique)</p><p>A change in tariffs between Canada and neighbouring regions, poor crop yields last year, and current high prices are leading to many farmers converting much of their farmland to the growing of wheat.
+      `<p style="color:rgb(130, 130, 130)">Unique</p><p>A change in tariffs between Canada and neighbouring regions, poor crop yields last year, and current high prices are leading to many farmers converting much of their farmland to the growing of wheat.
       </p>`
   },
   {
@@ -91,7 +92,7 @@ const tabData = [
     icon: 'pentagon',
     topic: 'Ethanol Production',
     html:
-      `<p>(unique)</p><p>Supported by governmental incentives much of the Brazilian infrastructure is now powered by ethanol. It has been made more lucrative to farmers to sell any excess sugar supply internally to ethanol refineries rather than exporting it.
+      `<p style="color:rgb(130, 130, 130)">Unique</p>><p>Supported by governmental incentives much of the Brazilian infrastructure is now powered by ethanol. It has been made more lucrative to farmers to sell any excess sugar supply internally to ethanol refineries rather than exporting it.
       </p>`
   },
   {
@@ -99,7 +100,7 @@ const tabData = [
     icon: 'diamond',
     topic: 'Brazilian weather',
     html:
-      `<p>(unique)</p><p>The South American Agricultural Association has predicted that weather conditions in Brazil this year will be advantageous to sugar production but are likely to provide only a mediocre coffee yield.
+      `<p style="color:rgb(130, 130, 130)">Unique</p><p>The South American Agricultural Association has predicted that weather conditions in Brazil this year will be advantageous to sugar production but are likely to provide only a mediocre coffee yield.
       </p>`
   },
   {
@@ -107,7 +108,7 @@ const tabData = [
     icon: 'hexagon',
     topic: 'Particularly Wet Monsoon',
     html:
-      `<p>(unique)</p><p>A meteorological office report suggests that a particularly wet monsoon season will hit India allowing for the perfect conditions for growing coffee. However, a supplementary report suggests that strong winds will push the monsoon further north than usual leaving the coffee growing regions unusually dry, similar to the previous year. Unlike Indonesia and Vietnam, India wouldn’t have the appropriate irrigation and reservoir systems to cope with this. 
+      `<p style="color:rgb(130, 130, 130)">Unique</p><p>A meteorological office report suggests that a particularly wet monsoon season will hit India allowing for the perfect conditions for growing coffee. However, a supplementary report suggests that strong winds will push the monsoon further north than usual leaving the coffee growing regions unusually dry, similar to the previous year. Unlike Indonesia and Vietnam, India wouldn’t have the appropriate irrigation and reservoir systems to cope with this. 
       </p>`
   },
   {
@@ -115,70 +116,70 @@ const tabData = [
     icon: 'square',
     topic: 'Crop Transitions',
     html:
-      '<p>(unique)</p><p>Data collections show regions in India that used to grow cereal crops are now starting to grow more coffee and traditional coffee growing regions have now switched to growing cereals. The success of this change depends on a repeat of the unusual weather patterns that have been occurring over the previous 2 years.</p>',
+      '<p style="color:rgb(130, 130, 130)">Unique</p><p>Data collections show regions in India that used to grow cereal crops are now starting to grow more coffee and traditional coffee growing regions have now switched to growing cereals. The success of this change depends on a repeat of the unusual weather patterns that have been occurring over the previous 2 years.</p>',
   },
   {
     id: 'B2',
     icon: 'star',
     topic: 'Chinese import and export tax',
     html:
-      `<p>(unique)</p><p>In an attempt to make China more self-sufficient, the Chinese government is increasing its import/export tax. Farmers are likely to grow more foods for home consumption and rely less on exporting foods like sugar in the coming years.</p>`,
+      `<p style="color:rgb(130, 130, 130)">Unique</p><p>In an attempt to make China more self-sufficient, the Chinese government is increasing its import/export tax. Farmers are likely to grow more foods for home consumption and rely less on exporting foods like sugar in the coming years.</p>`,
   },
   {
     id: 'B3',
     icon: 'pentagon',
     topic: 'New farming techniques',
     html:
-      '<p>(unique)</p><p>Due to new farming techniques, sugar beet and wheat crops are a more viable option for farmers in a greater number of USA regions. Farmers are starting to move over to growing these crops. It is predicted production will increase gradually over the coming years.</p>',
+      '<p style="color:rgb(130, 130, 130)">Unique</p><p>Due to new farming techniques, sugar beet and wheat crops are a more viable option for farmers in a greater number of USA regions. Farmers are starting to move over to growing these crops. It is predicted production will increase gradually over the coming years.</p>',
   },
   {
     id: 'B4',
     icon: 'diamond',
     topic: 'Pirate activity',
     html:
-      '<p>(unique)</p><p>The apparent increase in pirate activity in the waters off the East African coast could disrupt the smooth passage of food exports from countries in that region, such as coffee from Ethiopia and Kenya. The situation is being carefully monitored.</p>',
+      '<p style="color:rgb(130, 130, 130)">Unique</p><p>The apparent increase in pirate activity in the waters off the East African coast could disrupt the smooth passage of food exports from countries in that region, such as coffee from Ethiopia and Kenya. The situation is being carefully monitored.</p>',
   },
   {
     id: 'B5',
     icon: 'hexagon',
     topic: 'Weather conditions in Columbia',
     html:
-      '<p>(unique)</p><p>Advanced weather predictions indicate that there will be heavy rainfall throughout the whole of the flowering period for coffee in Columbia. Strong winds will follow causing an exceptionally dry period. Perfect conditions for growing coffee.</p>',
+      '<p style="color:rgb(130, 130, 130)">Unique</p><p>Advanced weather predictions indicate that there will be heavy rainfall throughout the whole of the flowering period for coffee in Columbia. Strong winds will follow causing an exceptionally dry period. Perfect conditions for growing coffee.</p>',
   },
   {
     id: 'C1',
     icon: 'square',
     topic: 'Currency decrease',
     html:
-      '<p>(unique)</p><p>A sudden fall in global oil prices has caused the Russian currency to devalue. Buying Russian exports is now much cheaper. Their largest food exports are fish, such as pilchards and salmon, and grains, such as wheat and barley.</p>',
+      '<p style="color:rgb(130, 130, 130)">Unique</p><p>A sudden fall in global oil prices has caused the Russian currency to devalue. Buying Russian exports is now much cheaper. Their largest food exports are fish, such as pilchards and salmon, and grains, such as wheat and barley.</p>',
   },
   {
     id: 'C2',
     icon: 'star',
     topic: 'Crop Rust',
     html:
-      '<p>(unique)</p><p>Wet weather conditions in North and South America is causing Crop Rust to become more prevalent. The disease is a particular issue where there are large areas of the same crop planted, especially wheat. It has the potential to decimate large areas but isn’t yet considered a concern.</p>',
+      '<p style="color:rgb(130, 130, 130)">Unique</p><p>Wet weather conditions in North and South America is causing Crop Rust to become more prevalent. The disease is a particular issue where there are large areas of the same crop planted, especially wheat. It has the potential to decimate large areas but isn’t yet considered a concern.</p>',
   },
   {
     id: 'C3',
     icon: 'pentagon',
     topic: 'Cost of weedkiller',
     html:
-      '<p>(unique)</p><p>A rise in the cost of weedkillers used in the sugar-growing regions of Thailand means farmers are likely going to have to use it a lot more sparingly. It is unsure what effect this will have on crop yield. The Thai government is keeping this under review.</p>',
+      '<p style="color:rgb(130, 130, 130)">Unique</p><p>A rise in the cost of weedkillers used in the sugar-growing regions of Thailand means farmers are likely going to have to use it a lot more sparingly. It is unsure what effect this will have on crop yield. The Thai government is keeping this under review.</p>',
   },
   {
     id: 'C4',
     icon: 'diamond',
     topic: 'Drought in Vietnam',
     html:
-      '<p>(unique)</p><p>If the weather conditions in Vietnam do not improve, they are set to reach drought levels in the coming 6 months. in general, coffee plants require wet conditions when flowering and dry conditions for harvesting.</p>',
+      '<p style="color:rgb(130, 130, 130)">Unique</p><p>If the weather conditions in Vietnam do not improve, they are set to reach drought levels in the coming 6 months. in general, coffee plants require wet conditions when flowering and dry conditions for harvesting.</p>',
   },
   {
     id: 'C5',
     icon: 'hexagon',
     topic: 'Change in coffee type',
     html:
-      '<p>(unique)</p><p>Some Ethiopian farmers have started growing a new variety of coffee beans. The coffee plants are more suited to the Ethiopian climate and have the potential to increase crop yield by 3%.</p>',
+      '<p style="color:rgb(130, 130, 130)">Unique</p><p>Some Ethiopian farmers have started growing a new variety of coffee beans. The coffee plants are more suited to the Ethiopian climate and have the potential to increase crop yield by 3%.</p>',
   },
 ];
 
