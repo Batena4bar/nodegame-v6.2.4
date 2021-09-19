@@ -92,7 +92,7 @@ const tabData = [
     icon: 'pentagon',
     topic: 'Ethanol Production',
     html:
-      `<p style="color:rgb(130, 130, 130)">Unique</p>><p>Supported by governmental incentives much of the Brazilian infrastructure is now powered by ethanol. It has been made more lucrative to farmers to sell any excess sugar supply internally to ethanol refineries rather than exporting it.
+      `<p style="color:rgb(130, 130, 130)">Unique</p><p>Supported by governmental incentives much of the Brazilian infrastructure is now powered by ethanol. It has been made more lucrative to farmers to sell any excess sugar supply internally to ethanol refineries rather than exporting it.
       </p>`
   },
   {
