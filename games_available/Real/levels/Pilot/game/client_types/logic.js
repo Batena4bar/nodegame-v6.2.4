@@ -368,7 +368,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
       var playerIds = node.game.pl.id.getAllKeys();
       var playerId = playerIds[0];
       console.log("***** Chaeck this out *****:", playerId)
-      channel.registry.updateClient(playerId, { reward: 0 });
+      channel.registry.updateClient(playerId, { reward: -0.5 });
 
       memory.save('data.json');
     },
