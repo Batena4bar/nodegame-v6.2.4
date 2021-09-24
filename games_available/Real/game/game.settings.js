@@ -56,10 +56,10 @@ module.exports = {
     EXCHANGE_RATE: 1,
 
     // Don't use any treatments
-    NO_TREATMENTS: false,
+    NO_TREATMENTS: true,
 
     // Don't use task
-    NO_TASK: true,
+    NO_TASK: false,
 
 
     // # Treatments definition.

@@ -284,7 +284,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         //     node.game.visualTimer.hide();
         // },
         donebutton: {
-            text: 'Finished Chatting',
+            text: 'Finish Chatting',
             enableOnPlaying: false,
         },
         done: function () {
@@ -312,6 +312,20 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             });
 
             this.setUpReconnectableChat(true);
+
+            var sentMessage = false;
+            var pauseElapsed = false;
+
+            function activateDoneButton() {
+                if (sentMessage && pauseElapsed) {
+                    doneButton.disabled = false;
+                }
+            }
+
+            setTimeout(function () {
+                pauseElapsed = true;
+                activateDoneButton();
+            }, 240000)
 
             // Attach functionality to chat input form
             var propostionMap = {
@@ -346,7 +360,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                     topic.value = '';
                     commodity1.value = proposition.value = commodity2.value = '';
                     justification.value = '';
-                    doneButton.disabled = false;
+                    sentMessage = true;
+                    activateDoneButton();
                 } else {
                     alert('Please complete all message fields');
                 }
@@ -361,6 +376,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 if (confirm('Are you sure you want to leave the chat?')) {
                     node.done();
                 }
+            });
+
+            // Alert
+            var popUp = W.getElementById('popUp');
+            var popUpClose = W.getElementById('popUpClose');
+            popUpClose.addEventListener('click', function () {
+                popUp.remove();
             });
         },
     });

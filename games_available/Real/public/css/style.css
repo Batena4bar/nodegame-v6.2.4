@@ -204,8 +204,37 @@ h1, h2, h3, h4, h5 {
   text-align: right;
 }
 
+.panel.donebutton.with-message {
+  text-align: left;
+  display: flex;
+}
+
+.panel.donebutton.with-message > div:first-child {
+  font-size: smaller;
+  color: grey;
+  margin-right: 10px;
+}
+
 .panel.donebutton.center {
   text-align: center;
+}
+
+#popUp {
+  position: fixed;
+  display: flex;
+  top: 50vh;
+  left: calc((100vw - 400px) / 2);
+  width: 400px;
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  z-index: 1;
+}
+
+#popUp > i.close {
+  cursor: pointer;
 }
 
 #message-template {

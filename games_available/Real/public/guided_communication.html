@@ -16,7 +16,6 @@
       </p>
     </div>
     <div id="information">
-      <br>
       <div style="border: 1px solid tomato; padding: 10px;">
         <strong>Instructions</strong>: Use the chat box to exchange information you have been given with the other
         members of your group. To send a message:
@@ -30,10 +29,8 @@
         3. Provide a brief explanation of your thinking in the <strong>Justification</strong> box.
         <br>
         4. Press the <strong>Send</strong> button.
-        <div style="background-color:white; color:rgb(130, 130, 130)"><strong>Note</strong>: You must send at least 1
-          piece
-          of
-          information.</div>
+        <div style="background-color:white; color:rgb(130, 130, 130)"><strong>Note</strong>: You must send at least one
+          piece of information.</div>
       </div>
       <br>
       <div class="panels">
@@ -78,13 +75,20 @@
               <button id="send" class="btn btn-light">Send</button>
             </div>
           </div>
-          <div class="ng_widget panel donebutton">
+          <div class="ng_widget panel donebutton with-message">
             <div>
-              <input type="button" id="donebutton" class="btn btn-lg btn-primary" value="Finished Chatting" disabled="">
+              The <strong>Finish Chatting</strong> button will be enabled after 4 minutes.
+            </div>
+            <div>
+              <input type="button" id="donebutton" class="btn btn-lg btn-primary" value="Finish Chatting" disabled="">
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <div id="popUp">
+    <span>The more information you share, the more likely it is that your group will make the best investment.</span>
+    <i id="popUpClose" class="close fas fa-times fa-2x"></i>
   </div>
 </body>

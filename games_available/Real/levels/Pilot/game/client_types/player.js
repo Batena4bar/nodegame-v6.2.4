@@ -229,7 +229,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         //     node.game.visualTimer.hide();
         // },
         donebutton: {
-            text: 'Finished Chatting',
+            text: 'Finish Chatting',
             enableOnPlaying: false,
         },
         done: function () {
