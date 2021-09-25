@@ -39,37 +39,44 @@ const tabData = [
     html:
       `<p style="color:rgb(130, 130, 130)">Shared</p><p>El Nino is due to begin shortly, a cyclical weather phenomenon that affects South America and much of Asia-Pacific. Although usually well managed by farmers in those regions, the extreme weather conditions can sometimes be cause for concern.</p>`
   },
+  // {
+  //   id: '2',
+  //   icon: 'triangle',
+  //   topic: 'Top 4 Food Producers',
+  //   html:
+  //     `<p style="color:rgb(130, 130, 130)">Shared</p>
+  //     <div class="producer-tables">
+  //       <table>
+  //         <tr><th>Wheat</th></tr>
+  //         <tr><td>1</td><td>China</td></tr>
+  //         <tr><td>2</td><td>India</td></tr>
+  //         <tr><td>3</td><td>Russia</td></tr>
+  //         <tr><td>4</td><td>USA</td></tr>
+  //       </table>
+  //       <br>
+  //       <table>
+  //         <tr><th>Sugar</th></tr>
+  //         <tr><td>1</td><td>Brazil</td></tr>
+  //         <tr><td>2</td><td>India</td></tr>
+  //         <tr><td>3</td><td>Thailand</td></tr>
+  //         <tr><td>4</td><td>China</td></tr>
+  //       </table>
+  //       <br>
+  //       <table>
+  //         <tr><th>Coffee</th></tr>
+  //         <tr><td>1</td><td>Brazil</td></tr>
+  //         <tr><td>2</td><td>Vietnam</td></tr>
+  //         <tr><td>3</td><td>Columbia</td></tr>
+  //         <tr><td>4</td><td>Etheopia</td></tr>
+  //       </table>
+  //     </div>`,
+  // },
   {
     id: '2',
     icon: 'triangle',
-    topic: 'Top 4 Food Producers',
+    topic: 'Inflation of the USD',
     html:
-      `<p style="color:rgb(130, 130, 130)">Shared</p>
-      <div class="producer-tables">
-        <table>
-          <tr><th>Wheat</th></tr>
-          <tr><td>1</td><td>China</td></tr>
-          <tr><td>2</td><td>India</td></tr>
-          <tr><td>3</td><td>Russia</td></tr>
-          <tr><td>4</td><td>USA</td></tr>
-        </table>
-        <br>
-        <table>
-          <tr><th>Sugar</th></tr>
-          <tr><td>1</td><td>Brazil</td></tr>
-          <tr><td>2</td><td>India</td></tr>
-          <tr><td>3</td><td>Thailand</td></tr>
-          <tr><td>4</td><td>China</td></tr>
-        </table>
-        <br>
-        <table>
-          <tr><th>Coffee</th></tr>
-          <tr><td>1</td><td>Brazil</td></tr>
-          <tr><td>2</td><td>Vietnam</td></tr>
-          <tr><td>3</td><td>Columbia</td></tr>
-          <tr><td>4</td><td>Etheopia</td></tr>
-        </table>
-      </div>`,
+      `<p style="color:rgb(130, 130, 130)">Shared</p><p>Inflation in the US dollar over the coming year is set to decrease the price of exported goods from the USA. In addition, because global food markets trade in the US dollar, the international coffee, wheat and sugar markets are all expected to become more volatile.</p>`
   },
   {
     id: 'A1',
