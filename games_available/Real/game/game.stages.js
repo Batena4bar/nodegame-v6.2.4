@@ -30,8 +30,8 @@ module.exports = function (stager, settings) {
     .step('pre_task_1')
     .step('pre_task_2')
     .step('pre_task_3')
-    .step('pre_task_4')
-    .step('pre_task_5')
+    //.step('pre_task_4')
+    //.step('pre_task_5')
 
     // An explanation of the practical aspect of the task
     .stage('video')

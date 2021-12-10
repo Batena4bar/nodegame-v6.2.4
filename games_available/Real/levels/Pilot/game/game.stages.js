@@ -13,11 +13,11 @@ module.exports = function (stager, settings) {
 
         // Manipulation screen
         .stage('the_scenario')
-        .step('the_scenario_4')
-        .step('the_scenario_5')
+        //.step('the_scenario_4')
+        //.step('the_scenario_5')
         .step('the_scenario_1')
         .step('the_scenario_2')
-        .step('the_scenario_3')
+        //.step('the_scenario_3')
 
         // .Stage('the_scenario')
         // .step('the_scenario_4')

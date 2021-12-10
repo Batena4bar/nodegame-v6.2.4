@@ -31,7 +31,7 @@ module.exports = {
     TIMER: {
         the_scenario_1: 60000,
         the_scenario_2: 60000,
-        the_scenario_3: 60000,
+        //the_scenario_3: 60000,
         task_start: 20000,
 
         initial_choice: 600000,

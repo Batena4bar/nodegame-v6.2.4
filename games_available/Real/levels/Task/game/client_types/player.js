@@ -236,12 +236,12 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         }
     });
 
-    stager.extendStep('the_scenario_3', {
-        frame: settings.treatment_3,
-        cb: function () {
-            this.doneButton = this.addDoneButton('Continue');
-        },
-    });
+    // stager.extendStep('the_scenario_3', {
+    //     frame: settings.treatment_3,
+    //     cb: function () {
+    //         this.doneButton = this.addDoneButton('Continue');
+    //     },
+    // });
 
     stager.extendStep('initial_choice', {
         frame: 'initial_choice.html',
@@ -259,7 +259,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             // Construct linkedSliders
             var linkedSliders = W.getElementById('linked-sliders');
             var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
-                labels: ['Wheat', 'Sugar', 'Coffee']
+                labels: ['Person X', 'Person Y', 'Person Z']
             });
             linkedSlidersWidget.removeFrame();
             node.on('complete', function () {
@@ -329,9 +329,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
             // Attach functionality to chat input form
             var propostionMap = {
-                '<': 'worse than',
-                '=': 'as good as',
-                '>': 'better than'
+                '<': 'preferable to',
+                '>': 'less preferable than'
             }
             var commodity1 = W.getElementById('commodity_1');
             var proposition = W.getElementById('proposition');
@@ -351,7 +350,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                                 //
                             } else if (code === 'outgoing') {
                                 return '<div><strong>' + data.topic + '</strong></div><div>Belief: ' +
-                                    data.belief[0] + ' <strong>' + propostionMap[data.belief[1]] + '</strong> ' + data.belief[2] +
+                                data.belief[0] + ' <strong>' + propostionMap[data.belief[1]] + '</strong> ' + data.belief[2] +
                                     '</div><div>' + data.justification + '</div>';
                             }
                         }
@@ -504,7 +503,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             // Construct linkedSliders
             var linkedSliders = W.getElementById('linked-sliders');
             var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
-                labels: ['Wheat', 'Sugar', 'Coffee']
+                labels: ['Person X', 'Person Y', 'Person Z']
             });
             linkedSlidersWidget.removeFrame();
             node.on('complete', function () {
@@ -602,7 +601,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 // console.log('setUpLinkedSliders');
                 var linkedSliders = W.getElementById('linked-sliders');
                 var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
-                    labels: ['Wheat', 'Sugar', 'Coffee'],
+                    labels: ['Person X', 'Person Y', 'Person Z'],
                     participants: node.game.chatPartners,
                     ownId: node.player.id,
                     choices: choices,
@@ -645,9 +644,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                                 if (code === 'incoming') {
                                     //
                                 } else if (code === 'outgoing') {
-                                    return '<div><strong>Suggested</strong></div><div>Wheat: ' +
-                                        data.suggestion[0] + '; Sugar: ' +
-                                        data.suggestion[1] + '; Coffee: ' +
+                                    return '<div><strong>Suggested</strong></div><div>Person X: ' +
+                                        data.suggestion[0] + '; Person Y: ' +
+                                        data.suggestion[1] + '; Person Z: ' +
                                         data.suggestion[2] + '</div>';
                                 }
                             }
@@ -747,7 +746,6 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         done: function (data) {
             console.log('PANAS_fears', node.game.globals.likertTableValues);
             node.set({ value: { fear_factors: node.game.globals.likertTableValues } });
-            node.say('LEVEL_DONE');
         },
         cb: function () {
             var that = this;

@@ -337,8 +337,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
       console.log('***** here marks the spot:', memory.select('value.group_choice').fetch()[0].value.group_choice);
       var sliderValues = memory.select('value.group_choice').fetch()[0].value.group_choice;
-      var wheat = sliderValues[0];
-      var sugar = sliderValues[1];
+      var wheat = sliderValues[1];
+      var sugar = sliderValues[2];
       // Watchout I botched this, it starts at 2.5
       var reward = Math.max((wheat * 0.5) + (sugar * 0.25) - 1.5, 0);
 
@@ -352,27 +352,27 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     },
   });
 
-  stager.extendStep('the_scenario_3', {
-    cb: function () {
-    },
-    exit: function () {
-      memory.save('data.json');
-    },
-  })
+  // stager.extendStep('the_scenario_3', {
+  //   cb: function () {
+  //   },
+  //   exit: function () {
+  //     memory.save('data.json');
+  //   },
+  // })
 
-  stager.extendStep('the_scenario_5', {
-    cb: function () {
-    },
-    exit: function () {
+  // stager.extendStep('the_scenario_5', {
+  //   cb: function () {
+  //   },
+  //   exit: function () {
 
-      var playerIds = node.game.pl.id.getAllKeys();
-      var playerId = playerIds[0];
-      console.log("***** Chaeck this out *****:", playerId)
-      channel.registry.updateClient(playerId, { reward: -0.5 });
+  //     var playerIds = node.game.pl.id.getAllKeys();
+  //     var playerId = playerIds[0];
+  //     console.log("***** Chaeck this out *****:", playerId)
+  //     channel.registry.updateClient(playerId, { reward: -0.5 });
 
-      memory.save('data.json');
-    },
-  })
+  //     memory.save('data.json');
+  //   },
+  // })
 
   // stager.setOnGameOver(function () {
   //   memory.save('data.json');

@@ -33,161 +33,322 @@ const player = require('./player');
 const J = ngc.JSUS;
 const tabData = [
   {
-    id: '1',
-    icon: 'circle',
-    topic: 'El Niño',
-    html:
-      `<p style="color:rgb(130, 130, 130)">Shared</p><p>El Nino is due to begin shortly, a cyclical weather phenomenon that affects South America and much of Asia-Pacific. Although usually well managed by farmers in those regions, the extreme weather conditions can sometimes be cause for concern.</p>`
-  },
-  // {
-  //   id: '2',
-  //   icon: 'triangle',
-  //   topic: 'Top 4 Food Producers',
-  //   html:
-  //     `<p style="color:rgb(130, 130, 130)">Shared</p>
-  //     <div class="producer-tables">
-  //       <table>
-  //         <tr><th>Wheat</th></tr>
-  //         <tr><td>1</td><td>China</td></tr>
-  //         <tr><td>2</td><td>India</td></tr>
-  //         <tr><td>3</td><td>Russia</td></tr>
-  //         <tr><td>4</td><td>USA</td></tr>
-  //       </table>
-  //       <br>
-  //       <table>
-  //         <tr><th>Sugar</th></tr>
-  //         <tr><td>1</td><td>Brazil</td></tr>
-  //         <tr><td>2</td><td>India</td></tr>
-  //         <tr><td>3</td><td>Thailand</td></tr>
-  //         <tr><td>4</td><td>China</td></tr>
-  //       </table>
-  //       <br>
-  //       <table>
-  //         <tr><th>Coffee</th></tr>
-  //         <tr><td>1</td><td>Brazil</td></tr>
-  //         <tr><td>2</td><td>Vietnam</td></tr>
-  //         <tr><td>3</td><td>Columbia</td></tr>
-  //         <tr><td>4</td><td>Etheopia</td></tr>
-  //       </table>
-  //     </div>`,
-  // },
-  {
-    id: '2',
-    icon: 'triangle',
-    topic: 'Inflation of the USD',
-    html:
-      `<p style="color:rgb(130, 130, 130)">Shared</p><p>Inflation in the US dollar over the coming year is set to decrease the price of exported goods from the USA. In addition, because global food markets trade in the US dollar, the international coffee, wheat and sugar markets are all expected to become more volatile.</p>`
-  },
-  {
-    id: 'A1',
+    id: 'AX1',
     icon: 'square',
-    topic: 'Forest fire',
+    topic: 'Conflict Resolution',
     html:
-      `<p style="color:rgb(130, 130, 130)">Unique</p><p>It is predicted that the recent outbreaks of Australian forest fires will tear through nearby dry crop fields. If it does Australia could move from a major exporter of wheat to a net importer instead.
-      </p>`
+      `<p> Person X is good at resolving conflict</p>`
   },
   {
-    id: 'A2',
+    id: 'AX2',
     icon: 'star',
-    topic: 'Wheat growing out of necessity',
+    topic: 'Work Abroad',
     html:
-      `<p style="color:rgb(130, 130, 130)">Unique</p><p>A change in tariffs between Canada and neighbouring regions, poor crop yields last year, and current high prices are leading to many farmers converting much of their farmland to the growing of wheat.
-      </p>`
+    `<p> Person X has previously been working abroad in the US</p>`
   },
   {
-    id: 'A3',
+    id: 'AX3',
     icon: 'pentagon',
-    topic: 'Ethanol Production',
+    topic: 'Age',
     html:
-      `<p style="color:rgb(130, 130, 130)">Unique</p><p>Supported by governmental incentives much of the Brazilian infrastructure is now powered by ethanol. It has been made more lucrative to farmers to sell any excess sugar supply internally to ethanol refineries rather than exporting it.
-      </p>`
+    `<p> Person X is 33 years old</p>`
   },
   {
-    id: 'A4',
+    id: 'AX4',
     icon: 'diamond',
-    topic: 'Brazilian weather',
+    topic: 'Qualification',
     html:
-      `<p style="color:rgb(130, 130, 130)">Unique</p><p>The South American Agricultural Association has predicted that weather conditions in Brazil this year will be advantageous to sugar production but are likely to provide only a mediocre coffee yield.
-      </p>`
+    `<p> Person X has done a bachelors degree</p>`
   },
   {
-    id: 'A5',
+    id: 'AX5',
     icon: 'hexagon',
-    topic: 'Particularly Wet Monsoon',
+    topic: 'Attitude',
     html:
-      `<p style="color:rgb(130, 130, 130)">Unique</p><p>A meteorological office report suggests that a particularly wet monsoon season will hit India allowing for the perfect conditions for growing coffee. However, a supplementary report suggests that strong winds will push the monsoon further north than usual leaving the coffee growing regions unusually dry, similar to the previous year. Unlike Indonesia and Vietnam, India wouldn’t have the appropriate irrigation and reservoir systems to cope with this. 
-      </p>`
+    `<p> Person X can often be rude</p>`
   },
   {
-    id: 'B1',
+    id: 'AY1',
     icon: 'square',
-    topic: 'Crop Transitions',
+    topic: 'Constructive Nature',
     html:
-      '<p style="color:rgb(130, 130, 130)">Unique</p><p>Data collections show regions in India that used to grow cereal crops are now starting to grow more coffee and traditional coffee growing regions have now switched to growing cereals. The success of this change depends on a repeat of the unusual weather patterns that have been occurring over the previous 2 years.</p>',
+    `<p> Person Y tends to take criticism well</p>`
   },
   {
-    id: 'B2',
+    id: 'AY2',
     icon: 'star',
-    topic: 'Chinese import and export tax',
+    topic: 'Respect',
     html:
-      `<p style="color:rgb(130, 130, 130)">Unique</p><p>In an attempt to make China more self-sufficient, the Chinese government is increasing its import/export tax. Farmers are likely to grow more foods for home consumption and rely less on exporting foods like sugar in the coming years.</p>`,
+    `<p> Person Y treats others with respect</p>`
   },
   {
-    id: 'B3',
+    id: 'AY3',
     icon: 'pentagon',
-    topic: 'New farming techniques',
+    topic: 'Knowledge',
     html:
-      '<p style="color:rgb(130, 130, 130)">Unique</p><p>Due to new farming techniques, sugar beet and wheat crops are a more viable option for farmers in a greater number of USA regions. Farmers are starting to move over to growing these crops. It is predicted production will increase gradually over the coming years.</p>',
+    `<p> Person Y is knowledgeable about the newest developments within management technologies</p>`
   },
   {
-    id: 'B4',
+    id: 'AY4',
     icon: 'diamond',
-    topic: 'Pirate activity',
+    topic: 'Resentment',
     html:
-      '<p style="color:rgb(130, 130, 130)">Unique</p><p>The apparent increase in pirate activity in the waters off the East African coast could disrupt the smooth passage of food exports from countries in that region, such as coffee from Ethiopia and Kenya. The situation is being carefully monitored.</p>',
+    `<p> Person Y has been known to hold grudges against colleagues</p>`
   },
   {
-    id: 'B5',
+    id: 'AY5',
     icon: 'hexagon',
-    topic: 'Weather conditions in Columbia',
+    topic: 'Reliability',
     html:
-      '<p style="color:rgb(130, 130, 130)">Unique</p><p>Advanced weather predictions indicate that there will be heavy rainfall throughout the whole of the flowering period for coffee in Columbia. Strong winds will follow causing an exceptionally dry period. Perfect conditions for growing coffee.</p>',
+    `<p> Person Y is a reliable employee</p>`
   },
   {
-    id: 'C1',
+    id: 'AZ1',
     icon: 'square',
-    topic: 'Currency decrease',
+    topic: 'Creativity',
     html:
-      '<p style="color:rgb(130, 130, 130)">Unique</p><p>A sudden fall in global oil prices has caused the Russian currency to devalue. Buying Russian exports is now much cheaper. Their largest food exports are fish, such as pilchards and salmon, and grains, such as wheat and barley.</p>',
+    `<p> Person Z has poor creativity when coming up with new ideas</p>`
   },
   {
-    id: 'C2',
+    id: 'AZ2',
     icon: 'star',
-    topic: 'Crop Rust',
+    topic: 'Consistency',
     html:
-      '<p style="color:rgb(130, 130, 130)">Unique</p><p>Wet weather conditions in North and South America is causing Crop Rust to become more prevalent. The disease is a particular issue where there are large areas of the same crop planted, especially wheat. It has the potential to decimate large areas but isn’t yet considered a concern.</p>',
+    `<p> Person Z is often not consistent in the way th carry out procedures within the workplace</p>`
   },
   {
-    id: 'C3',
+    id: 'AZ3',
     icon: 'pentagon',
-    topic: 'Cost of weedkiller',
+    topic: 'Nationality',
     html:
-      '<p style="color:rgb(130, 130, 130)">Unique</p><p>A rise in the cost of weedkillers used in the sugar-growing regions of Thailand means farmers are likely going to have to use it a lot more sparingly. It is unsure what effect this will have on crop yield. The Thai government is keeping this under review.</p>',
+    `<p> Person Z was born in Austria</p>`
   },
   {
-    id: 'C4',
+    id: 'AZ4',
     icon: 'diamond',
-    topic: 'Drought in Vietnam',
+    topic: 'Hobbies',
     html:
-      '<p style="color:rgb(130, 130, 130)">Unique</p><p>If the weather conditions in Vietnam do not improve, they are set to reach drought levels in the coming 6 months. in general, coffee plants require wet conditions when flowering and dry conditions for harvesting.</p>',
+    `<p> Person Z likes to play snooker</p>`
   },
   {
-    id: 'C5',
+    id: 'AZ5',
     icon: 'hexagon',
-    topic: 'Change in coffee type',
+    topic: 'Sharpness',
     html:
-      '<p style="color:rgb(130, 130, 130)">Unique</p><p>Some Ethiopian farmers have started growing a new variety of coffee beans. The coffee plants are more suited to the Ethiopian climate and have the potential to increase crop yield by 3%.</p>',
+    `<p> Person Z is very quick to understand what needs to be done</p>`
   },
+  {
+    id: 'BX1',
+    icon: 'square',
+    topic: 'Knowledge',
+    html:
+    `<p> Person X is well informed about how businesses operate</p>`
+  },
+  {
+    id: 'BX2',
+    icon: 'star',
+    topic: 'Pressure',
+    html:
+    `<p> Person X works well under pressure</p>`
+  },
+  {
+    id: 'BX3',
+    icon: 'pentagon',
+    topic: 'Nationality',
+    html:
+    `<p> Person X is from the UK</p>`
+  },
+  {
+    id: 'BX4',
+    icon: 'diamond',
+    topic: 'Parent',
+    html:
+    `<p> Person X has two children</p>`
+  },
+  {
+    id: 'BX5',
+    icon: 'hexagon',
+    topic: 'Coping Style',
+    html:
+    `<p> Person X can get very stressed</p>`
+  },
+  {
+    id: 'BY1',
+    icon: 'square',
+    topic: 'Childhood',
+    html:
+    `<p> Person Y grew up in a city close to the charity’s headquarters</p>`
+  },
+  {
+    id: 'BY2',
+    icon: 'star',
+    topic: 'Attitude',
+    html:
+    `<p> Person Y only does what needs to be done</p>`
+  },
+  {
+    id: 'BY3',
+    icon: 'pentagon',
+    topic: 'Work Experience',
+    html:
+    `<p> Person Y has previously worked for a taxi company</p>`
+  },
+  {
+    id: 'BY4',
+    icon: 'diamond',
+    topic: 'Poplarity',
+    html:
+    `<p> Person Y is already popular with the other employees</p>`
+  },
+  {
+    id: 'BY5',
+    icon: 'hexagon',
+    topic: 'Sharpness',
+    html:
+    `<p> Person Y is slow at learning new information</p>`
+  },
+  {
+    id: 'BZ1',
+    icon: 'square',
+    topic: 'Resolving Conflict',
+    html:
+    `<p> Person Z is not good at managing conflict</p>`
+  },
+  {
+    id: 'BZ2',
+    icon: 'star',
+    topic: 'Presenting',
+    html:
+    `<p> Person Z is good at doing presentations</p>`
+  },
+  {
+    id: 'BZ3',
+    icon: 'pentagon',
+    topic: 'Personal Life',
+    html:
+    `<p> Not much is know about Person Z’s personal life</p>`
+  },
+  {
+    id: 'BZ4',
+    icon: 'diamond',
+    topic: 'Age',
+    html:
+    `<p> Person Z is 29 years old</p>`
+  },
+  {
+    id: 'BZ5',
+    icon: 'hexagon',
+    topic: 'Reliability',
+    html:
+    `<p> Person Z is a reliable employee</p>`
+  },
+  {
+    id: 'CX1',
+    icon: 'square',
+    topic: 'Helping Others',
+    html:
+    `<p> Person X tries to be very active with helping others</p>`
+  },
+  {
+    id: 'CX2',
+    icon: 'star',
+    topic: 'Deligation',
+    html:
+    `<p> Person X tends to defer their own unwanted tasks to others</p>`
+  },
+  {
+    id: 'CX3',
+    icon: 'pentagon',
+    topic: 'Timeliness',
+    html:
+    `<p> Person X is often late for work</p>`
+  },
+  {
+    id: 'CX4',
+    icon: 'diamond',
+    topic: 'Constructive Nature',
+    html:
+    `<p> Person X is not good at taking criticism</p>`
+  },
+  {
+    id: 'CX5',
+    icon: 'hexagon',
+    topic: 'Etiquette',
+    html:
+    `<p> Person X sometimes talks over others</p>`
+  },
+  {
+    id: 'CY1',
+    icon: 'square',
+    topic: 'Degree',
+    html:
+    `<p> Person Y has a degree in industrial engineering</p>`
+  },
+  {
+    id: 'CY2',
+    icon: 'star',
+    topic: 'Conflict Resolution',
+    html:
+    `<p> Person Y is not good at managing conflict</p>`
+  },
+  {
+    id: 'CY3',
+    icon: 'pentagon',
+    topic: 'Experience',
+    html:
+    `<p> Person Y already knows how the charity is run, having been there for 1 year</p>`
+  },
+  {
+    id: 'CY4',
+    icon: 'diamond',
+    topic: 'Childhood',
+    html:
+    `<p> Person Y grew up in a city close to the charity’s headquarters</p>`
+  },
+  {
+    id: 'CY5',
+    icon: 'hexagon',
+    topic: 'Hobbies',
+    html:
+    `<p> Person Y likes playing chess</p>`
+  },
+  {
+    id: 'CZ1',
+    icon: 'square',
+    topic: 'Deffering Responsibilities',
+    html:
+    `<p> Person Z tends to push their own unpleasant work onto others</p>`
+  },
+  {
+    id: 'CZ2',
+    icon: 'star',
+    topic: 'Commuting',
+    html:
+    `<p> Person Z sometimes cycles to work</p>`
+  },
+  {
+    id: 'CZ3',
+    icon: 'pentagon',
+    topic: 'Age',
+    html:
+    `<p> Person Z is 29 years old</p>`
+  },
+  {
+    id: 'CZ4',
+    icon: 'diamond',
+    topic: 'Skill',
+    html:
+    `<p> Person Z has good organisational skills</p>`
+  },
+  {
+    id: 'CZ5',
+    icon: 'hexagon',
+    topic: 'Constructive Nature',
+    html:
+    `<p> Person Z is good at taking on advice when tackling new challenges</p>`
+  },
+
+
 ];
 
 module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
@@ -203,7 +364,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     // Send correct selection of data tabs to each player
     var playerIds = node.game.pl.id.getAllKeys();
     playerIds.forEach(function (playerId) {
-      console.log('Sending INfro data to: ', playerId)
+      console.log('Sending Info data to: ', playerId)
       node.say('INFODATA', playerId, participantInfo[playerId]);
     });
   }
@@ -284,9 +445,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
       // Store the correct selection of data tabs for each participant
       ids.forEach(function (playerId) {
-        participantInfo[playerId] = shuffle(tabData.filter(function (tab) {
-          return tab.id === '1' || tab.id === '2' || tab.id.includes(infoSelector[playerId]);
-        }));
+        var output = [];
+        ['X', 'Y', 'Z'].forEach(function(columnId) {
+          output = output.concat(shuffle(tabData.filter(function (tab) {
+            return tab.id.includes(infoSelector[playerId] + columnId);
+          })));          
+        });
+        participantInfo[playerId] = output;
       });
 
       sendInfoData();
@@ -391,8 +556,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
       console.log('***** here marks the spot:', memory.select('value.group_choice').fetch()[0].value.group_choice);
       var sliderValues = memory.select('value.group_choice').fetch()[0].value.group_choice;
-      var wheat = sliderValues[0];
-      var sugar = sliderValues[1];
+      var wheat = sliderValues[1];
+      var sugar = sliderValues[2];
       var reward = Math.max((wheat * 0.5) + (sugar * 0.25), 2.5);
 
       // Loop through all connected players.

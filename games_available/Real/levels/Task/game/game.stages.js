@@ -23,7 +23,9 @@ module.exports = function (stager, settings) {
         // .stage('the_scenario')
         .step('the_scenario_1')
         .step('the_scenario_2')
-        .step('the_scenario_3')
+        //.step('the_scenario_3')
+        .step('intra_task_1')
+        .step('intra_task_2')
 
         // The task
         .loopStage('Year_1', function () {

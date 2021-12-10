@@ -101,7 +101,7 @@
     var fragment = document.createDocumentFragment();
     var totalDiv = document.createElement('div');
     totalDiv.classList.add('totalcontainer');
-    totalDiv.innerHTML = `<span>Total purchases: £<span id="total-purchases">0</span> M</span><span id="warning">Must equal £12 M</span>`;
+    totalDiv.innerHTML = `<span>Total kitchens: <span id="total-purchases">0</span></span><span id="warning">Must equal 12</span>`;
     fragment.appendChild(totalDiv);
     var totalValue = fragment.getElementById('total-purchases');
     var warning = fragment.getElementById('warning');

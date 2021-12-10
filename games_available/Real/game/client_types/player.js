@@ -91,6 +91,11 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('info_and_consent_1', {
         frame: 'information_sheet.html',
+        //////////////////////////////////////
+        //done: function (data) { 
+        //    node.say('LEVEL_DONE');
+        //},
+        //////////////////////////////////////
         cb: function () {
             this.doneButton = this.addDoneButton('Continue');
         },
@@ -174,42 +179,42 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('pre_task_4', {
-        frame: 'background_3.html',
-        cb: function () {
-            this.doneButton = this.addDoneButton('Continue');
-        },
-    });
+    // stager.extendStep('pre_task_4', {
+    //     frame: 'background_3.html',
+    //     cb: function () {
+    //         this.doneButton = this.addDoneButton('Continue');
+    //     },
+    // });
 
-    stager.extendStep('pre_task_5', {
-        frame: 'attention_check_3.html',
-        cb: function () {
-            var step1 = W.getElementById('step_1');
-            var step2 = W.getElementById('step_2');
-            this.doneButton = this.addDoneButton('Continue');
-            var button = W.getElementById('done');
-            button.onclick = function () {
-                step1.style = "display: none;";
-                step2.style = "display: block;";
-                var forms = W.getElementsByTagName('form');
-                for (var i = 0; i < forms.length; i++) {
-                    forms[i].classList.remove('hide-answers');
-                }
+    // stager.extendStep('pre_task_5', {
+    //     frame: 'attention_check_3.html',
+    //     cb: function () {
+    //         var step1 = W.getElementById('step_1');
+    //         var step2 = W.getElementById('step_2');
+    //         this.doneButton = this.addDoneButton('Continue');
+    //         var button = W.getElementById('done');
+    //         button.onclick = function () {
+    //             step1.style = "display: none;";
+    //             step2.style = "display: block;";
+    //             var forms = W.getElementsByTagName('form');
+    //             for (var i = 0; i < forms.length; i++) {
+    //                 forms[i].classList.remove('hide-answers');
+    //             }
 
-                var commoditiesForm = W.getElementById('commodities-form');
-                var commodities = [];
-                for (var j = 0; j < commoditiesForm.elements.length; j++) {
-                    if (commoditiesForm[j].checked) {
-                        commodities.push(commoditiesForm[j].value);
-                    }
-                }
-                console.log('comprehension_2', commodities);
-                // node.set({ value: { comprehension_2: commodities } });
-                node.say('SAVE_DATA', 'SERVER', { comprehension_2: commodities });
-            };
-            step2.style = "display: none;"
-        },
-    });
+    //             var commoditiesForm = W.getElementById('commodities-form');
+    //             var commodities = [];
+    //             for (var j = 0; j < commoditiesForm.elements.length; j++) {
+    //                 if (commoditiesForm[j].checked) {
+    //                     commodities.push(commoditiesForm[j].value);
+    //                 }
+    //             }
+    //             console.log('comprehension_2', commodities);
+    //             // node.set({ value: { comprehension_2: commodities } });
+    //             node.say('SAVE_DATA', 'SERVER', { comprehension_2: commodities });
+    //         };
+    //         step2.style = "display: none;"
+    //     },
+    // });
 
     stager.extendStep('instructions_video', {
         frame: 'video.html',

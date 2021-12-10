@@ -117,49 +117,63 @@
     closeButton.onclick = closeBubble;
     bubble.appendChild(closeButton);
 
-    var ul = document.createElement('ul');
-    this.data.forEach(function (tab, index) {
-      var button = document.createElement('button');
-      button.setAttribute('type', 'button');
-      button.classList.add('btn', 'btn-lg', 'btn-outline-secondary');
-      button.innerHTML = '<img src="shapes/' + tab.icon + '.svg" alt="icon">';
+    var makeColumn = function (data, bubbleOffset, title) {
+      var ul = document.createElement('ul');
+      var columnTitle = document.createElement('li');
+      columnTitle.classList.add('column-title');
+      columnTitle.textContent = title;
+      ul.appendChild(columnTitle);
 
-      button.onclick = function (event) {
-        closeBubble();
+      data.forEach(function (tab, index) {
+        var button = document.createElement('button');
+        button.setAttribute('type', 'button');
+        button.classList.add('btn', 'btn-lg', 'btn-outline-secondary');
+        button.innerHTML = '<img src="shapes/' + tab.icon + '.svg" alt="icon">';
 
-        pointer.setAttribute('style', 'top: ' + (52 * index + 8) + 'px')
+        button.onclick = function (event) {
+          closeBubble();
 
-        var title = document.createElement('h2');
-        title.innerText = tab.topic;
+          pointer.setAttribute('style', 'top: ' + (52 * index + 52) + 'px')
 
-        if (widget.messageButton) {
-          var messageButton = document.createElement('button');
-          messageButton.setAttribute('type', 'button');
-          messageButton.classList.add('btn', 'btn-light');
-          messageButton.innerHTML = '<span class="far fa-comment"></span> Message';
-          messageButton.onclick = function () {
-            node.emit('BUBBLE_DATA', tab, index);
-            closeBubble();
-          };
-          title.appendChild(messageButton);
-        }
+          var title = document.createElement('h2');
+          title.innerText = tab.topic;
 
-        panel = document.createElement('div');
-        panel.classList.add('panel');
-        panel.appendChild(title);
-        var p = document.createElement('p');
-        p.innerHTML = tab.html;
-        panel.appendChild(p);
-        bubble.appendChild(panel);
+          if (widget.messageButton) {
+            var messageButton = document.createElement('button');
+            messageButton.setAttribute('type', 'button');
+            messageButton.classList.add('btn', 'btn-light');
+            messageButton.innerHTML = '<span class="far fa-comment"></span> Message';
+            messageButton.onclick = function () {
+              node.emit('BUBBLE_DATA', tab, index);
+              closeBubble();
+            };
+            title.appendChild(messageButton);
+          }
 
-        widget.bodyDiv.appendChild(bubble);
-      };
+          panel = document.createElement('div');
+          panel.classList.add('panel');
+          panel.appendChild(title);
+          var p = document.createElement('p');
+          p.innerHTML = tab.html;
+          panel.appendChild(p);
+          bubble.appendChild(panel);
+          bubble.style.left = bubbleOffset + 'px';
 
-      var li = document.createElement('li');
-      li.appendChild(button);
-      ul.appendChild(li);
-    });
-    widget.bodyDiv.appendChild(ul);
+          widget.bodyDiv.appendChild(bubble);
+        };
+
+        var li = document.createElement('li');
+        li.appendChild(button);
+        ul.appendChild(li);
+      });
+      widget.bodyDiv.appendChild(ul);
+    }
+    var index = 0;
+    var columnTitles = ['X', 'Y', 'Z'];
+    for (var x = 0; x <= 10; x = x + 5) {
+      makeColumn(this.data.slice(x, x + 5), 76 + (67 * index), columnTitles[index]);
+      index++;
+    }
   };
 
   // Implements the Widget.listeners method (optional).

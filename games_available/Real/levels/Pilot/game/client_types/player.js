@@ -204,7 +204,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             // Construct linkedSliders
             var linkedSliders = W.getElementById('linked-sliders');
             var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
-                labels: ['Wheat', 'Sugar', 'Coffee']
+                labels: ['Person X', 'Person Y', 'Person Z']
             });
             linkedSlidersWidget.removeFrame();
             node.on('complete', function () {
@@ -453,7 +453,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             // Construct linkedSliders
             var linkedSliders = W.getElementById('linked-sliders');
             var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
-                labels: ['Wheat', 'Sugar', 'Coffee']
+                labels: ['Person X', 'Person Y', 'Person Z']
             });
             linkedSlidersWidget.removeFrame();
             node.on('complete', function () {
@@ -561,7 +561,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
             var linkedSliders = W.getElementById('linked-sliders');
             var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
-                labels: ['Wheat', 'Sugar', 'Coffee'],
+                labels: ['Person X', 'Person Y', 'Person Z'],
                 participants: node.game.chatPartners,
             });
             linkedSlidersWidget.removeFrame();
@@ -611,183 +611,183 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('the_scenario_3', {
-        frame: 'post_pilot_1.html',
-        donebutton: {
-            text: 'Next',
-            enableOnPlaying: false,
-        },
-        done: function (data) {
-            //console.log('Done: vignette_factors', node.game.globals.likertTableValues);
-            node.set({ vignette_factors: node.game.globals.likertTableValues });
-            node.say('LEVEL_DONE');
-        },
-        cb: function () {
-            var that = this;
+    // stager.extendStep('the_scenario_3', {
+    //     frame: 'post_pilot_1.html',
+    //     donebutton: {
+    //         text: 'Next',
+    //         enableOnPlaying: false,
+    //     },
+    //     done: function (data) {
+    //         //console.log('Done: vignette_factors', node.game.globals.likertTableValues);
+    //         node.set({ vignette_factors: node.game.globals.likertTableValues });
+    //         node.say('LEVEL_DONE');
+    //     },
+    //     cb: function () {
+    //         var that = this;
 
-            var items = {
-                'Nervous': 0,
-                'Jittery': 0,
-                'Afraid': 0,
-                'Scared': 0,
-                'Upset': 0,
-                'Distressed': 0,
-                'Guilty': 0,
-                'Irritable': 0,
-                'Hostile': 0,
-                'Ashamed': 0,
-                'Frightened': 0,
-                'Shaky': 0,
-                'Sad': 0,
-                'Blue': 0,
-                'Downhearted': 0,
-                'Alone': 0,
-                'Lonely': 0,
-                'Blameworthy': 0,
-                'Angry at self': 0,
-                'Disgusted with self': 0,
-                'Dissatisfied with self': 0,
-                'Angry': 0,
-                'Scornful': 0,
-                'Disgusted': 0,
-                'Loathing': 0,
-                'Shy': 0,
-                'Bashful': 0,
-                'Sheepish': 0,
-                'Timid': 0,
-                'Sleepy': 0,
-                'Tired': 0,
-                'Sluggish': 0,
-                'Drowsy': 0,
-            }
+    //         var items = {
+    //             'Nervous': 0,
+    //             'Jittery': 0,
+    //             'Afraid': 0,
+    //             'Scared': 0,
+    //             'Upset': 0,
+    //             'Distressed': 0,
+    //             'Guilty': 0,
+    //             'Irritable': 0,
+    //             'Hostile': 0,
+    //             'Ashamed': 0,
+    //             'Frightened': 0,
+    //             'Shaky': 0,
+    //             'Sad': 0,
+    //             'Blue': 0,
+    //             'Downhearted': 0,
+    //             'Alone': 0,
+    //             'Lonely': 0,
+    //             'Blameworthy': 0,
+    //             'Angry at self': 0,
+    //             'Disgusted with self': 0,
+    //             'Dissatisfied with self': 0,
+    //             'Angry': 0,
+    //             'Scornful': 0,
+    //             'Disgusted': 0,
+    //             'Loathing': 0,
+    //             'Shy': 0,
+    //             'Bashful': 0,
+    //             'Sheepish': 0,
+    //             'Timid': 0,
+    //             'Sleepy': 0,
+    //             'Tired': 0,
+    //             'Sluggish': 0,
+    //             'Drowsy': 0,
+    //         }
 
-            var options = {
-                id: 'vignette_PANAS',
-                items: Object.keys(items),
-                choices: [1, 2, 3, 4, 5, 6, 7],
-                shuffleItems: true,
-                requiredChoice: true,
-                left: 'Lowest',
-                right: 'Highest',
-                onclick: function (question, answer, deselecting) {
-                    items[question] = deselecting ? 0 : answer + 1;
-                    var answers = Object.values(items);
-                    var allAnswered = true;
-                    for (var index = 0; index < answers.length; index++) {
-                        if (answers[index] === 0) {
-                            allAnswered = false;
-                            break;
-                        }
-                    }
-                    if (allAnswered) {
-                        node.game.globals.likertTableValues = likertTableWidget2.getValues();
-                        // console.log('Answered: PANAS_fears ->', node.game.globals.likertTableValues);
-                        that.doneButton.enable();
-                    } else {
-                        that.doneButton.disable();
-                    }
-                }
-            };
-            // Create and append the widget to the body of the page.
-            var likertTable2 = W.getElementById('likert_table_2');
-            var likertTableWidget2 = node.widgets.append('ChoiceTableGroup', likertTable2, options);
-            var panelHeading = W.getElementsByClassName('panel-heading')[0];
-            panelHeading.remove();
-            var choicetableHint = W.getElementsByClassName('choicetable-hint')[0];
-            choicetableHint.remove();
+    //         var options = {
+    //             id: 'vignette_PANAS',
+    //             items: Object.keys(items),
+    //             choices: [1, 2, 3, 4, 5, 6, 7],
+    //             shuffleItems: true,
+    //             requiredChoice: true,
+    //             left: 'Lowest',
+    //             right: 'Highest',
+    //             onclick: function (question, answer, deselecting) {
+    //                 items[question] = deselecting ? 0 : answer + 1;
+    //                 var answers = Object.values(items);
+    //                 var allAnswered = true;
+    //                 for (var index = 0; index < answers.length; index++) {
+    //                     if (answers[index] === 0) {
+    //                         allAnswered = false;
+    //                         break;
+    //                     }
+    //                 }
+    //                 if (allAnswered) {
+    //                     node.game.globals.likertTableValues = likertTableWidget2.getValues();
+    //                     // console.log('Answered: PANAS_fears ->', node.game.globals.likertTableValues);
+    //                     that.doneButton.enable();
+    //                 } else {
+    //                     that.doneButton.disable();
+    //                 }
+    //             }
+    //         };
+    //         // Create and append the widget to the body of the page.
+    //         var likertTable2 = W.getElementById('likert_table_2');
+    //         var likertTableWidget2 = node.widgets.append('ChoiceTableGroup', likertTable2, options);
+    //         var panelHeading = W.getElementsByClassName('panel-heading')[0];
+    //         panelHeading.remove();
+    //         var choicetableHint = W.getElementsByClassName('choicetable-hint')[0];
+    //         choicetableHint.remove();
 
-            this.doneButton = this.addDoneButton('Next');
-        },
-    });
+    //         this.doneButton = this.addDoneButton('Next');
+    //     },
+    // });
 
-    stager.extendStep('the_scenario_5', {
-        frame: 'post_pilot_2.html',
-        init: function () {
-            //node.game.visualTimer.hide();
-        },
-        donebutton: {
-            text: 'Next',
-            enableOnPlaying: false,
-        },
-        done: function (data) {
-            //console.log('Done: task_related_factors', node.game.globals.likertTableValues);
-            node.set({ task_related_factors: node.game.globals.likertTableValues });
-        },
-        cb: function () {
-            var that = this;
+    // stager.extendStep('the_scenario_5', {
+    //     frame: 'post_pilot_2.html',
+    //     init: function () {
+    //         //node.game.visualTimer.hide();
+    //     },
+    //     donebutton: {
+    //         text: 'Next',
+    //         enableOnPlaying: false,
+    //     },
+    //     done: function (data) {
+    //         //console.log('Done: task_related_factors', node.game.globals.likertTableValues);
+    //         node.set({ task_related_factors: node.game.globals.likertTableValues });
+    //     },
+    //     cb: function () {
+    //         var that = this;
 
-            var items = {
-                'Nervous': 0,
-                'Jittery': 0,
-                'Afraid': 0,
-                'Scared': 0,
-                'Upset': 0,
-                'Distressed': 0,
-                'Guilty': 0,
-                'Irritable': 0,
-                'Hostile': 0,
-                'Ashamed': 0,
-                'Frightened': 0,
-                'Shaky': 0,
-                'Sad': 0,
-                'Blue': 0,
-                'Downhearted': 0,
-                'Alone': 0,
-                'Lonely': 0,
-                'Blameworthy': 0,
-                'Angry at self': 0,
-                'Disgusted with self': 0,
-                'Dissatisfied with self': 0,
-                'Angry': 0,
-                'Scornful': 0,
-                'Disgusted': 0,
-                'Loathing': 0,
-                'Shy': 0,
-                'Bashful': 0,
-                'Sheepish': 0,
-                'Timid': 0,
-                'Sleepy': 0,
-                'Tired': 0,
-                'Sluggish': 0,
-                'Drowsy': 0,
-            }
+    //         var items = {
+    //             'Nervous': 0,
+    //             'Jittery': 0,
+    //             'Afraid': 0,
+    //             'Scared': 0,
+    //             'Upset': 0,
+    //             'Distressed': 0,
+    //             'Guilty': 0,
+    //             'Irritable': 0,
+    //             'Hostile': 0,
+    //             'Ashamed': 0,
+    //             'Frightened': 0,
+    //             'Shaky': 0,
+    //             'Sad': 0,
+    //             'Blue': 0,
+    //             'Downhearted': 0,
+    //             'Alone': 0,
+    //             'Lonely': 0,
+    //             'Blameworthy': 0,
+    //             'Angry at self': 0,
+    //             'Disgusted with self': 0,
+    //             'Dissatisfied with self': 0,
+    //             'Angry': 0,
+    //             'Scornful': 0,
+    //             'Disgusted': 0,
+    //             'Loathing': 0,
+    //             'Shy': 0,
+    //             'Bashful': 0,
+    //             'Sheepish': 0,
+    //             'Timid': 0,
+    //             'Sleepy': 0,
+    //             'Tired': 0,
+    //             'Sluggish': 0,
+    //             'Drowsy': 0,
+    //         }
 
-            var options = {
-                id: 'task_related_PANAS',
-                items: Object.keys(items),
-                choices: [1, 2, 3, 4, 5, 6, 7],
-                shuffleItems: true,
-                requiredChoice: true,
-                left: 'Lowest',
-                right: 'Highest',
-                onclick: function (question, answer, deselecting) {
-                    items[question] = deselecting ? 0 : answer + 1;
-                    var answers = Object.values(items);
-                    var allAnswered = true;
-                    for (var index = 0; index < answers.length; index++) {
-                        if (answers[index] === 0) {
-                            allAnswered = false;
-                            break;
-                        }
-                    }
-                    if (allAnswered) {
-                        node.game.globals.likertTableValues = likertTableWidget2.getValues();
-                        // console.log('Answered: PANAS_fears ->', node.game.globals.likertTableValues);
-                        that.doneButton.enable();
-                    } else {
-                        that.doneButton.disable();
-                    }
-                }
-            };
-            // Create and append the widget to the body of the page.
-            var likertTable2 = W.getElementById('likert_table_2');
-            var likertTableWidget2 = node.widgets.append('ChoiceTableGroup', likertTable2, options);
-            var panelHeading = W.getElementsByClassName('panel-heading')[0];
-            panelHeading.remove();
-            var choicetableHint = W.getElementsByClassName('choicetable-hint')[0];
-            choicetableHint.remove();
+    //         var options = {
+    //             id: 'task_related_PANAS',
+    //             items: Object.keys(items),
+    //             choices: [1, 2, 3, 4, 5, 6, 7],
+    //             shuffleItems: true,
+    //             requiredChoice: true,
+    //             left: 'Lowest',
+    //             right: 'Highest',
+    //             onclick: function (question, answer, deselecting) {
+    //                 items[question] = deselecting ? 0 : answer + 1;
+    //                 var answers = Object.values(items);
+    //                 var allAnswered = true;
+    //                 for (var index = 0; index < answers.length; index++) {
+    //                     if (answers[index] === 0) {
+    //                         allAnswered = false;
+    //                         break;
+    //                     }
+    //                 }
+    //                 if (allAnswered) {
+    //                     node.game.globals.likertTableValues = likertTableWidget2.getValues();
+    //                     // console.log('Answered: PANAS_fears ->', node.game.globals.likertTableValues);
+    //                     that.doneButton.enable();
+    //                 } else {
+    //                     that.doneButton.disable();
+    //                 }
+    //             }
+    //         };
+    //         // Create and append the widget to the body of the page.
+    //         var likertTable2 = W.getElementById('likert_table_2');
+    //         var likertTableWidget2 = node.widgets.append('ChoiceTableGroup', likertTable2, options);
+    //         var panelHeading = W.getElementsByClassName('panel-heading')[0];
+    //         panelHeading.remove();
+    //         var choicetableHint = W.getElementsByClassName('choicetable-hint')[0];
+    //         choicetableHint.remove();
 
-            this.doneButton = this.addDoneButton('Next');
-        },
-    });
+    //         this.doneButton = this.addDoneButton('Next');
+    //     },
+    // });
 };
