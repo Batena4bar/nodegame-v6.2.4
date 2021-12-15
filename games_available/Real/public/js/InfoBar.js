@@ -128,7 +128,7 @@
         var button = document.createElement('button');
         button.setAttribute('type', 'button');
         button.classList.add('btn', 'btn-lg', 'btn-outline-secondary');
-        button.innerHTML = '<img src="shapes/' + tab.icon + '.svg" alt="icon">';
+        button.innerHTML = tab.icon;
 
         button.onclick = function (event) {
           closeBubble();
@@ -169,7 +169,7 @@
       widget.bodyDiv.appendChild(ul);
     }
     var index = 0;
-    var columnTitles = ['X', 'Y', 'Z'];
+    var columnTitles = ['Sam', 'Alex', 'Jamie'];
     for (var x = 0; x <= 10; x = x + 5) {
       makeColumn(this.data.slice(x, x + 5), 76 + (67 * index), columnTitles[index]);
       index++;

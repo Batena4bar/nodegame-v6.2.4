@@ -31,6 +31,8 @@ module.exports = {
     TIMER: {
         info_and_consent_1: null,
         info_and_consent_2: null,
+        questionnaire_1: null,
+        questionnaire_2: null,
         title: null,
 
         pre_task_1: null,

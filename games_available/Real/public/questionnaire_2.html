@@ -1,0 +1,57 @@
+<!doctype html>
+
+<head>
+    <title>Intra-Task Questionaire II</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/nodegame.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        #likert_table_2_scale {
+            padding: 0 7px 0 122px;
+        }
+
+        #likert_table_2_scale>span {
+            display: flex;
+            justify-content: space-between;
+        }
+
+
+        table.choicetable td {
+            width: auto !important;
+        }
+
+        table.choicetable td.choicetable-left {
+            width: 100px !important;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="container" class="background">
+        <div id="header">
+            <h1 style="text-align:center">Intra-Task Questionnaire II</h1>
+        </div>
+        <div id="information">
+            <p>
+            <h3 style="color:rgb(90, 90, 90)"><i>Indicate to what extent you feel:</i></h3>
+            </p>
+            <div id="likert_table_2_scale" style="color:rgb(90, 90, 90)">
+                <span>
+                    <span>Not at all</span>
+                    <span>Moderately</span>
+                    <span>Extremely</span>
+                </span>
+            </div>
+            <div id="likert_table_2"></div>
+            <br>
+        </div>
+        <div id="footer">
+            <p>
+                Once you have completed this questionaire, press...
+                <span id="done-button"></span>
+            </p>
+        </div>
+    </div>
+</body>

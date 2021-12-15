@@ -259,7 +259,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             // Construct linkedSliders
             var linkedSliders = W.getElementById('linked-sliders');
             var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
-                labels: ['Person X', 'Person Y', 'Person Z']
+                labels: ['Sam', 'Alex', 'Jamie']
             });
             linkedSlidersWidget.removeFrame();
             node.on('complete', function () {
@@ -503,7 +503,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             // Construct linkedSliders
             var linkedSliders = W.getElementById('linked-sliders');
             var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
-                labels: ['Person X', 'Person Y', 'Person Z']
+                labels: ['Sam', 'Alex', 'Jamie']
             });
             linkedSlidersWidget.removeFrame();
             node.on('complete', function () {
@@ -524,7 +524,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('group_choice', {
         frame: 'group_choice.html',
         donebutton: {
-            text: 'Accept Descision',
+            text: 'Accept Decision',
             enableOnPlaying: false,
         },
         done: function () {
@@ -601,7 +601,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 // console.log('setUpLinkedSliders');
                 var linkedSliders = W.getElementById('linked-sliders');
                 var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
-                    labels: ['Person X', 'Person Y', 'Person Z'],
+                    labels: ['Sam', 'Alex', 'Jamie'],
                     participants: node.game.chatPartners,
                     ownId: node.player.id,
                     choices: choices,
@@ -644,9 +644,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                                 if (code === 'incoming') {
                                     //
                                 } else if (code === 'outgoing') {
-                                    return '<div><strong>Suggested</strong></div><div>Person X: ' +
-                                        data.suggestion[0] + '; Person Y: ' +
-                                        data.suggestion[1] + '; Person Z: ' +
+                                    return '<div><strong>Suggested</strong></div><div>Sam: ' +
+                                        data.suggestion[0] + '; Alex: ' +
+                                        data.suggestion[1] + '; Jamie: ' +
                                         data.suggestion[2] + '</div>';
                                 }
                             }

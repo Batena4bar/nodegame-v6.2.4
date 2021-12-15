@@ -238,36 +238,129 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    // stager.extendStep('examination', {
-    //     frame: 'positive_mood.html',
-    //     cb: function () {
-    //         this.doneButton = this.addDoneButton('Done');
-    //     },
-    // });
+    stager.extendStep('questionnaire_1', {
+        frame: 'questionnaire_1.html',
+        donebutton: {
+            text: 'Next',
+            enableOnPlaying: false,
+        },
+        done: function (data) {
+            console.log('fear_factors', node.game.globals.likertTableValues);
+            node.set({ value: { fear_factors: node.game.globals.likertTableValues } });
+        },
+        cb: function () {
+            var that = this;
 
-    // stager.extendStep('debrief', {
-    //     frame: 'debrief.html',
-    //     cb: function () {
-    //         this.doneButton = this.addDoneButton('Done');
-    //     },
-    // });
+            var items = {
+                'Being rejected by other group members?': 0,
+                'Being ignored during a conversation?': 0,
+                'Being boring to the other group members?': 0,
+                'Being excluded from a conversation?': 0,
+                'What kind of impression you will make?': 0,
+                'Other group members not approving of you?': 0,
+                'Other group members finding a fault with you?': 0,
+            }
 
-    // stager.extendStep('end_of_game', {
-    //     init: function () {
-    //         node.game.visualTimer.destroy();
-    //     },
-    //     widget: {
-    //         name: 'EndScreen',
-    //         options: {
-    //             texts: {
-    //                 message: 'You have now completed this task and your responses have been saved. Please go back to the Prolific website and submit your exit code.'
-    //             },
-    //             showEmailForm: true,
-    //             totalWinCurrency: 'GBP',
-    //             feedback: {
-    //                 minChars: undefined
-    //             }
-    //         },
-    //     },
-    // });
+            var options = {
+                id: 'post_task_1',
+                items: Object.keys(items),
+                choices: [1, 2, 3, 4, 5, 6, 7],
+                shuffleItems: true,
+                requiredChoice: true,
+                left: 'Lowest',
+                right: 'Highest',
+                onclick: function (question, answer, deselecting) {
+                    items[question] = deselecting ? 0 : answer + 1;
+                    var answers = Object.values(items);
+                    var allAnswered = true;
+                    for (var index = 0; index < answers.length; index++) {
+                        if (answers[index] === 0) {
+                            allAnswered = false;
+                            break;
+                        }
+                    }
+                    if (allAnswered) {
+                        node.game.globals.likertTableValues = likertTableWidget.getValues();
+                        console.log('fear_factors ->', node.game.globals.likertTableValues);
+                        that.doneButton.enable();
+                    } else {
+                        that.doneButton.disable();
+                    }
+                }
+            };
+            // Create and append the widget to the body of the page.
+            var likertTable = W.getElementById('likert_table');
+            var likertTableWidget = node.widgets.append('ChoiceTableGroup', likertTable, options);
+            var panelHeading = W.getElementsByClassName('panel-heading')[0];
+            panelHeading.remove();
+            var choicetableHint = W.getElementsByClassName('choicetable-hint')[0];
+            choicetableHint.remove();
+
+            this.doneButton = this.addDoneButton('Next');
+        },
+    });
+
+    stager.extendStep('questionnaire_2', {
+        frame: 'questionnaire_2.html',
+        init: function () {
+            //node.game.visualTimer.hide();
+        },
+        donebutton: {
+            text: 'Next',
+            enableOnPlaying: false,
+        },
+        done: function (data) {
+            console.log('PANAS_fears', node.game.globals.likertTableValues);
+            node.set({ value: { fear_factors: node.game.globals.likertTableValues } });
+        },
+        cb: function () {
+            var that = this;
+
+            var items = {
+                'Afraid': 0,
+                'Scared': 0,
+                'Frightened': 0,
+                'Nervous': 0,
+                'Jittery': 0,
+                'Shaky': 0,
+            }
+
+            var options = {
+                id: 'post_task_2',
+                items: Object.keys(items),
+                choices: [1, 2, 3, 4, 5, 6, 7],
+                shuffleItems: true,
+                requiredChoice: true,
+                left: 'Lowest',
+                right: 'Highest',
+                onclick: function (question, answer, deselecting) {
+                    items[question] = deselecting ? 0 : answer + 1;
+                    var answers = Object.values(items);
+                    var allAnswered = true;
+                    for (var index = 0; index < answers.length; index++) {
+                        if (answers[index] === 0) {
+                            allAnswered = false;
+                            break;
+                        }
+                    }
+                    if (allAnswered) {
+                        node.game.globals.likertTableValues = likertTableWidget2.getValues();
+                        console.log('PANAS_fears ->', node.game.globals.likertTableValues);
+                        that.doneButton.enable();
+                    } else {
+                        that.doneButton.disable();
+                    }
+                }
+            };
+            // Create and append the widget to the body of the page.
+            var likertTable2 = W.getElementById('likert_table_2');
+            var likertTableWidget2 = node.widgets.append('ChoiceTableGroup', likertTable2, options);
+            var panelHeading = W.getElementsByClassName('panel-heading')[0];
+            panelHeading.remove();
+            var choicetableHint = W.getElementsByClassName('choicetable-hint')[0];
+            choicetableHint.remove();
+
+            this.doneButton = this.addDoneButton('Next');
+        },
+    });
 };

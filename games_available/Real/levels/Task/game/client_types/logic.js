@@ -34,318 +34,318 @@ const J = ngc.JSUS;
 const tabData = [
   {
     id: 'AX1',
-    icon: 'square',
+    icon: '<p>S<sub>1</sub></p>',
     topic: 'Conflict Resolution',
     html:
-      `<p> Person X is good at resolving conflict</p>`
+      `<p> Sam is good at resolving conflict</p>`
   },
   {
     id: 'AX2',
-    icon: 'star',
+    icon: '<p>S<sub>2</sub></p>',
     topic: 'Work Abroad',
     html:
-    `<p> Person X has previously been working abroad in the US</p>`
+    `<p> Sam has previously been working abroad in the US</p>`
   },
   {
     id: 'AX3',
-    icon: 'pentagon',
+    icon: '<p>S<sub>3</sub></p>',
     topic: 'Age',
     html:
-    `<p> Person X is 33 years old</p>`
+    `<p> Sam is 33 years old</p>`
   },
   {
     id: 'AX4',
-    icon: 'diamond',
+    icon: '<p>S<sub>4</sub></p>',
     topic: 'Qualification',
     html:
-    `<p> Person X has done a bachelors degree</p>`
+    `<p> Sam has done a bachelors degree</p>`
   },
   {
     id: 'AX5',
-    icon: 'hexagon',
+    icon: '<p>S<sub>5</sub></p>',
     topic: 'Attitude',
     html:
-    `<p> Person X can often be rude</p>`
+    `<p> Sam can often be rude</p>`
   },
   {
     id: 'AY1',
-    icon: 'square',
+    icon: '<p>A<sub>1</sub></p>',
     topic: 'Constructive Nature',
     html:
-    `<p> Person Y tends to take criticism well</p>`
+    `<p> Alex tends to take criticism well</p>`
   },
   {
     id: 'AY2',
-    icon: 'star',
+    icon: '<p>A<sub>2</sub></p>',
     topic: 'Respect',
     html:
-    `<p> Person Y treats others with respect</p>`
+    `<p> Alex treats others with respect</p>`
   },
   {
     id: 'AY3',
-    icon: 'pentagon',
+    icon: '<p>A<sub>3</sub></p>',
     topic: 'Knowledge',
     html:
-    `<p> Person Y is knowledgeable about the newest developments within management technologies</p>`
+    `<p> Alex is knowledgeable about the newest developments within management technologies</p>`
   },
   {
     id: 'AY4',
-    icon: 'diamond',
+    icon: '<p>A<sub>4</sub></p>',
     topic: 'Resentment',
     html:
-    `<p> Person Y has been known to hold grudges against colleagues</p>`
+    `<p> Alex has been known to hold grudges against colleagues</p>`
   },
   {
     id: 'AY5',
-    icon: 'hexagon',
+    icon: '<p>A<sub>5</sub></p>',
     topic: 'Reliability',
     html:
-    `<p> Person Y is a reliable employee</p>`
+    `<p> Alex is a reliable employee</p>`
   },
   {
     id: 'AZ1',
-    icon: 'square',
+    icon: '<p>J<sub>1</sub></p>',
     topic: 'Creativity',
     html:
-    `<p> Person Z has poor creativity when coming up with new ideas</p>`
+    `<p> Jamie has poor creativity when coming up with new ideas</p>`
   },
   {
     id: 'AZ2',
-    icon: 'star',
+    icon: '<p>J<sub>2</sub></p>',
     topic: 'Consistency',
     html:
-    `<p> Person Z is often not consistent in the way th carry out procedures within the workplace</p>`
+    `<p> Jamie is often not consistent in the way th carry out procedures within the workplace</p>`
   },
   {
     id: 'AZ3',
-    icon: 'pentagon',
+    icon: '<p>J<sub>3</sub></p>',
     topic: 'Nationality',
     html:
-    `<p> Person Z was born in Austria</p>`
+    `<p> Jamie was born in Austria</p>`
   },
   {
     id: 'AZ4',
-    icon: 'diamond',
+    icon: '<p>J<sub>4</sub></p>',
     topic: 'Hobbies',
     html:
-    `<p> Person Z likes to play snooker</p>`
+    `<p> Jamie likes to play snooker</p>`
   },
   {
     id: 'AZ5',
-    icon: 'hexagon',
+    icon: '<p>J<sub>5</sub></p>',
     topic: 'Sharpness',
     html:
-    `<p> Person Z is very quick to understand what needs to be done</p>`
+    `<p> Jamie is very quick to understand what needs to be done</p>`
   },
   {
     id: 'BX1',
-    icon: 'square',
+    icon: '<p>S<sub>1</sub></p>',
     topic: 'Knowledge',
     html:
-    `<p> Person X is well informed about how businesses operate</p>`
+    `<p> Sam is well informed about how charities operate</p>`
   },
   {
     id: 'BX2',
-    icon: 'star',
+    icon: '<p>S<sub>2</sub></p>',
     topic: 'Pressure',
     html:
-    `<p> Person X works well under pressure</p>`
+    `<p> Sam works well under pressure</p>`
   },
   {
     id: 'BX3',
-    icon: 'pentagon',
+    icon: '<p>S<sub>3</sub></p>',
     topic: 'Nationality',
     html:
-    `<p> Person X is from the UK</p>`
+    `<p> Sam is from the UK</p>`
   },
   {
     id: 'BX4',
-    icon: 'diamond',
+    icon: '<p>S<sub>4</sub></p>',
     topic: 'Parent',
     html:
-    `<p> Person X has two children</p>`
+    `<p> Sam has two children</p>`
   },
   {
     id: 'BX5',
-    icon: 'hexagon',
+    icon: '<p>S<sub>5</sub></p>',
     topic: 'Coping Style',
     html:
-    `<p> Person X can get very stressed</p>`
+    `<p> Sam only does what needs to be done</p>`
   },
   {
     id: 'BY1',
-    icon: 'square',
+    icon: '<p>A<sub>1</sub></p>',
     topic: 'Childhood',
     html:
-    `<p> Person Y grew up in a city close to the charity’s headquarters</p>`
+    `<p> Alex grew up in a city close to the charity’s headquarters</p>`
   },
   {
     id: 'BY2',
-    icon: 'star',
+    icon: '<p>A<sub>2</sub></p>',
     topic: 'Attitude',
     html:
-    `<p> Person Y only does what needs to be done</p>`
+    `<p> Alex can get very stressed</p>`
   },
   {
     id: 'BY3',
-    icon: 'pentagon',
+    icon: '<p>A<sub>3</sub></p>',
     topic: 'Work Experience',
     html:
-    `<p> Person Y has previously worked for a taxi company</p>`
+    `<p> Alex has previously worked for a taxi company</p>`
   },
   {
     id: 'BY4',
-    icon: 'diamond',
+    icon: '<p>A<sub>4</sub></p>',
     topic: 'Poplarity',
     html:
-    `<p> Person Y is already popular with the other employees</p>`
+    `<p> Alex is already popular with the other employees</p>`
   },
   {
     id: 'BY5',
-    icon: 'hexagon',
+    icon: '<p>A<sub>5</sub></p>',
     topic: 'Sharpness',
     html:
-    `<p> Person Y is slow at learning new information</p>`
+    `<p> Alex is slow at learning new information</p>`
   },
   {
     id: 'BZ1',
-    icon: 'square',
+    icon: '<p>J<sub>1</sub></p>',
     topic: 'Resolving Conflict',
     html:
-    `<p> Person Z is not good at managing conflict</p>`
+    `<p> Jamie is not good at managing conflict</p>`
   },
   {
     id: 'BZ2',
-    icon: 'star',
+    icon: '<p>J<sub>2</sub></p>',
     topic: 'Presenting',
     html:
-    `<p> Person Z is good at doing presentations</p>`
+    `<p> Jamie is good at doing presentations</p>`
   },
   {
     id: 'BZ3',
-    icon: 'pentagon',
+    icon: '<p>J<sub>3</sub></p>',
     topic: 'Personal Life',
     html:
-    `<p> Not much is know about Person Z’s personal life</p>`
+    `<p> Not much is know about Jamie’s personal life</p>`
   },
   {
     id: 'BZ4',
-    icon: 'diamond',
+    icon: '<p>J<sub>4</sub></p>',
     topic: 'Age',
     html:
-    `<p> Person Z is 29 years old</p>`
+    `<p> Jamie is 29 years old</p>`
   },
   {
     id: 'BZ5',
-    icon: 'hexagon',
+    icon: '<p>J<sub>5</sub></p>',
     topic: 'Reliability',
     html:
-    `<p> Person Z is a reliable employee</p>`
+    `<p> Jamie is a reliable employee</p>`
   },
   {
     id: 'CX1',
-    icon: 'square',
+    icon: '<p>S<sub>1</sub></p>',
     topic: 'Helping Others',
     html:
-    `<p> Person X tries to be very active with helping others</p>`
+    `<p> Sam tries to be very active with helping others</p>`
   },
   {
     id: 'CX2',
-    icon: 'star',
+    icon: '<p>S<sub>2</sub></p>',
     topic: 'Deligation',
     html:
-    `<p> Person X tends to defer their own unwanted tasks to others</p>`
+    `<p> Sam tends to defer their own unwanted tasks to others</p>`
   },
   {
     id: 'CX3',
-    icon: 'pentagon',
+    icon: '<p>S<sub>3</sub></p>',
     topic: 'Timeliness',
     html:
-    `<p> Person X is often late for work</p>`
+    `<p> Sam is often late for work</p>`
   },
   {
     id: 'CX4',
-    icon: 'diamond',
+    icon: '<p>S<sub>4</sub></p>',
     topic: 'Constructive Nature',
     html:
-    `<p> Person X is not good at taking criticism</p>`
+    `<p> Sam is not good at taking criticism</p>`
   },
   {
     id: 'CX5',
-    icon: 'hexagon',
+    icon: '<p>S<sub>5</sub></p>',
     topic: 'Etiquette',
     html:
-    `<p> Person X sometimes talks over others</p>`
+    `<p> Sam sometimes talks over others</p>`
   },
   {
     id: 'CY1',
-    icon: 'square',
+    icon: '<p>A<sub>1</sub></p>',
     topic: 'Degree',
     html:
-    `<p> Person Y has a degree in industrial engineering</p>`
+    `<p> Alex has a degree in industrial engineering</p>`
   },
   {
     id: 'CY2',
-    icon: 'star',
+    icon: '<p>A<sub>2</sub></p>',
     topic: 'Conflict Resolution',
     html:
-    `<p> Person Y is not good at managing conflict</p>`
+    `<p> Alex is not good at managing conflict</p>`
   },
   {
     id: 'CY3',
-    icon: 'pentagon',
+    icon: '<p>A<sub>3</sub></p>',
     topic: 'Experience',
     html:
-    `<p> Person Y already knows how the charity is run, having been there for 1 year</p>`
+    `<p> Alex already knows how the charity is run, having been there for 1 year</p>`
   },
   {
     id: 'CY4',
-    icon: 'diamond',
+    icon: '<p>A<sub>4</sub></p>',
     topic: 'Childhood',
     html:
-    `<p> Person Y grew up in a city close to the charity’s headquarters</p>`
+    `<p> Alex grew up in a city close to the charity’s headquarters</p>`
   },
   {
     id: 'CY5',
-    icon: 'hexagon',
+    icon: '<p>A<sub>5</sub></p>',
     topic: 'Hobbies',
     html:
-    `<p> Person Y likes playing chess</p>`
+    `<p> Alex likes playing the chess</p>`
   },
   {
     id: 'CZ1',
-    icon: 'square',
+    icon: '<p>J<sub>1</sub></p>',
     topic: 'Deffering Responsibilities',
     html:
-    `<p> Person Z tends to push their own unpleasant work onto others</p>`
+    `<p> Jamie tends to push their own unpleasant work onto others</p>`
   },
   {
     id: 'CZ2',
-    icon: 'star',
+    icon: '<p>J<sub>2</sub></p>',
     topic: 'Commuting',
     html:
-    `<p> Person Z sometimes cycles to work</p>`
+    `<p> Jamie sometimes cycles to work</p>`
   },
   {
     id: 'CZ3',
-    icon: 'pentagon',
+    icon: '<p>J<sub>3</sub></p>',
     topic: 'Age',
     html:
-    `<p> Person Z is 29 years old</p>`
+    `<p> Jamie is 29 years old</p>`
   },
   {
     id: 'CZ4',
-    icon: 'diamond',
+    icon: '<p>J<sub>4</sub></p>',
     topic: 'Skill',
     html:
-    `<p> Person Z has good organisational skills</p>`
+    `<p> Jamie has good organisational skills</p>`
   },
   {
     id: 'CZ5',
-    icon: 'hexagon',
+    icon: '<p>J<sub>5</sub></p>',
     topic: 'Constructive Nature',
     html:
-    `<p> Person Z is good at taking on advice when tackling new challenges</p>`
+    `<p> Jamie is good at taking on advice when tackling new challenges</p>`
   },
 
 

@@ -17,7 +17,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
   let node = gameRoom.node;
   let channel = gameRoom.channel;
-  // let memory = node.game.memory;
+  let memory = node.game.memory;
+  let participantInfo = {};
 
   // Must implement the stages here.
 
@@ -42,6 +43,24 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
       channel.registry.updateClient(msg.from, { stage: msg.stage });
     });
   });
+
+  stager.extendStep('questionnaire_1', {
+    cb: function () {
+      console.log('post_task_1 logic');
+    },
+    exit: function () {
+      memory.save('data.json');
+    },
+  })
+
+  stager.extendStep('questionnaire_2', {
+    cb: function () {
+      console.log('post_task_2 logic');
+    },
+    exit: function () {
+      memory.save('data.json');
+    },
+  })
 
 
   // Extends Stages and Steps where needed.

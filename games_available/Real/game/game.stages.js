@@ -23,6 +23,8 @@ module.exports = function (stager, settings) {
     .stage('info_and_consent')
     .step('info_and_consent_1')
     .step('info_and_consent_2')
+    .step('questionnaire_1')
+    .step('questionnaire_2')
     .step('title')
 
     // Pre-tasks

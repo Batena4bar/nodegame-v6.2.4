@@ -204,7 +204,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             // Construct linkedSliders
             var linkedSliders = W.getElementById('linked-sliders');
             var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
-                labels: ['Person X', 'Person Y', 'Person Z']
+                labels: ['Sam', 'Alex', 'Jamie']
             });
             linkedSlidersWidget.removeFrame();
             node.on('complete', function () {
@@ -453,7 +453,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             // Construct linkedSliders
             var linkedSliders = W.getElementById('linked-sliders');
             var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
-                labels: ['Person X', 'Person Y', 'Person Z']
+                labels: ['Sam', 'Alex', 'Jamie']
             });
             linkedSlidersWidget.removeFrame();
             node.on('complete', function () {
@@ -561,7 +561,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
             var linkedSliders = W.getElementById('linked-sliders');
             var linkedSlidersWidget = node.widgets.append('LinkedSliders', linkedSliders, {
-                labels: ['Person X', 'Person Y', 'Person Z'],
+                labels: ['Sam', 'Alex', 'Jamie'],
                 participants: node.game.chatPartners,
             });
             linkedSlidersWidget.removeFrame();
