@@ -34,315 +34,315 @@ const J = ngc.JSUS;
 const tabData = [
   {
     id: 'AX1',
-    icon: '<p>S<sub>1</sub></p>',
+    icon: 'S<sub>1</sub>',
     topic: 'Conflict Resolution',
     html:
       `<p> Sam is good at resolving conflict</p>`
   },
   {
     id: 'AX2',
-    icon: '<p>S<sub>2</sub></p>',
+    icon: 'S<sub>2</sub>',
     topic: 'Work Abroad',
     html:
     `<p> Sam has previously been working abroad in the US</p>`
   },
   {
     id: 'AX3',
-    icon: '<p>S<sub>3</sub></p>',
+    icon: 'S<sub>3</sub>',
     topic: 'Age',
     html:
     `<p> Sam is 33 years old</p>`
   },
   {
     id: 'AX4',
-    icon: '<p>S<sub>4</sub></p>',
+    icon: 'S<sub>4</sub>',
     topic: 'Qualification',
     html:
     `<p> Sam has done a bachelors degree</p>`
   },
   {
     id: 'AX5',
-    icon: '<p>S<sub>5</sub></p>',
+    icon: 'S<sub>5</sub>',
     topic: 'Attitude',
     html:
     `<p> Sam can often be rude</p>`
   },
   {
     id: 'AY1',
-    icon: '<p>A<sub>1</sub></p>',
+    icon: 'A<sub>1</sub>',
     topic: 'Constructive Nature',
     html:
     `<p> Alex tends to take criticism well</p>`
   },
   {
     id: 'AY2',
-    icon: '<p>A<sub>2</sub></p>',
+    icon: 'A<sub>2</sub>',
     topic: 'Respect',
     html:
     `<p> Alex treats others with respect</p>`
   },
   {
     id: 'AY3',
-    icon: '<p>A<sub>3</sub></p>',
+    icon: 'A<sub>3</sub>',
     topic: 'Knowledge',
     html:
     `<p> Alex is knowledgeable about the newest developments within management technologies</p>`
   },
   {
     id: 'AY4',
-    icon: '<p>A<sub>4</sub></p>',
+    icon: 'A<sub>4</sub>',
     topic: 'Resentment',
     html:
     `<p> Alex has been known to hold grudges against colleagues</p>`
   },
   {
     id: 'AY5',
-    icon: '<p>A<sub>5</sub></p>',
+    icon: 'A<sub>5</sub>',
     topic: 'Reliability',
     html:
     `<p> Alex is a reliable employee</p>`
   },
   {
     id: 'AZ1',
-    icon: '<p>J<sub>1</sub></p>',
+    icon: 'J<sub>1</sub>',
     topic: 'Creativity',
     html:
     `<p> Jamie has poor creativity when coming up with new ideas</p>`
   },
   {
     id: 'AZ2',
-    icon: '<p>J<sub>2</sub></p>',
+    icon: 'J<sub>2</sub>',
     topic: 'Consistency',
     html:
     `<p> Jamie is often not consistent in the way th carry out procedures within the workplace</p>`
   },
   {
     id: 'AZ3',
-    icon: '<p>J<sub>3</sub></p>',
+    icon: 'J<sub>3</sub>',
     topic: 'Nationality',
     html:
     `<p> Jamie was born in Austria</p>`
   },
   {
     id: 'AZ4',
-    icon: '<p>J<sub>4</sub></p>',
+    icon: 'J<sub>4</sub>',
     topic: 'Hobbies',
     html:
     `<p> Jamie likes to play snooker</p>`
   },
   {
     id: 'AZ5',
-    icon: '<p>J<sub>5</sub></p>',
+    icon: 'J<sub>5</sub>',
     topic: 'Sharpness',
     html:
     `<p> Jamie is very quick to understand what needs to be done</p>`
   },
   {
     id: 'BX1',
-    icon: '<p>S<sub>1</sub></p>',
+    icon: 'S<sub>1</sub>',
     topic: 'Knowledge',
     html:
     `<p> Sam is well informed about how charities operate</p>`
   },
   {
     id: 'BX2',
-    icon: '<p>S<sub>2</sub></p>',
+    icon: 'S<sub>2</sub>',
     topic: 'Pressure',
     html:
     `<p> Sam works well under pressure</p>`
   },
   {
     id: 'BX3',
-    icon: '<p>S<sub>3</sub></p>',
+    icon: 'S<sub>3</sub>',
     topic: 'Nationality',
     html:
     `<p> Sam is from the UK</p>`
   },
   {
     id: 'BX4',
-    icon: '<p>S<sub>4</sub></p>',
+    icon: 'S<sub>4</sub>',
     topic: 'Parent',
     html:
     `<p> Sam has two children</p>`
   },
   {
     id: 'BX5',
-    icon: '<p>S<sub>5</sub></p>',
+    icon: 'S<sub>5</sub>',
     topic: 'Coping Style',
     html:
     `<p> Sam only does what needs to be done</p>`
   },
   {
     id: 'BY1',
-    icon: '<p>A<sub>1</sub></p>',
+    icon: 'A<sub>1</sub>',
     topic: 'Childhood',
     html:
     `<p> Alex grew up in a city close to the charity’s headquarters</p>`
   },
   {
     id: 'BY2',
-    icon: '<p>A<sub>2</sub></p>',
+    icon: 'A<sub>2</sub>',
     topic: 'Attitude',
     html:
     `<p> Alex can get very stressed</p>`
   },
   {
     id: 'BY3',
-    icon: '<p>A<sub>3</sub></p>',
+    icon: 'A<sub>3</sub>',
     topic: 'Work Experience',
     html:
     `<p> Alex has previously worked for a taxi company</p>`
   },
   {
     id: 'BY4',
-    icon: '<p>A<sub>4</sub></p>',
+    icon: 'A<sub>4</sub>',
     topic: 'Poplarity',
     html:
     `<p> Alex is already popular with the other employees</p>`
   },
   {
     id: 'BY5',
-    icon: '<p>A<sub>5</sub></p>',
+    icon: 'A<sub>5</sub>',
     topic: 'Sharpness',
     html:
     `<p> Alex is slow at learning new information</p>`
   },
   {
     id: 'BZ1',
-    icon: '<p>J<sub>1</sub></p>',
+    icon: 'J<sub>1</sub>',
     topic: 'Resolving Conflict',
     html:
     `<p> Jamie is not good at managing conflict</p>`
   },
   {
     id: 'BZ2',
-    icon: '<p>J<sub>2</sub></p>',
+    icon: 'J<sub>2</sub>',
     topic: 'Presenting',
     html:
     `<p> Jamie is good at doing presentations</p>`
   },
   {
     id: 'BZ3',
-    icon: '<p>J<sub>3</sub></p>',
+    icon: 'J<sub>3</sub>',
     topic: 'Personal Life',
     html:
     `<p> Not much is know about Jamie’s personal life</p>`
   },
   {
     id: 'BZ4',
-    icon: '<p>J<sub>4</sub></p>',
+    icon: 'J<sub>4</sub>',
     topic: 'Age',
     html:
     `<p> Jamie is 29 years old</p>`
   },
   {
     id: 'BZ5',
-    icon: '<p>J<sub>5</sub></p>',
+    icon: 'J<sub>5</sub>',
     topic: 'Reliability',
     html:
     `<p> Jamie is a reliable employee</p>`
   },
   {
     id: 'CX1',
-    icon: '<p>S<sub>1</sub></p>',
+    icon: 'S<sub>1</sub>',
     topic: 'Helping Others',
     html:
     `<p> Sam tries to be very active with helping others</p>`
   },
   {
     id: 'CX2',
-    icon: '<p>S<sub>2</sub></p>',
+    icon: 'S<sub>2</sub>',
     topic: 'Deligation',
     html:
     `<p> Sam tends to defer their own unwanted tasks to others</p>`
   },
   {
     id: 'CX3',
-    icon: '<p>S<sub>3</sub></p>',
+    icon: 'S<sub>3</sub>',
     topic: 'Timeliness',
     html:
     `<p> Sam is often late for work</p>`
   },
   {
     id: 'CX4',
-    icon: '<p>S<sub>4</sub></p>',
+    icon: 'S<sub>4</sub>',
     topic: 'Constructive Nature',
     html:
     `<p> Sam is not good at taking criticism</p>`
   },
   {
     id: 'CX5',
-    icon: '<p>S<sub>5</sub></p>',
+    icon: 'S<sub>5</sub>',
     topic: 'Etiquette',
     html:
     `<p> Sam sometimes talks over others</p>`
   },
   {
     id: 'CY1',
-    icon: '<p>A<sub>1</sub></p>',
+    icon: 'A<sub>1</sub>',
     topic: 'Degree',
     html:
     `<p> Alex has a degree in industrial engineering</p>`
   },
   {
     id: 'CY2',
-    icon: '<p>A<sub>2</sub></p>',
+    icon: 'A<sub>2</sub>',
     topic: 'Conflict Resolution',
     html:
     `<p> Alex is not good at managing conflict</p>`
   },
   {
     id: 'CY3',
-    icon: '<p>A<sub>3</sub></p>',
+    icon: 'A<sub>3</sub>',
     topic: 'Experience',
     html:
     `<p> Alex already knows how the charity is run, having been there for 1 year</p>`
   },
   {
     id: 'CY4',
-    icon: '<p>A<sub>4</sub></p>',
+    icon: 'A<sub>4</sub>',
     topic: 'Childhood',
     html:
     `<p> Alex grew up in a city close to the charity’s headquarters</p>`
   },
   {
     id: 'CY5',
-    icon: '<p>A<sub>5</sub></p>',
+    icon: 'A<sub>5</sub>',
     topic: 'Hobbies',
     html:
     `<p> Alex likes playing the chess</p>`
   },
   {
     id: 'CZ1',
-    icon: '<p>J<sub>1</sub></p>',
+    icon: 'J<sub>1</sub>',
     topic: 'Deffering Responsibilities',
     html:
     `<p> Jamie tends to push their own unpleasant work onto others</p>`
   },
   {
     id: 'CZ2',
-    icon: '<p>J<sub>2</sub></p>',
+    icon: 'J<sub>2</sub>',
     topic: 'Commuting',
     html:
     `<p> Jamie sometimes cycles to work</p>`
   },
   {
     id: 'CZ3',
-    icon: '<p>J<sub>3</sub></p>',
+    icon: 'J<sub>3</sub>',
     topic: 'Age',
     html:
     `<p> Jamie is 29 years old</p>`
   },
   {
     id: 'CZ4',
-    icon: '<p>J<sub>4</sub></p>',
+    icon: 'J<sub>4</sub>',
     topic: 'Skill',
     html:
     `<p> Jamie has good organisational skills</p>`
   },
   {
     id: 'CZ5',
-    icon: '<p>J<sub>5</sub></p>',
+    icon: 'J<sub>5</sub>',
     topic: 'Constructive Nature',
     html:
     `<p> Jamie is good at taking on advice when tackling new challenges</p>`

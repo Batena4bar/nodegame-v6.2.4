@@ -42,11 +42,6 @@ module.exports = function (stager, settings) {
         .step('secondary_choice')
         .step('group_choice')
 
-        // Manipulation Checks
-        .stage('intra_task')
-        .step('intra_task_1')
-        .step('intra_task_2')
-
     // Modify the stager to skip one stage.
     // stager.skip('instructions');
 

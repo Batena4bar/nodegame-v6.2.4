@@ -536,6 +536,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             }
             console.log('accepted_decision', node.game.globals.sliderValues, node.game.globals.deciderId || node.player.id);
             node.set({ value: { group_choice: node.game.globals.sliderValues, decider: node.game.globals.deciderId || node.player.id } });
+            //////////////////////////////////////
+            node.say('LEVEL_DONE');
+            //////////////////////////////////////
         },
         cb: function () {
             var choices = {};

@@ -133,7 +133,7 @@
         button.onclick = function (event) {
           closeBubble();
 
-          pointer.setAttribute('style', 'top: ' + (52 * index + 52) + 'px')
+          pointer.setAttribute('style', 'top: ' + (64 * index + 54) + 'px')
 
           var title = document.createElement('h2');
           title.innerText = tab.topic;
