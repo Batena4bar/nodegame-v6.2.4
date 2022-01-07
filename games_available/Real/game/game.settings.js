@@ -38,6 +38,7 @@ module.exports = {
         pre_task_1: null,
         pre_task_2: null,
         pre_task_3: null,
+        pre_task_4: null,
 
         instructions_video: null,
 
@@ -93,16 +94,20 @@ module.exports = {
         //     treatment_3: 'treatment_external_rejection.html'
         // },
 
-        internal_evaluation: {
-            description: "Internally originated Negative Evaluation fear applied.",
-            treatment: 'treatment_internal_eval_vin.html',
-            treatment_2: 'treatment_2_internal_eval.html',
-        },
+        // internal_evaluation: {
+        //     description: "Internally originated Negative Evaluation fear applied.",
+        //     treatment: 'treatment_internal_eval_vin.html',
+        //     treatment_2: 'treatment_2_internal_eval.html',
+        // },
 
-        external_evaluation: {
-            description: "Externally originated Negative Evaluation fear applied.",
-            treatment: 'treatment_external_eval_vin.html',
-            treatment_2: 'treatment_2_external_eval.html',
+        // external_evaluation: {
+        //     description: "Externally originated Negative Evaluation fear applied.",
+        //     treatment: 'treatment_external_eval_vin.html',
+        //     treatment_2: 'treatment_2_external_eval.html',
+        // },
+
+        control: {
+            description: "No treatment pages.",
         },
 
         // internal_repraisal: {

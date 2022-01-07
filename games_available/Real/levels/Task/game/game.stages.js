@@ -11,10 +11,13 @@ module.exports = function (stager, settings) {
         .stage('task_0')
         .step('task_start')
 
+        .stage('initial_choice')
+
         // Manipulation screen
         .loopStage('the_scenario', function () {
+            console.log('node', this.node, 'settings', this.settings);
             console.log('treatment for ' + this.node.nodename, this.settings.CONTROL ? 'control' : this.settings.name);
-            if (this.settings.NO_TREATMENTS || this.background_loop_ended) {
+            if (this.settings.treatmentName === 'control' || this.background_loop_ended) {
                 return false;
             }
             this.background_loop_ended = true;
@@ -24,23 +27,15 @@ module.exports = function (stager, settings) {
         .step('the_scenario_1')
         .step('the_scenario_2')
         //.step('the_scenario_3')
+        .stage('intra_task_questionnaire')
         .step('intra_task_1')
         .step('intra_task_2')
 
         // The task
-        .loopStage('Year_1', function () {
-            // ADD: If using bots, skip this stage
-            if (this.settings.NO_TASK || this.task_loop_ended) {
-                return false;
-            }
-            this.task_loop_ended = true;
-            return true;
-        })
-        .step('initial_choice')
-        .step('guided_communication')
-        .step('message_like')
-        .step('secondary_choice')
-        .step('group_choice')
+        .stage('guided_communication')
+        .stage('message_like')
+        .stage('secondary_choice')
+        .stage('group_choice')
 
     // Modify the stager to skip one stage.
     // stager.skip('instructions');

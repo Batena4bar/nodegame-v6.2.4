@@ -64,6 +64,10 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         W.generateFrame();
 
         // Add widgets.
+        var options = {
+            rounds: true,
+            next: false,
+        };
         this.visualStage = node.widgets.append('VisualStage', header);
         // this.visualRound = node.widgets.append('VisualRound', header);
         this.visualTimer = node.widgets.append('VisualTimer', header);

@@ -70,7 +70,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
         // Add widgets.
         var options = {
-            rounds: true
+            rounds: true,
+            next: false,
         };
         this.visualStage = node.widgets.append('VisualStage', header, options);
         //this.visualRound = node.widgets.append('VisualRound', header);
@@ -149,6 +150,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     });
 
     stager.extendStep('pre_task_3', {
+        frame: 'background_3.html',
+        cb: function () {
+            this.doneButton = this.addDoneButton('Continue');
+        },
+    });
+
+    stager.extendStep('pre_task_4', {
         frame: 'attention_check_2.html',
         cb: function () {
             var step1 = W.getElementById('step_1');
@@ -238,8 +246,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('questionnaire_1', {
-        frame: 'questionnaire_1.html',
+    stager.extendStep('questionnaire_2', {
+        frame: 'questionnaire_2.html',
         donebutton: {
             text: 'Next',
             enableOnPlaying: false,
@@ -256,7 +264,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 'Being ignored during a conversation?': 0,
                 'Being boring to the other group members?': 0,
                 'Being excluded from a conversation?': 0,
-                'What kind of impression you will make?': 0,
+                'Making a bad first impression?': 0,
                 'Other group members not approving of you?': 0,
                 'Other group members finding a fault with you?': 0,
             }
@@ -300,8 +308,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('questionnaire_2', {
-        frame: 'questionnaire_2.html',
+    stager.extendStep('questionnaire_1', {
+        frame: 'questionnaire_1.html',
         init: function () {
             //node.game.visualTimer.hide();
         },

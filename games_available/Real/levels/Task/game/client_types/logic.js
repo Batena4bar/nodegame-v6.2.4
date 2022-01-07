@@ -196,7 +196,7 @@ const tabData = [
   {
     id: 'BY4',
     icon: 'A<sub>4</sub>',
-    topic: 'Poplarity',
+    topic: 'Popularity',
     html:
     `<p> Alex is already popular with the other employees</p>`
   },
@@ -310,12 +310,12 @@ const tabData = [
     icon: 'A<sub>5</sub>',
     topic: 'Hobbies',
     html:
-    `<p> Alex likes playing the chess</p>`
+    `<p> Alex likes playing chess</p>`
   },
   {
     id: 'CZ1',
     icon: 'J<sub>1</sub>',
-    topic: 'Deffering Responsibilities',
+    topic: 'Deferring Responsibilities',
     html:
     `<p> Jamie tends to push their own unpleasant work onto others</p>`
   },

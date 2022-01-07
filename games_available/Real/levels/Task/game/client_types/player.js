@@ -299,6 +299,18 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             var that = this;
 
             var currentData;
+            var judge = W.getElementById('judge');
+            switch (node.game.settings.treatmentName) {
+                case 'external_evaluation':
+                    judge.src = 'imgs/boss.jpg';
+                    break;
+                case 'internal_evaluation':
+                    judge.src = 'imgs/colleagues2.png';
+                    break;
+                default:
+                    judge.src = 'imgs/Neutral.jpg';
+                    break;
+            }
             var topic = W.getElementById('topic');
             var justification = W.getElementById('justification');
 
@@ -350,7 +362,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                                 //
                             } else if (code === 'outgoing') {
                                 return '<div><strong>' + data.topic + '</strong></div><div>Belief: ' +
-                                data.belief[0] + ' <strong>' + propostionMap[data.belief[1]] + '</strong> ' + data.belief[2] +
+                                    data.belief[0] + ' <strong>' + propostionMap[data.belief[1]] + '</strong> ' + data.belief[2] +
                                     '</div><div>' + data.justification + '</div>';
                             }
                         }
@@ -407,6 +419,18 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
         cb: function () {
             var that = this;
+            var judge = W.getElementById('judge');
+            switch (node.game.settings.treatmentName) {
+                case 'external_evaluation':
+                    judge.src = 'imgs/boss.jpg';
+                    break;
+                case 'internal_evaluation':
+                    judge.src = 'imgs/colleagues2.png';
+                    break;
+                default:
+                    judge.src = 'imgs/Neutral.jpg';
+                    break;
+            }
 
             this.setUpReconnectableInfoBar(false);
 
@@ -498,6 +522,18 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             node.say('GROUP_CHOICE', 'SERVER', node.game.globals.sliderValues);
         },
         cb: function () {
+            var judge = W.getElementById('judge');
+            switch (node.game.settings.treatmentName) {
+                case 'external_evaluation':
+                    judge.src = 'imgs/boss.jpg';
+                    break;
+                case 'internal_evaluation':
+                    judge.src = 'imgs/colleagues2.png';
+                    break;
+                default:
+                    judge.src = 'imgs/Neutral.jpg';
+                    break;
+            }
             this.setUpReconnectableInfoBar(false);
 
             // Construct linkedSliders
@@ -543,6 +579,18 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         cb: function () {
             var choices = {};
             var that = this;
+            var judge = W.getElementById('judge');
+            switch (node.game.settings.treatmentName) {
+                case 'external_evaluation':
+                    judge.src = 'imgs/boss.jpg';
+                    break;
+                case 'internal_evaluation':
+                    judge.src = 'imgs/colleagues2.png';
+                    break;
+                default:
+                    judge.src = 'imgs/Neutral.jpg';
+                    break;
+            }
 
             node.on.data('DECISION_ACCEPTED', function (msg) {
                 node.game.globals.deciderId = msg.from;
@@ -675,8 +723,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('intra_task_1', {
-        frame: 'post_task_1.html',
+    stager.extendStep('intra_task_2', {
+        frame: 'post_task_2.html',
         donebutton: {
             text: 'Next',
             enableOnPlaying: false,
@@ -693,7 +741,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
                 'Being ignored during a conversation?': 0,
                 'Being boring to the other group members?': 0,
                 'Being excluded from a conversation?': 0,
-                'What kind of impression you will make?': 0,
+                'Making a bad first impression?': 0,
                 'Other group members not approving of you?': 0,
                 'Other group members finding a fault with you?': 0,
             }
@@ -737,8 +785,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
         },
     });
 
-    stager.extendStep('intra_task_2', {
-        frame: 'post_task_2.html',
+    stager.extendStep('intra_task_1', {
+        frame: 'post_task_1.html',
         init: function () {
             //node.game.visualTimer.hide();
         },
