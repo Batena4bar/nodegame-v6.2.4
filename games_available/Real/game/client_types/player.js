@@ -93,9 +93,9 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('info_and_consent_1', {
         frame: 'information_sheet.html',
         //////////////////////////////////////
-        //done: function (data) { 
-        //    node.say('LEVEL_DONE');
-        //},
+        done: function (data) { 
+            node.say('LEVEL_DONE');
+        },
         //////////////////////////////////////
         cb: function () {
             this.doneButton = this.addDoneButton('Continue');

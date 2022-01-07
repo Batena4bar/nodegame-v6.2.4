@@ -80,20 +80,17 @@ module.exports = {
         //     treatment_3: 'task_start.html'
         // },
 
-        internal_rejection: {
+        internal_evaluation: {
             description: "Internally originated Interpersonal Rejection fear applied.",
-            treatment: 'treatment_internal_rej_vin.html',
-            treatment_2: 'treatment_2_internal_reject.html',
-            treatment_3: 'treatment_internal_rejection.html'
+            treatment: 'treatment_internal_eval_vin.html',
+            treatment_2: 'treatment_2_internal_eval.html',
         },
 
-        external_rejection: {
+        external_evaluation: {
             description: "Externally originated Interpersonal Rejection fear applied.",
-            treatment: 'treatment_external_rej_vin.html',
-            treatment_2: 'treatment_2_external_reject.html',
-            treatment_3: 'treatment_external_rejection.html'
+            treatment: 'treatment_external_eval_vin.html',
+            treatment_2: 'treatment_2_external_eval.html'
         },
-
 
         control: {
             description: "No treatment pages.",
