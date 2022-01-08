@@ -183,6 +183,11 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('task_start', {
         frame: 'task_start.html',
+        //////////////////////////////////////
+        //done: function (data) { 
+        //    node.say('LEVEL_DONE');
+        //},
+        //////////////////////////////////////
         cb: function () {
             this.doneButton = this.addDoneButton('Start Task');
         },
@@ -337,13 +342,13 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             setTimeout(function () {
                 pauseElapsed = true;
                 activateDoneButton();
-            }, 240000)
+            }, 240000);
 
             // Attach functionality to chat input form
             var propostionMap = {
                 '<': 'preferable to',
                 '>': 'less preferable than'
-            }
+            };
             var commodity1 = W.getElementById('commodity_1');
             var proposition = W.getElementById('proposition');
             var commodity2 = W.getElementById('commodity_2');

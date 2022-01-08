@@ -114,7 +114,7 @@ const tabData = [
     icon: 'J<sub>2</sub>',
     topic: 'Consistency',
     html:
-    `<p> Jamie is often not consistent in the way th carry out procedures within the workplace</p>`
+    `<p> Jamie is often not consistent in the way they carry out procedures within the workplace</p>`
   },
   {
     id: 'AZ3',
@@ -226,7 +226,7 @@ const tabData = [
     icon: 'J<sub>3</sub>',
     topic: 'Personal Life',
     html:
-    `<p> Not much is know about Jamie’s personal life</p>`
+    `<p> Not much is known about Jamie’s personal life</p>`
   },
   {
     id: 'BZ4',
@@ -559,12 +559,21 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
       var wheat = sliderValues[1];
       var sugar = sliderValues[2];
       var reward = Math.max((wheat * 0.5) + (sugar * 0.25), 2.5);
+      // console.log('reward', reward);
 
       // Loop through all connected players.
-      node.game.pl.each(function (player) {
+      console.log('playerIds', Object.keys(node.game.memory.player));
+      Object.keys(node.game.memory.player).forEach(function(playerId) {
         // gameRoom.updateWin(player.id, reward);
-        channel.registry.updateClient(player.id, { reward: reward });
+        console.log('player', playerId, 'reward', reward);
+        channel.registry.updateClient(playerId, { reward: reward });
       });
+
+      // node.game.pl.each(function (player) {
+      //   // gameRoom.updateWin(player.id, reward);
+      //   console.log('player', player.id, 'reward', reward);
+      //   channel.registry.updateClient(player.id, { reward: reward });
+      // });
 
       memory.save('data.json');
     },

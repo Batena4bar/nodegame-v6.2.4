@@ -15,7 +15,7 @@ module.exports = function (stager, settings) {
 
         // Manipulation screen
         .loopStage('the_scenario', function () {
-            console.log('node', this.node, 'settings', this.settings);
+            // console.log('node', this.node, 'settings', this.settings);
             console.log('treatment for ' + this.node.nodename, this.settings.CONTROL ? 'control' : this.settings.name);
             if (this.settings.treatmentName === 'control' || this.background_loop_ended) {
                 return false;

@@ -91,7 +91,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
     });
 
     stager.extendStep('debrief', {
-        frame: settings.NO_TREATMENTS ? 'debrief_pilot_task.html' : 'debrief_pilot_treatment.html',
+        frame: 'debrief_pilot_task.html',
         cb: function () {
             this.doneButton = this.addDoneButton('Done');
         },
@@ -105,7 +105,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             name: 'EndScreen',
             options: {
                 texts: {
-                    message: 'You have now completed this task and your responses have been saved. Please go back to the Prolific website and submit your exit code.'
+                    message: 'You have now completed this task and your responses have been saved. Please go back to the Prolific website and submit your exit code. If no exit code appears below, please use code SE15JT and your earnings will be applied manually.'
                 },
                 showEmailForm: true,
                 totalWinCurrency: 'GBP',

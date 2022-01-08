@@ -31,11 +31,20 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
       });
 
       // Loop through all connected players.
-      node.game.pl.each(function (player) {
-        var client = channel.registry.getClient(player.id);
+      Object.keys(node.game.memory.player).forEach(function(playerId) {
+        // gameRoom.updateWin(player.id, reward);
+        var client = channel.registry.getClient(playerId);
         var reward = client.reward;
-        gameRoom.updateWin(player.id, reward);
+        console.log('player', playerId, 'client', client, 'reward', reward);
+        gameRoom.updateWin(playerId, reward); 
       });
+
+      // node.game.pl.each(function (player) {
+      //   var client = channel.registry.getClient(player.id);
+      //   var reward = client.reward;
+      //   // console.log('player', player.id, 'client', client, 'reward', reward);
+      //   gameRoom.updateWin(player.id, reward); 
+      // });     
     },
     cb: function () {
       gameRoom.computeBonus();
