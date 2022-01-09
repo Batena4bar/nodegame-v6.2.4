@@ -105,7 +105,7 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
             name: 'EndScreen',
             options: {
                 texts: {
-                    message: 'You have now completed this task and your responses have been saved. Please go back to the Prolific website and submit your exit code. If no exit code appears below, please use code SE15JT and your earnings will be applied manually.'
+                    message: 'You have now completed this task and your responses have been saved. Please go back to the Prolific website and submit your exit code. If no exit code appears below, please use code SE15JT and your earnings will be calculated and applied manually.'
                 },
                 showEmailForm: true,
                 totalWinCurrency: 'GBP',
