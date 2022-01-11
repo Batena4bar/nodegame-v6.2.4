@@ -463,7 +463,8 @@ module.exports = function (treatmentName, settings, stager, setup, gameRoom) {
           stage: client.stage,
           comprehension_1: client.comprehension_1,
           comprehension_2: client.comprehension_2,
-          attention_check: client.attention_check
+          attention_check: client.attention_check,
+          treatment: treatmentName
         });
         gameRoom.updateWin(playerId, 0);
       });
